@@ -208,3 +208,10 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .mobile-navigation-drawer .navigation__tier-1 { display: block !important; }
 .mobile-navigation-drawer .navigation__tier-1 > .navigation__item { display: flex !important; width: 100%; border-bottom: 1px solid var(--k-line); }
 .mobile-navigation-drawer .navigation__tier-1 > .navigation__item > .navigation__link { flex: 1 1 auto; padding: 14px 20px; }
+
+/* ---------- Cart drawer ---------- */
+.free-shipping-bar { font-size: 12px; text-align: start; }
+.free-shipping-bar__message { margin-bottom: 8px; }
+.free-shipping-bar__bar { height: 6px; border-radius: 3px; background: var(--k-line); overflow: hidden; }
+.cart-drawer .cart-item__title, .cart-drawer .cart-item__title a { color: var(--k-ink); font-weight: 500; }
+.cart-drawer .cart-drawer__checkout-buttons .btn, .cart-drawer button[name="checkout"] { background: var(--k-ink); height: 52px; font-family: var(--k-mono); letter-spacing: .12em; }
