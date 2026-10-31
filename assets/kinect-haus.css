@@ -158,11 +158,49 @@
   font-family: var(--k-display); font-weight: 600; text-transform: uppercase; letter-spacing: .005em; line-height: .95;
 }
 .text-overlay__subheading { font-family: var(--k-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
-.text-overlay__button-row--secondary .btn--secondary,
-.image-overlay .text-overlay .btn--secondary {
+.text-overlay .text-overlay__button.btn--secondary {
   background: transparent !important; color: #fff !important; border: 1px solid #fff !important; height: 40px; min-height: 40px; padding: 0 26px;
   display: inline-flex; align-items: center; font-family: var(--k-mono); font-size: 11px; letter-spacing: .12em;
 }
-.image-overlay:hover .text-overlay .btn--secondary { background: #fff !important; color: var(--k-ink) !important; }
+a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-overlay__button.btn--secondary:hover { background: #fff !important; color: var(--k-ink) !important; }
 .gallery .image-overlay__image img, .gallery .gallery__image img { transition: transform .6s ease; }
 .gallery a:hover .gallery__image img { transform: scale(1.03); }
+
+/* ---------- PDP ---------- */
+.product-detail .product-title, .product-info .product-title, .product-title {
+  font-family: var(--k-display); font-weight: 600; text-transform: uppercase; font-size: clamp(30px, 3vw, 44px); line-height: .98; letter-spacing: .005em !important;
+}
+.product-info .product-price .price__current, .product-detail .price__current { font-size: 20px; font-weight: 600; color: var(--k-ink); }
+.product-media .media-gallery__item, .product-media img, .product-media .image-cont { background: var(--k-tile); }
+.mp-sibling-products__label { font-size: 13px; color: var(--k-muted); margin-bottom: 10px; }
+.mp-sibling-products__current { color: var(--k-ink); font-weight: 500; }
+.mp-sibling-products__list { display: flex !important; flex-wrap: wrap; gap: 8px !important; grid-template-columns: none !important; }
+.mp-sibling-products__item {
+  width: 64px; height: 64px; padding: 0 !important; border-radius: 0 !important; background: var(--k-tile) !important;
+  border: 1px solid transparent !important; display: flex; align-items: center; justify-content: center;
+}
+.mp-sibling-products__item:hover { border-color: var(--k-muted) !important; }
+.mp-sibling-products__item--active { border-color: var(--k-ink) !important; box-shadow: inset 0 0 0 1px var(--k-ink); }
+.mp-sibling-products__image { width: 100% !important; height: 100% !important; object-fit: contain; mix-blend-mode: multiply; }
+.mp-sibling-products__name { display: none !important; }
+.quantity-submit-row .add-to-cart.btn:not(.nm-wishlist-button) {
+  background: var(--k-ink) !important; color: #fff !important; border: 1px solid var(--k-ink) !important; height: 54px; font-size: 13px; font-weight: 600;
+}
+.quantity-submit-row .add-to-cart.btn:not(.nm-wishlist-button):hover:not([disabled]) { background: #333 !important; }
+.quantity-submit-row .add-to-cart.btn[disabled] { background: #d9d9d9 !important; border-color: #d9d9d9 !important; color: #555 !important; }
+.k-stock { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 8px 0 0; font-family: var(--k-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--k-muted); }
+.k-stock__dot { width: 7px; height: 7px; border-radius: 50%; background: #2fa14f; box-shadow: 0 0 0 3px rgba(47,161,79,.18); }
+.k-trust { list-style: none; margin: 18px 0 6px; padding: 14px 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border-top: 1px solid var(--k-line); border-bottom: 1px solid var(--k-line); }
+.k-trust__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; font-size: 11px; line-height: 1.3; color: var(--k-ink); margin: 0; }
+.product-detail__tab-container .cc-accordion-item__title, .product-info .cc-accordion-item__title {
+  font-family: var(--k-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+}
+
+.quantity-submit-row .nm-wishlist-button { background: transparent !important; color: var(--k-ink) !important; border: 1px solid var(--k-line) !important; height: 48px; }
+.product-media .media-gallery img, .product-media .product-media__image img { mix-blend-mode: multiply; }
+
+@media (max-width: 767.98px) {
+  .k-swatches { gap: 5px; }
+  .k-swatch { width: 14px; height: 14px; }
+  .k-swatches__more { font-size: 10px; }
+}

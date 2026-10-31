@@ -180,6 +180,7 @@ Parameters:
       {% endif %}
 
       <div class="product-block__detail align-ltr-{{ settings.prod_thumb_text_align }}">
+        {%- render 'k-card-swatches', product: product -%}
         <div class="inner">
           <div class="innerer">
             <a class="product-link{% if settings.quickbuy_style == 'whole' %}{% unless no_quick_buy %} quickbuy-toggle{% endunless %}{% endif %}" href="{{ product_url }}">

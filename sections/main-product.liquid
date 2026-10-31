@@ -405,7 +405,7 @@
   and product.metafields.custom.sibling_products.value.size > 0 %}
 
   <div class="mp-sibling-products">
-    <div class="mp-sibling-products__label">Colors</div>
+    <div class="mp-sibling-products__label">Color: <span class="mp-sibling-products__current">{{ product.title | split: ' - ' | last }}</span></div>
 
     <div class="mp-sibling-products__list">
       {% for sibling in product.metafields.custom.sibling_products.value %}
@@ -493,6 +493,18 @@
                         {{- 'products.variant.no_stock' | t -}}
                       {%- endif -%}
                     </button>
+                    {%- unless product.template_suffix contains 'preorder' -%}
+                      {%- if current_variant.available -%}
+                        <p class="k-stock">
+                          <span class="k-stock__dot" aria-hidden="true"></span>
+                          {%- if current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 10 -%}
+                            Only {{ current_variant.inventory_quantity }} left: ready to ship
+                          {%- else -%}
+                            In stock: ready to ship
+                          {%- endif -%}
+                        </p>
+                      {%- endif -%}
+                    {%- endunless -%}
                   </div>
 
                   {% if enable_dynamic_payment_button %}
@@ -510,6 +522,7 @@
                   {% endif %}
                 </div>
               {% endform %}
+              {%- render 'k-pdp-trust' -%}
 
               {%- if block.settings.show_pickup_availability -%}
                 <div data-dynamic-variant-content="{{ block.id }}-pickup-availability"{% unless product.available %} hidden{% endunless %}>
