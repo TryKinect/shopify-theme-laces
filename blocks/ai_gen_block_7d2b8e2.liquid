@@ -1,0 +1,405 @@
+{% doc %}
+  @prompt
+    a subheader then line break, a header, then text below. below that we will have 3 columns of connected text. the text will auto populate the three columns to be separated in equal columns. all of this is left aligned. on mobile, the 3 columns become scrolling panels that you can swipe to each column, allow line breaks in the column text, remove indent for the first paragrah of the column text
+{% enddoc %}
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-text-columns-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: 40px 20px;
+  }
+
+  .ai-text-columns__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-text-columns__header-{{ ai_gen_id }} {
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .ai-text-columns__subheader-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheader_size }}px;
+    color: {{ block.settings.subheader_color }};
+    margin: 0 0 {{ block.settings.subheader_spacing }}px 0;
+    font-weight: 400;
+    font-family: roboto-mono, monospace;
+    text-transform: uppercase;
+    letter-spacing: 1.12px;
+  }
+
+  .ai-text-columns__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.heading_spacing }}px 0;
+    font-weight: 600;
+
+    /* Your desired heading font */
+    font-family: futura-pt-condensed, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+
+  .ai-text-columns__heading-{{ ai_gen_id }} p {
+    margin: 0 !important;
+  }
+
+  .ai-text-columns__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    margin: 0;
+    line-height: 1.6;
+    max-width: 60vw;
+  }
+
+  .ai-text-columns__columns-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.column_gap }}px;
+    margin-top: {{ block.settings.columns_top_spacing }}px;
+  }
+
+  .ai-text-columns__column-{{ ai_gen_id }} {
+    font-size: {{ block.settings.column_text_size }}px;
+    color: {{ block.settings.column_text_color }};
+    line-height: 1.6;
+
+    /* Keep line breaks, ignore leading spaces */
+    white-space: pre-line;
+
+    /* Never indent first line */
+    text-indent: 0;
+  }
+
+  /* MOBILE: swipeable panels */
+  @media screen and (max-width: 749px) {
+
+    /* keep your left padding + reduce “dead space” */
+    .ai-text-columns-{{ ai_gen_id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .ai-text-columns__description-{{ ai_gen_id }} {
+      max-width: 100%;
+    }
+
+    .ai-text-columns__columns-{{ ai_gen_id }} {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+
+      /* less space between panels */
+      gap: 12px;
+
+      /* small bottom room */
+      padding-bottom: 6px;
+
+      /* cue styling */
+      position: relative;
+    }
+
+    .ai-text-columns__column-{{ ai_gen_id }} {
+      flex: 0 0 72vw;           /* panel width: shows “peek” */
+      scroll-snap-align: start;
+      padding-right: 0;
+      white-space: pre-line;
+      text-indent: 0;
+    }
+
+    /* hide scrollbar */
+    .ai-text-columns__columns-{{ ai_gen_id }}::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-text-columns__columns-{{ ai_gen_id }} {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* subtle right-edge fade cue that it scrolls */
+    .ai-text-columns__columns-{{ ai_gen_id }}::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 48px;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+    }
+  }
+{% endstyle %}
+
+<text-columns-{{ ai_gen_id }}
+  class="ai-text-columns-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-text-columns__container-{{ ai_gen_id }}">
+    <div class="ai-text-columns__header-{{ ai_gen_id }}">
+      {% if block.settings.subheader != blank %}
+        <div class="ai-text-columns__subheader-{{ ai_gen_id }}">
+          {{ block.settings.subheader }}
+        </div>
+      {% endif %}
+
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-text-columns__heading-{{ ai_gen_id }}">
+          {{ block.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if block.settings.description != blank %}
+        <div class="ai-text-columns__description-{{ ai_gen_id }}">
+          {{ block.settings.description }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-text-columns__columns-{{ ai_gen_id }}">
+      {% if block.settings.column_text != blank %}
+
+        {%- comment -%}
+          Clean + normalize lines:
+          - split on newline
+          - strip each line
+          - remove empty lines
+          This prevents leading spaces like " Alex..." and keeps line breaks intentional.
+        {%- endcomment -%}
+
+        {% assign raw_lines = block.settings.column_text | strip | split: '\n' %}
+        {% assign cleaned_joined = '' %}
+
+        {% for line in raw_lines %}
+          {% assign l = line | strip %}
+          {% if l != '' %}
+            {% if cleaned_joined != '' %}
+              {% assign cleaned_joined = cleaned_joined | append: '|||' %}
+            {% endif %}
+            {% assign cleaned_joined = cleaned_joined | append: l %}
+          {% endif %}
+        {% endfor %}
+
+        {% assign paragraphs = cleaned_joined | split: '|||' %}
+        {% assign total_paragraphs = paragraphs.size %}
+        {% assign paragraphs_per_column = total_paragraphs | divided_by: 3.0 | ceil %}
+
+        {% for column_num in (1..3) %}
+          {% assign start_index = paragraphs_per_column | times: column_num | minus: paragraphs_per_column %}
+          {% assign column_content = '' %}
+
+          {% for offset in (0..999) %}
+            {% assign paragraph_index = start_index | plus: offset %}
+            {% if offset < paragraphs_per_column and paragraph_index < total_paragraphs %}
+              {% if column_content != '' %}
+                {% assign column_content = column_content | append: '
+' %}
+              {% endif %}
+              {% assign column_content = column_content | append: paragraphs[paragraph_index] %}
+            {% endif %}
+          {% endfor %}
+
+          <div class="ai-text-columns__column-{{ ai_gen_id }}">
+            {{ column_content | strip }}
+          </div>
+        {% endfor %}
+
+      {% else %}
+        <div class="ai-text-columns__column-{{ ai_gen_id }}">
+          Add your text content to see it automatically distributed across three columns.
+        </div>
+        <div class="ai-text-columns__column-{{ ai_gen_id }}">
+          The text will be evenly split between the columns on desktop.
+        </div>
+        <div class="ai-text-columns__column-{{ ai_gen_id }}">
+          On mobile, swipe left and right to view each column.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</text-columns-{{ ai_gen_id }}>
+
+{% schema %}
+{
+  "name": "Text columns",
+  "tag": null,
+  "settings": [
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "header",
+      "content": "Subheader"
+    },
+    {
+      "type": "richtext",
+      "id": "subheader",
+      "label": "Subheader",
+      "default": "<p>Introduction</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheader_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "subheader_color",
+      "label": "Color",
+      "default": "#676869"
+    },
+    {
+      "type": "range",
+      "id": "subheader_spacing",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Our Story</p>"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Font size",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color",
+      "default": "#171717"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>This is a brief introduction that appears below the heading.</p>"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Color",
+      "default": "#676869"
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "textarea",
+      "id": "column_text",
+      "label": "Column text",
+      "info": "Press Enter to create line breaks",
+      "default": "Lorem ipsum dolor sit amet...\nSecond line...\nThird line..."
+    },
+    {
+      "type": "range",
+      "id": "column_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "column_text_color",
+      "label": "Color",
+      "default": "#676869"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between columns",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "columns_top_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Desktop width",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text columns"
+    }
+  ]
+}
+{% endschema %}

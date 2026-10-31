@@ -1,0 +1,415 @@
+{% doc %}
+  @prompt
+    centered subheader, header and text followed by an add to cart button. use a dropdown to choose which product it will be. the button will have options for border and hover color for both text and background. , the max width of the button should be the width of the text. choose whether this should be the styling of the primary button or the secondary button, the button isn't working, if the desktop width is selected, make sure that the text is still centered on the page, give options for the height of the section on both desktop and mobile
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-cta-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: {{ block.settings.section_height_desktop }}px;
+    padding: 40px 20px;
+  }
+
+  .ai-product-cta__container-{{ ai_gen_id }} {
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ai-product-cta__subheader-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.subheader_color }};
+    margin: 0 0 12px;
+    font-weight: 400;
+    font-family: roboto-mono, monospace;
+    text-transform: uppercase;
+    letter-spacing: 1.12px;
+  }
+
+  .ai-product-cta__header-{{ ai_gen_id }} {
+    font-size: {{ block.settings.header_size }}px;
+    color: {{ block.settings.header_color }};
+    margin: 0 0 16px;
+    font-family: futura-pt-condensed, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+
+  .ai-product-cta__text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 24px;
+    line-height: 1.6;
+  }
+
+  .ai-product-cta__button-{{ ai_gen_id }} {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+    max-width: fit-content;
+    border-radius: {{ block.settings.button_border_radius }}px;
+  }
+
+  .ai-product-cta__button-{{ ai_gen_id }}--primary {
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+  }
+
+  .ai-product-cta__button-{{ ai_gen_id }}--primary:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  .ai-product-cta__button-{{ ai_gen_id }}--secondary {
+    background-color: {{ block.settings.button_bg_color_secondary }};
+    color: {{ block.settings.button_text_color_secondary }};
+    border: {{ block.settings.button_border_width_secondary }}px solid {{ block.settings.button_border_color_secondary }};
+  }
+
+  .ai-product-cta__button-{{ ai_gen_id }}--secondary:hover {
+    background-color: {{ block.settings.button_hover_bg_color_secondary }};
+    color: {{ block.settings.button_hover_text_color_secondary }};
+    border-color: {{ block.settings.button_hover_border_color_secondary }};
+  }
+
+  .ai-product-cta__empty-state-{{ ai_gen_id }} {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-cta-{{ ai_gen_id }} {
+      min-height: {{ block.settings.section_height_mobile }}px;
+      padding: 30px 16px;
+    }
+
+    .ai-product-cta__header-{{ ai_gen_id }} {
+      font-size: {{ block.settings.header_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-product-cta-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-cta__container-{{ ai_gen_id }}">
+    {% if block.settings.subheader != blank %}
+      <div class="ai-product-cta__subheader-{{ ai_gen_id }}">
+        {{ block.settings.subheader }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.header != blank %}
+      <h2 class="ai-product-cta__header-{{ ai_gen_id }}">
+        {{ block.settings.header }}
+      </h2>
+    {% endif %}
+
+    {% if block.settings.text != blank %}
+      <div class="ai-product-cta__text-{{ ai_gen_id }}">
+        {{ block.settings.text }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.product != blank %}
+      {% assign selected_product = block.settings.product %}
+      {% form 'product', selected_product %}
+        <input type="hidden" name="id" value="{{ selected_product.selected_or_first_available_variant.id }}">
+        
+        <button
+          type="submit"
+          class="ai-product-cta__button-{{ ai_gen_id }} ai-product-cta__button-{{ ai_gen_id }}--{{ block.settings.button_style }}"
+          {% unless selected_product.selected_or_first_available_variant.available %}disabled{% endunless %}
+        >
+          {% if selected_product.selected_or_first_available_variant.available %}
+            {{ block.settings.button_text }}
+          {% else %}
+            Sold out
+          {% endif %}
+        </button>
+      {% endform %}
+    {% else %}
+      <div class="ai-product-cta__empty-state-{{ ai_gen_id }}">
+        Next, select a product to enable the add to cart button
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product add to cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheader",
+      "label": "Subheader",
+      "default": "Limited time offer"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "header",
+      "label": "Header",
+      "default": "Get yours today"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Don't miss out on this exclusive product. Add to cart now and enjoy free shipping on orders over $50.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_height_desktop",
+      "label": "Desktop height",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "section_height_mobile",
+      "label": "Mobile height",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "range",
+      "id": "header_size",
+      "label": "Header size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subheader_color",
+      "label": "Subheader color",
+      "default": "#676869"
+    },
+    {
+      "type": "color",
+      "id": "header_color",
+      "label": "Header color",
+      "default": "#171717"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#676869"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border",
+      "default": "#232323"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "paragraph",
+      "content": "Hover style"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color_secondary",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color_secondary",
+      "label": "Text",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color_secondary",
+      "label": "Border",
+      "default": "#232323"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width_secondary",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "paragraph",
+      "content": "Hover style"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color_secondary",
+      "label": "Hover background",
+      "default": "#232323"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color_secondary",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color_secondary",
+      "label": "Hover border",
+      "default": "#232323"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product add to cart"
+    }
+  ]
+}
+{% endschema %}
