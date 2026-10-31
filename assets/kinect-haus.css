@@ -263,7 +263,7 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
     display: block; flex: none; width: 100%; max-width: none; padding: 0;
   }
   .mobile-navigation-drawer .navigation__item--with-small-menu > .navigation__tier-2-container {
-    width: 100%; max-width: none; min-width: 0; border: 0; transform: translate3d(0, 0, 0);
+    width: 100%; max-width: none; min-width: 0; border: 0;
   }
   .mobile-navigation-drawer .navigation__item--with-small-menu > .navigation__tier-2-container .container { padding: 0; }
   .mobile-navigation-drawer .navigation__tier-2 .navigation__item { display: block; }
