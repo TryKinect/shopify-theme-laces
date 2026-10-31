@@ -1,0 +1,19 @@
+{%- liquid
+  assign k_v = product.selected_or_first_available_variant
+  assign k_direct = false
+  if product.available and product.variants.size == 1
+    assign k_direct = true
+  endif
+  assign k_form_id = 'k-quick-add-' | append: product.id
+-%}
+<div class="k-quick-add">
+  <product-form class="k-quick-add__form"{% unless k_direct %} hidden{% endunless %}>
+    {%- form 'product', product, id: k_form_id, class: 'js-product-form' -%}
+      <input type="hidden" name="id" value="{{ k_v.id }}">
+      <button type="submit" name="add" class="k-quick-add__btn">+ Add</button>
+    {%- endform -%}
+  </product-form>
+  <a class="k-quick-add__btn k-quick-add__link" href="{{ product.url }}"{% if k_direct %} hidden{% endif %}>
+    {%- if product.available -%}Choose options{%- else -%}Sold out{%- endif -%}
+  </a>
+</div>

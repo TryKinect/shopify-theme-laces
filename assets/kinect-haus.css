@@ -215,3 +215,43 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .free-shipping-bar__bar { height: 6px; border-radius: 3px; background: var(--k-line); overflow: hidden; }
 .cart-drawer .cart-item__title, .cart-drawer .cart-item__title a { color: var(--k-ink); font-weight: 500; }
 .cart-drawer .cart-drawer__checkout-buttons .btn, .cart-drawer button[name="checkout"] { background: var(--k-ink); height: 52px; font-family: var(--k-mono); letter-spacing: .12em; }
+
+/* Drawer submenus at desktop widths: undo Symmetry's desktop dropdown opacity/pointer rules */
+.mobile-navigation-drawer .navigation__tier-1 > .navigation__item--open > .navigation__tier-2-container { opacity: 1; pointer-events: auto; }
+
+/* Card labels slot (swapped by swatches) */
+.k-label-slot { display: contents; }
+
+/* Search heading */
+.k-search-title {
+  font-family: var(--k-display);
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 8px 0 20px;
+}
+
+/* Cart recommendation quick add */
+.k-quick-add { margin-top: 8px; }
+.k-quick-add [hidden], .k-quick-add[hidden] { display: none !important; }
+.k-quick-add__btn {
+  display: block;
+  width: 100%;
+  height: 36px;
+  padding: 0;
+  line-height: 34px;
+  border: 1px solid var(--k-ink);
+  background: #fff;
+  color: var(--k-ink);
+  font-family: var(--k-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.k-quick-add__btn:hover { background: var(--k-ink); color: #fff; }
+.k-quick-add__btn.is-loading { opacity: .6; pointer-events: none; }

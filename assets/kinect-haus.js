@@ -37,6 +37,22 @@
         img.src = img.dataset.kOrigSrc; if (img.dataset.kOrigSrcset) img.srcset = img.dataset.kOrigSrcset;
       } else { img.removeAttribute('srcset'); img.src = btn.dataset.img; }
     }
+    const price = card.querySelector('.product-price--block');
+    if (price && btn.dataset.price !== undefined) price.innerHTML = btn.dataset.price;
+    const labels = card.querySelector('.k-label-slot');
+    if (labels && btn.dataset.label !== undefined) labels.innerHTML = btn.dataset.label;
+    const qa = card.querySelector('.k-quick-add');
+    if (qa && btn.dataset.variant !== undefined) {
+      const available = btn.dataset.available === 'true';
+      const direct = available && btn.dataset.single === 'true';
+      const input = qa.querySelector('input[name="id"]');
+      if (input) input.value = btn.dataset.variant;
+      qa.querySelector('.k-quick-add__form').hidden = !direct;
+      const link = qa.querySelector('.k-quick-add__link');
+      link.hidden = direct;
+      link.href = btn.dataset.url;
+      link.textContent = available ? 'Choose options' : 'Sold out';
+    }
     card.querySelectorAll('.k-swatch').forEach((s) => s.classList.toggle('k-swatch--active', s === btn));
   };
 
