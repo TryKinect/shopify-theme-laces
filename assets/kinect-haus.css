@@ -204,3 +204,7 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .k-swatch { width: 14px; height: 14px; }
   .k-swatches__more { font-size: 10px; }
 }
+
+.mobile-navigation-drawer .navigation__tier-1 { display: block !important; }
+.mobile-navigation-drawer .navigation__tier-1 > .navigation__item { display: flex !important; width: 100%; border-bottom: 1px solid var(--k-line); }
+.mobile-navigation-drawer .navigation__tier-1 > .navigation__item > .navigation__link { flex: 1 1 auto; padding: 14px 20px; }
