@@ -3,7 +3,7 @@
 {%- if k_sibs and k_sibs.size > 1 -%}
   {%- assign k_shown = 0 -%}
   {%- assign k_more = 0 -%}
-  <div class="k-swatches" role="group" aria-label="{{ 'products.product.color' | t | default: 'Colors' }}">
+  <div class="k-swatches" role="group" aria-label="Colors">
     {%- for s in k_sibs -%}
       {%- if s.metafields.custom.hide_from_sibling_picker == true -%}{%- continue -%}{%- endif -%}
       {%- if k_shown >= 7 -%}
