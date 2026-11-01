@@ -1,0 +1,30 @@
+{%- if section.blocks.size > 0 -%}
+<section class="k-specs container" id="section-id-{{ section.id }}">
+  <div class="k-specs__grid" style="--k-specs-n: {{ section.blocks.size }};">
+    {%- for block in section.blocks -%}
+      <div class="k-specs__item" {{ block.shopify_attributes }}>
+        <p class="k-specs__value">{{ block.settings.value | escape }}</p>
+        <p class="k-specs__label">{{ block.settings.label | escape }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Product specs bar",
+  "max_blocks": 5,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "100%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Cotton twill" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product specs bar" }]
+}
+{% endschema %}

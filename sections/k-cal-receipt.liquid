@@ -1,5 +1,5 @@
 {%- liquid
-  assign p = section.settings.product
+  assign p = section.settings.product | default: product
   assign pct = section.settings.fund_percent
   if p != blank
     assign price = p.price

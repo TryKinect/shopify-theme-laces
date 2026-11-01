@@ -386,3 +386,56 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .k-calfund__art img { height: 320px; }
   .k-calfund__copy { padding: 50px 6%; }
 }
+
+/* ---------- PDP redesign (design A) ---------- */
+.k-fit-toggle { margin: 18px 0 6px; }
+.k-fit-toggle__label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 10px; }
+.k-fit-toggle__opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.k-fit-toggle__opt { display: block; border: 1px solid #ccc; padding: 12px 14px; text-decoration: none; color: var(--k-ink, #111); }
+.k-fit-toggle__opt.is-active { border: 2px solid var(--k-ink, #111); padding: 11px 13px; }
+.k-fit-toggle__name { display: block; font-size: 13px; font-weight: 600; }
+.k-fit-toggle__sub { display: block; font-size: 11px; color: #666; margin-top: 3px; }
+
+.k-specs { margin-top: 70px; }
+.k-specs__grid { display: grid; grid-template-columns: repeat(var(--k-specs-n, 4), 1fr); border: 1px solid var(--k-ink, #111); }
+.k-specs__item { padding: 26px 28px; border-right: 1px solid var(--k-ink, #111); }
+.k-specs__item:last-child { border-right: 0; }
+.k-specs__value { font-family: futura-pt-condensed, 'Futura PT Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: 32px; line-height: 1; text-transform: uppercase; margin: 0 0 6px; }
+.k-specs__label { font-size: 12px; color: #555; margin: 0; }
+
+.k-fitsec { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: center; padding-top: 80px; padding-bottom: 80px; }
+.k-fitsec__eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; margin: 0 0 8px; }
+.k-fitsec__heading { font-family: futura-pt-condensed, 'Futura PT Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: 56px; line-height: .95; text-transform: uppercase; margin: 0; }
+.k-fitsec__text { font-size: 14px; line-height: 1.7; margin-top: 14px; }
+.k-fitsec__profiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.k-fitsec__p { border: 1px solid #ddd; padding: 22px 16px; text-align: center; color: #999; }
+.k-fitsec__p.is-active { border: 2px solid var(--k-ink, #111); color: var(--k-ink, #111); background: #fafafa; }
+.k-fitsec__p svg { width: 100%; height: 70px; }
+.k-fitsec__name { font-family: futura-pt-condensed, 'Futura PT Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase; margin: 10px 0 2px; }
+.k-fitsec__sub { font-size: 11px; margin: 0; }
+
+.k-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.k-strip__item img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; height: auto; }
+
+.k-calbox { display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: center; background: var(--k-blue, #003262); color: #fff; padding: 16px 18px; margin: 16px 0 4px; }
+.k-calbox__img { width: 56px; height: auto; display: block; }
+.k-calbox__title { color: var(--k-gold, #FDB515); font-family: futura-pt-condensed, 'Futura PT Condensed', 'Arial Narrow', sans-serif; font-weight: 700; font-size: 22px; text-transform: uppercase; line-height: 1.05; margin: 0 0 4px; }
+.k-calbox__text { font-size: 12px; line-height: 1.45; margin: 0; opacity: .92; }
+.k-calbox__text a { color: inherit; }
+.k-caladd { display: flex; gap: 12px; align-items: flex-start; border: 2px dashed var(--k-gold, #FDB515); background: #fffaf0; padding: 12px 14px; margin: 10px 0 4px; font-size: 12px; line-height: 1.45; cursor: pointer; }
+.k-caladd__cb { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--k-blue, #003262); flex: none; }
+
+@media (max-width: 767.98px) {
+  .k-specs { margin-top: 40px; }
+  .k-specs__grid { grid-template-columns: 1fr 1fr; }
+  .k-specs__item { padding: 18px; border-bottom: 1px solid var(--k-ink, #111); }
+  .k-specs__item:nth-child(2n) { border-right: 0; }
+  .k-specs__value { font-size: 24px; }
+  .k-fitsec { grid-template-columns: 1fr; gap: 24px; padding-top: 50px; padding-bottom: 50px; }
+  .k-fitsec__heading { font-size: 40px; }
+  .k-fitsec__profiles { gap: 8px; }
+  .k-fitsec__p { padding: 14px 8px; }
+  .k-fitsec__name { font-size: 15px; }
+  .k-strip { grid-auto-columns: 70%; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .k-strip__item { scroll-snap-align: start; }
+}
