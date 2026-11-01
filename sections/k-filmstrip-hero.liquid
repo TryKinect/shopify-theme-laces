@@ -1,0 +1,65 @@
+{%- liquid
+  assign tiles = section.blocks | where: 'type', 'image'
+-%}
+<section class="k-film" id="section-id-{{ section.id }}" style="--k-film-cols: {{ tiles.size | at_least: 1 }}; --k-film-h: {{ section.settings.height_desktop }}vh; --k-film-h-mob: {{ section.settings.height_mobile }}vh;">
+  <div class="k-film__strip">
+    {%- for block in tiles -%}
+      {%- assign k_fp = block.settings.image.presentation.focal_point | default: 'center' -%}
+      {%- capture tile_inner -%}
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag:
+            loading: 'eager',
+            sizes: '(min-width: 768px) 20vw, 50vw',
+            widths: '400, 600, 800, 1000, 1200',
+            alt: block.settings.image.alt | default: section.settings.heading }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'k-film__placeholder' }}
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- if block.settings.link != blank -%}
+        <a class="k-film__tile{% if forloop.index > 4 %} k-film__tile--desk{% endif %}" style="--k-fp: {{ k_fp }};" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{{ tile_inner }}</a>
+      {%- else -%}
+        <div class="k-film__tile{% if forloop.index > 4 %} k-film__tile--desk{% endif %}" style="--k-fp: {{ k_fp }};" {{ block.shopify_attributes }}>{{ tile_inner }}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="k-film__content">
+    {%- if section.settings.eyebrow != blank -%}<p class="k-film__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="k-film__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
+    <div class="k-film__buttons">
+      {%- if section.settings.button_1_label != blank -%}<a class="k-film__btn" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label | escape }}</a>{%- endif -%}
+      {%- if section.settings.button_2_label != blank -%}<a class="k-film__btn k-film__btn--outline" href="{{ section.settings.button_2_link | default: routes.all_products_collection_url }}">{{ section.settings.button_2_label | escape }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Filmstrip hero",
+  "class": "section-k-film",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Every purchase supports rising athletes" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "info": "Line breaks are kept.", "default": "Made for the ones\nwho know ball." },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop bestsellers" },
+    { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "New arrivals" },
+    { "type": "url", "id": "button_2_link", "label": "Button 2 link" },
+    { "type": "range", "id": "height_desktop", "label": "Desktop height", "min": 50, "max": 100, "step": 5, "unit": "vh", "default": 95 },
+    { "type": "range", "id": "height_mobile", "label": "Mobile height", "min": 50, "max": 100, "step": 5, "unit": "vh", "default": 80, "info": "Mobile shows the first 4 photos in a 2×2 grid." }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Filmstrip hero", "blocks": [ { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" } ] }
+  ]
+}
+{% endschema %}
