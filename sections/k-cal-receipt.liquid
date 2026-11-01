@@ -8,22 +8,24 @@
     assign price = 4500
     assign item_name = section.settings.item_label | default: 'Snapback'
   endif
-  assign fund_cut = price | times: pct | divided_by: 100
+  assign fund_cut = price | times: pct | divided_by: 100.0 | round
+  assign price_fmt = price | money_without_trailing_zeros
+  assign eyebrow = section.settings.eyebrow | replace: '[price]', price_fmt
 -%}
 <section class="k-calrcpt" id="section-id-{{ section.id }}">
   <div class="k-calrcpt__inner">
     <div class="k-calrcpt__copy">
-      {%- if section.settings.eyebrow != blank -%}<p class="k-cal-eyebrow">{{ section.settings.eyebrow | replace: '[price]', price | money_without_trailing_zeros | escape }}</p>{%- endif -%}
+      {%- if eyebrow != blank -%}<p class="k-cal-eyebrow">{{ eyebrow | escape }}</p>{%- endif -%}
       <h2 class="k-calrcpt__heading">{{ section.settings.heading | escape }}{% if section.settings.highlight != blank %}<br><em>{{ section.settings.highlight | escape }}</em>{% endif %}</h2>
       {%- if section.settings.text != blank -%}<div class="k-calrcpt__text">{{ section.settings.text }}</div>{%- endif -%}
       {%- if section.settings.button_label != blank -%}<a class="k-cal-btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>{%- endif -%}
     </div>
-    <div class="k-receipt" role="table" aria-label="{{ section.settings.receipt_title | escape }} receipt">
+    <div class="k-receipt">
       <p class="k-receipt__title">{{ section.settings.receipt_title | escape }}</p>
       <p class="k-receipt__sub">{{ section.settings.receipt_subtitle | escape }}</p>
-      <div class="k-receipt__row" role="row"><span>1× {{ item_name | escape }}</span><span>{{ price | money }}</span></div>
+      <div class="k-receipt__row"><span>1× {{ item_name | escape }}</span><span>{{ price | money }}</span></div>
       {%- for block in section.blocks -%}
-        <div class="k-receipt__row{% if block.settings.highlight %} k-receipt__row--hl{% endif %}" role="row" {{ block.shopify_attributes }}>
+        <div class="k-receipt__row{% if block.settings.highlight %} k-receipt__row--hl{% endif %}" {{ block.shopify_attributes }}>
           <span>{{ block.settings.label | escape }}</span>
           <span>{%- if block.settings.value == '[fund]' -%}{{ fund_cut | money }}{%- else -%}{{ block.settings.value | escape }}{%- endif -%}</span>
         </div>

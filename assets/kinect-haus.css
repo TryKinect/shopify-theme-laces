@@ -328,7 +328,7 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .k-cal-btn[disabled] { opacity: .4; cursor: not-allowed; }
 .k-calhero h1, .k-calrcpt h2, .k-calband__title, .k-calfund h2, .k-receipt__title, .k-receipt__total { font-family: var(--k-display); font-weight: 700; text-transform: uppercase; line-height: .95; letter-spacing: .01em; margin: 0; }
 
-.k-calhero { position: relative; height: 85vh; min-height: 520px; overflow: hidden; color: #fff; }
+.k-calhero { position: relative; height: var(--k-calhero-h, 85vh); min-height: 520px; overflow: hidden; color: #fff; }
 .k-calhero__bg, .k-calhero__img { position: absolute; inset: 0; }
 .k-calhero__img img, .k-calhero__placeholder { width: 100%; height: 100%; object-fit: cover; object-position: var(--k-fp, center 30%); }
 .k-calhero__img--mob { display: none; }
