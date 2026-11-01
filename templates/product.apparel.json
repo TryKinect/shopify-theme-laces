@@ -1,1 +1,171 @@
-{"sections":{"main":{"type":"main-product","blocks":{"title":{"type":"title","settings":{}},"price":{"type":"price","settings":{"show_installments":false,"show_tax_and_shipping":false,"enable_product_reviews_by_price":true}},"vendor":{"type":"vendor","disabled":true,"settings":{}},"divider":{"type":"divider","settings":{"show_in_quickbuy":false}},"variant-picker":{"type":"variant-picker","settings":{"show_single":false,"selector_style":"listed","dynamic_availability":"show","enable_size_chart":false,"size_chart_label":"Size guide","size_chart_variant":"Size","size_chart_page":""}},"buy-buttons":{"type":"buy-buttons","settings":{"show_quantity_selector":true,"enable_payment_button":true,"show_backorder_text":false,"show_pickup_availability":true,"show_gift_card_recipient":false}},"description":{"type":"description","settings":{"show_in_tab":false,"open_tab":false,"icon":"","show_in_quickbuy":false}},"feature_rating_fPRniz":{"type":"feature-rating","disabled":true,"settings":{"heading":"Fit","segments":5,"active_segment":"4","fill_segments":true,"show_labels":true,"label_left":"Small","label_middle":"True to size","label_right":"Oversized","show_in_quickbuy":false}},"accordion_X4DkJx":{"type":"accordion","settings":{"title":"Fit & Fabric","icon":"","content":"","page":"hoodie-size-chart","custom_liquid":"","open":false,"variant_content":false,"show_in_quickbuy":false}},"image_qFXLDY":{"type":"image","settings":{"image_width":700,"url":"","open_in_new_tab":false,"show_in_quickbuy":false}},"accordion_YPRCdX":{"type":"accordion","settings":{"title":"Shipping & Returns","icon":"","content":"<p><strong>SHIPPING POLICY<\/strong><\/p><p>Free shipping on orders $50+<\/p><p>Please allow 2-3 business days for standard processing before your order ships.<br\/><br\/><strong>RETURN POLICY<\/strong><\/p><p>We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.<br\/><br\/>To be eligible for a return, your item must be in the same condition that you received it, unworn or unused. You’ll also need the receipt or proof of purchase. <\/p>","page":"","custom_liquid":"","open":false,"variant_content":false,"show_in_quickbuy":false}}},"block_order":["title","price","vendor","divider","variant-picker","buy-buttons","description","feature_rating_fPRniz","accordion_X4DkJx","image_qFXLDY","accordion_YPRCdX"],"custom_css":[".product-title {font-size: 4em; letter-spacing: -0.05em !important;}"],"settings":{"show_breadcrumbs":true,"select_first_variant":true,"show_location_underneath":false,"inventory_transfers_enable":true,"enable_sticky_columns":true,"enable_sticky_atc":true,"sticky_atc_position":"end","sticky_atc_mobile":true,"sticky_atc_behavior":"add_to_cart","sticky_atc_button_style":"primary","gallery_size":"large","gallery_layout":"columns-2","enable_zoom":true,"show_alt_text":false,"alt_text_icon":"","show_variant_media_label":true,"enable_video_autoplay":true,"enable_video_looping":true,"enable_media_grouping":false,"media_grouping_option":"Color,Colour,Couleur,Farbe"}},"related-products":{"type":"related-products","settings":{"title":"You may also like","show_vendor":false,"grid":4}}},"order":["main","related-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_installments": false,
+            "show_tax_and_shipping": false,
+            "enable_product_reviews_by_price": true
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "divider": {
+          "type": "divider",
+          "settings": {
+            "show_in_quickbuy": false
+          }
+        },
+        "variant-picker": {
+          "type": "variant-picker",
+          "settings": {
+            "show_single": false,
+            "selector_style": "listed",
+            "dynamic_availability": "show",
+            "enable_size_chart": false,
+            "size_chart_label": "Size guide",
+            "size_chart_variant": "Size",
+            "size_chart_page": ""
+          }
+        },
+        "buy-buttons": {
+          "type": "buy-buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "enable_payment_button": true,
+            "show_backorder_text": false,
+            "show_pickup_availability": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "show_in_tab": false,
+            "open_tab": false,
+            "icon": "",
+            "show_in_quickbuy": false
+          }
+        },
+        "feature_rating_fPRniz": {
+          "type": "feature-rating",
+          "disabled": true,
+          "settings": {
+            "heading": "Fit",
+            "segments": 5,
+            "active_segment": "4",
+            "fill_segments": true,
+            "show_labels": true,
+            "label_left": "Small",
+            "label_middle": "True to size",
+            "label_right": "Oversized",
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_X4DkJx": {
+          "type": "accordion",
+          "settings": {
+            "title": "Fit & Fabric",
+            "icon": "",
+            "content": "",
+            "page": "hoodie-size-chart",
+            "custom_liquid": "",
+            "open": false,
+            "variant_content": false,
+            "show_in_quickbuy": false
+          }
+        },
+        "image_qFXLDY": {
+          "type": "image",
+          "settings": {
+            "image_width": 700,
+            "url": "",
+            "open_in_new_tab": false,
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_YPRCdX": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping & Returns",
+            "icon": "",
+            "content": "<p><strong>SHIPPING POLICY</strong></p><p>Free shipping on orders $50+</p><p>Please allow 2-3 business days for standard processing before your order ships.<br/><br/><strong>RETURN POLICY</strong></p><p>We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.<br/><br/>To be eligible for a return, your item must be in the same condition that you received it, unworn or unused. You’ll also need the receipt or proof of purchase. </p>",
+            "page": "",
+            "custom_liquid": "",
+            "open": false,
+            "variant_content": false,
+            "show_in_quickbuy": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "vendor",
+        "divider",
+        "variant-picker",
+        "buy-buttons",
+        "description",
+        "feature_rating_fPRniz",
+        "accordion_X4DkJx",
+        "image_qFXLDY",
+        "accordion_YPRCdX"
+      ],
+      "custom_css": [
+        ".product-title {font-size: 4em; letter-spacing: -0.05em !important;}"
+      ],
+      "settings": {
+        "show_breadcrumbs": true,
+        "select_first_variant": true,
+        "show_location_underneath": false,
+        "inventory_transfers_enable": true,
+        "enable_sticky_columns": true,
+        "enable_sticky_atc": true,
+        "sticky_atc_position": "end",
+        "sticky_atc_mobile": true,
+        "sticky_atc_behavior": "add_to_cart",
+        "sticky_atc_button_style": "primary",
+        "gallery_size": "large",
+        "gallery_layout": "carousel-under",
+        "enable_zoom": true,
+        "show_alt_text": false,
+        "alt_text_icon": "",
+        "show_variant_media_label": true,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "enable_media_grouping": false,
+        "media_grouping_option": "Color,Colour,Couleur,Farbe"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "title": "Complete the rotation",
+        "show_vendor": false,
+        "grid": 4
+      }
+    },
+    "k_strip": {
+      "type": "k-pdp-strip",
+      "settings": {
+        "skip": 1,
+        "count": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "k_strip",
+    "related-products"
+  ]
+}

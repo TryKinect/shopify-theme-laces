@@ -1,0 +1,397 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_installments": false,
+            "show_tax_and_shipping": false,
+            "enable_product_reviews_by_price": true
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "divider": {
+          "type": "divider",
+          "settings": {
+            "show_in_quickbuy": false
+          }
+        },
+        "variant-picker": {
+          "type": "variant-picker",
+          "settings": {
+            "show_single": false,
+            "selector_style": "listed",
+            "dynamic_availability": "show",
+            "enable_size_chart": false,
+            "size_chart_label": "Size guide",
+            "size_chart_variant": "Size",
+            "size_chart_page": ""
+          }
+        },
+        "buy-buttons": {
+          "type": "buy-buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "enable_payment_button": true,
+            "show_backorder_text": false,
+            "show_pickup_availability": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "show_in_tab": false,
+            "open_tab": false,
+            "icon": "",
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_X4DkJx": {
+          "type": "accordion",
+          "settings": {
+            "title": "Fit & Fabric",
+            "icon": "",
+            "content": "",
+            "page": "",
+            "custom_liquid": "{%- assign k_t = product.title | downcase -%}{%- if k_t contains 'dad' -%}<ul><li><strong>Soft, Unstructured Crown:</strong> Relaxed and easy-wearing with a low-profile fit that naturally molds to your head over time.</li><li><strong>Washed Twill Fabric:</strong> Soft, broken-in cotton twill with a worn-in feel from the very first wear.</li><li><strong>Curved Brim:</strong> Classic curved brim for an effortless everyday look.</li><li><strong>Adjustable Strap Closure:</strong> Fabric strap with a rubberized metal buckle for a customizable, comfortable fit.</li><li><strong>Low Profile Fit:</strong> Designed with a relaxed silhouette that sits naturally and comfortably.</li><li><strong>Lived-In Feel:</strong> Easygoing, timeless, and made to feel like your favorite hat from day one.</li></ul>{%- else -%}<ul><li><strong>Premium 5-Panel Design</strong>: Sleek and structured, offering a modern fit that’s comfortable for any occasion.</li><li><strong>Adjustable Snapback Closure</strong>: Easily customizable for a secure and comfortable fit every time.</li><li><strong>100% Cotton Fabric</strong>: Soft and breathable, providing a high-quality feel that’s comfortable all day.</li><li><strong>Unisex</strong>: Designed to look great on everyone, adding a versatile edge to any outfit.</li><li><strong>Effortless Comfort and Quality</strong>: Crafted with attention to detail for feel and fit.</li></ul>{%- endif -%}",
+            "open": false,
+            "variant_content": false,
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_YPRCdX": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping & Returns",
+            "icon": "",
+            "content": "<p><strong>SHIPPING POLICY</strong></p><p>Free shipping on orders $50+</p><p>Please allow 2-3 business days for standard processing before your order ships.<br/><br/><strong>RETURN POLICY</strong></p><p>We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.<br/><br/>To be eligible for a return, your item must be in the same condition that you received it, unworn or unused. You’ll also need the receipt or proof of purchase. </p>",
+            "page": "",
+            "custom_liquid": "",
+            "open": false,
+            "variant_content": false,
+            "show_in_quickbuy": false
+          }
+        },
+        "k_fit_toggle": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "{% render 'k-fit-toggle', product: product %}",
+            "show_in_quickbuy": false
+          }
+        },
+        "k_cal_fundbox": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "{% render 'k-cal-fundbox', product: product, pct: 10 %}",
+            "show_in_quickbuy": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "k_cal_fundbox",
+        "vendor",
+        "divider",
+        "variant-picker",
+        "k_fit_toggle",
+        "buy-buttons",
+        "description",
+        "accordion_X4DkJx",
+        "accordion_YPRCdX"
+      ],
+      "custom_css": [
+        ".product-title {font-size: 4em; letter-spacing: -0.05em !important;}"
+      ],
+      "settings": {
+        "show_breadcrumbs": true,
+        "select_first_variant": true,
+        "show_location_underneath": false,
+        "inventory_transfers_enable": true,
+        "enable_sticky_columns": true,
+        "enable_sticky_atc": true,
+        "sticky_atc_position": "end",
+        "sticky_atc_mobile": true,
+        "sticky_atc_behavior": "add_to_cart",
+        "sticky_atc_button_style": "primary",
+        "gallery_size": "large",
+        "gallery_layout": "carousel-under",
+        "enable_zoom": true,
+        "show_alt_text": false,
+        "alt_text_icon": "",
+        "show_variant_media_label": true,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "enable_media_grouping": false,
+        "media_grouping_option": "Color,Colour,Couleur,Farbe"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "title": "Complete the rotation",
+        "show_vendor": false,
+        "grid": 4
+      }
+    },
+    "k_fit": {
+      "type": "k-pdp-fit",
+      "settings": {
+        "active": "auto",
+        "auto_default": "mid",
+        "text": "<p>The snapback sits taller with a structured front panel. Prefer low and broken-in? Grab the Squirrel Bear dad hat.</p>"
+      }
+    },
+    "k_strip": {
+      "type": "k-pdp-strip",
+      "settings": {
+        "skip": 1,
+        "count": 4
+      }
+    },
+    "k_cal_receipt": {
+      "type": "k-cal-receipt",
+      "blocks": {
+        "line_license": {
+          "type": "line",
+          "settings": {
+            "label": "Licensing fee to school",
+            "value": "$0.00",
+            "highlight": false
+          }
+        },
+        "line_fund": {
+          "type": "line",
+          "settings": {
+            "label": "→ Cal LACES Athlete Fund",
+            "value": "[fund]",
+            "highlight": true
+          }
+        },
+        "line_split": {
+          "type": "line",
+          "settings": {
+            "label": "Athletes it's split between",
+            "value": "ALL",
+            "highlight": false
+          }
+        },
+        "line_sports": {
+          "type": "line",
+          "settings": {
+            "label": "Sports included",
+            "value": "EVERY ONE",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "line_license",
+        "line_fund",
+        "line_split",
+        "line_sports"
+      ],
+      "settings": {
+        "product": "",
+        "item_label": "",
+        "fund_percent": 10,
+        "eyebrow": "Where your [price] goes",
+        "heading": "The hat that",
+        "highlight": "pays back.",
+        "text": "<p>School merch pays a licensing fee to the school. We skipped that. 10% of every LACES x Cal hat goes straight into the Cal LACES Athlete Fund, and every Cal athlete who hits their monthly Activity Goals gets an equal share.</p>",
+        "button_label": "Meet the athletes",
+        "button_link": "shopify://pages/cal-athletes",
+        "receipt_title": "LACES",
+        "receipt_subtitle": "Order · Cal Athletes collab",
+        "receipt_footer": "★ Thank you for backing every Cal athlete ★"
+      }
+    },
+    "k_cal_pillars": {
+      "type": "k-cal-pillars",
+      "blocks": {
+        "p_first": {
+          "type": "pillar",
+          "settings": {
+            "title": "First",
+            "text": "Cal athletes are the first in the nation to co-design an original icon and earn from it."
+          }
+        },
+        "p_every": {
+          "type": "pillar",
+          "settings": {
+            "title": "Every sport",
+            "text": "Gymnastics, swim, volleyball, football, rowing, track. Not just headline names."
+          }
+        },
+        "p_equal": {
+          "type": "pillar",
+          "settings": {
+            "title": "Equal split",
+            "text": "Hit your monthly Activity Goals, earn the same share as everyone else."
+          }
+        }
+      },
+      "block_order": [
+        "p_first",
+        "p_every",
+        "p_equal"
+      ],
+      "settings": {}
+    },
+    "k_cal_committee": {
+      "type": "multi-column",
+      "blocks": {
+        "text_block_6TQLQb": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/156.jpg",
+            "title": "CJ Keuneke",
+            "text": "<p><strong>Gymnastics</strong></p><p>Junior who hit all 15 of her floor routines last season while posting the team’s highest GPA.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_Hw6MkU": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/157.jpg",
+            "title": "Alexa McDevitt",
+            "text": "<p><strong>Swim & Dive</strong></p><p>Sophomore freestyle/IM swimmer and 2024 Olympic Trials qualifier.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_KPcEz8": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/158.jpg",
+            "title": "Ashleigh Woodruff",
+            "text": "<p><strong>Volleyball</strong></p><p>Senior middle blocker and Stony Brook transfer.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_hwkQHA": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify://shop_images/159.jpg",
+            "title": "Carter Kim",
+            "text": "<p><strong>Gymnastics</strong></p><p>Senior all-around gymnast who captained Cal's 2026 team and earned two All-MPSF honors on high bar.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_block_6TQLQb",
+        "text_block_Hw6MkU",
+        "text_block_KPcEz8",
+        "text_block_hwkQHA"
+      ],
+      "name": "Multi-column",
+      "settings": {
+        "title": "Cal Design Committee",
+        "media_aspect_ratio": "s",
+        "media_width": 700,
+        "text_alignment": "center",
+        "button_style": "primary",
+        "color_scheme": "default"
+      }
+    },
+    "k_specs": {
+      "type": "k-pdp-specs",
+      "blocks": {
+        "s0": {
+          "type": "spec",
+          "settings": {
+            "value": "Mid-high",
+            "label": "Profile",
+            "show_for": "snapback"
+          }
+        },
+        "s1": {
+          "type": "spec",
+          "settings": {
+            "value": "Curved",
+            "label": "Brim",
+            "show_for": "snapback"
+          }
+        },
+        "s2": {
+          "type": "spec",
+          "settings": {
+            "value": "Snap",
+            "label": "Closure",
+            "show_for": "snapback"
+          }
+        },
+        "s3": {
+          "type": "spec",
+          "settings": {
+            "value": "Low",
+            "label": "Profile",
+            "show_for": "dad"
+          }
+        },
+        "s4": {
+          "type": "spec",
+          "settings": {
+            "value": "Curved",
+            "label": "Brim",
+            "show_for": "dad"
+          }
+        },
+        "s5": {
+          "type": "spec",
+          "settings": {
+            "value": "Buckle",
+            "label": "Strap closure",
+            "show_for": "dad"
+          }
+        },
+        "s6": {
+          "type": "spec",
+          "settings": {
+            "value": "100%",
+            "label": "Cotton twill",
+            "show_for": "all"
+          }
+        }
+      },
+      "block_order": [
+        "s0",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "k_specs",
+    "k_cal_receipt",
+    "k_cal_pillars",
+    "k_strip",
+    "k_cal_committee",
+    "k_fit",
+    "related-products"
+  ]
+}

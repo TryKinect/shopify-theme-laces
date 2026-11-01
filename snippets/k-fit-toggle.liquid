@@ -1,0 +1,40 @@
+{%- comment -%}
+  Snapback / Dad hat toggle. Needs product metafield custom.fit_pair (product reference)
+  pointing at the same design in the other fit. Renders nothing without it.
+{%- endcomment -%}
+{%- assign pair = product.metafields.custom.fit_pair.value -%}
+{%- if pair != blank and pair.id != product.id -%}
+  {%- liquid
+    assign cur_t = product.title | downcase
+    assign pair_t = pair.title | downcase
+  -%}
+  <div class="k-fit-toggle">
+    <p class="k-fit-toggle__label">Fit</p>
+    <div class="k-fit-toggle__opts">
+      {%- for p in (1..2) -%}
+        {%- liquid
+          if forloop.first
+            assign item = product
+            assign t = cur_t
+          else
+            assign item = pair
+            assign t = pair_t
+          endif
+          if t contains 'dad'
+            assign name = 'Dad hat'
+            assign sub = 'Low profile · curved brim'
+          else
+            assign name = 'Snapback'
+            assign sub = 'Structured · snap closure'
+          endif
+        -%}
+        <a class="k-fit-toggle__opt{% if forloop.first %} is-active{% endif %}" href="{{ item.url }}"{% if forloop.first %} aria-current="page"{% endif %}>
+          <span class="k-fit-toggle__name">{{ name }}</span>
+          <span class="k-fit-toggle__sub">{{ sub }} · {{ item.price | money_without_trailing_zeros }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- else -%}
+  <span class="k-fit-toggle--none" hidden></span>
+{%- endif -%}

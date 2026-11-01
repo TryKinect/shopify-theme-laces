@@ -1,0 +1,47 @@
+{%- liquid
+  assign t = product.title | downcase
+  if t contains 'dad'
+    assign fit = 'dad'
+  else
+    assign fit = 'snapback'
+  endif
+  assign n = 0
+  for block in section.blocks
+    if block.settings.show_for == 'all' or block.settings.show_for == fit
+      assign n = n | plus: 1
+    endif
+  endfor
+-%}
+{%- if n > 0 -%}
+<section class="k-specs container" id="section-id-{{ section.id }}">
+  <div class="k-specs__grid" style="--k-specs-n: {{ n }};">
+    {%- for block in section.blocks -%}
+      {%- unless block.settings.show_for == 'all' or block.settings.show_for == fit -%}{%- continue -%}{%- endunless -%}
+      <div class="k-specs__item" {{ block.shopify_attributes }}>
+        <p class="k-specs__value">{{ block.settings.value | escape }}</p>
+        <p class="k-specs__label">{{ block.settings.label | escape }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Product specs bar",
+  "max_blocks": 10,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "100%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Cotton twill" },
+        { "type": "select", "id": "show_for", "label": "Show on", "default": "all", "info": "Dad hats = product title contains \"dad\".",
+          "options": [{ "value": "all", "label": "All hats" }, { "value": "snapback", "label": "Non-dad hats only" }, { "value": "dad", "label": "Dad hats only" }] }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product specs bar" }]
+}
+{% endschema %}
