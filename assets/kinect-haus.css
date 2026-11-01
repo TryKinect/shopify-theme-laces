@@ -314,3 +314,6 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .k-film__eyebrow { font-size: 11px; }
   .k-film__heading { font-size: clamp(64px, 7.4vw, 120px); }
 }
+
+/* ---------- Tile badge (Cal Athletes) ---------- */
+.k-tile-badge { display: block; width: 52px; height: 52px; margin: 0 auto 10px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }

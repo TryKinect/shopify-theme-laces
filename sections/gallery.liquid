@@ -80,7 +80,7 @@
       {%- for block in section.blocks -%}
         {%- liquid
           assign show_overlay_text = false
-          if block.settings.title != blank or block.settings.subheading != blank or block.settings.button_label != blank
+          if block.settings.title != blank or block.settings.subheading != blank or block.settings.button_label != blank or block.settings.k_badge == 'cal'
             assign show_overlay_text = true
           endif
         -%}
@@ -141,6 +141,7 @@
           <div class="text-overlay text-overlay--tight text-overlay--v-{{ block.settings.text_alignment | split: ' ' | first }} text-overlay--h-{{ block.settings.text_alignment | split: ' ' | last }} image-overlay__over">
             <div class="text-overlay__inner text-overlay__inner--pad-{{ section.settings.overlay_padding }}">
               <div class="text-overlay__text">
+                {%- if block.settings.k_badge == 'cal' -%}{% render 'k-cal-badge', class: 'k-tile-badge' %}{%- endif -%}
                 {%- if block.settings.subheading != blank -%}
                   <div class="text-overlay__subheading subheading subheading--over">{{ block.settings.subheading | escape }}</div>
                 {%- endif -%}
@@ -419,6 +420,16 @@
           "type": "url",
           "id": "link",
           "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "k_badge",
+          "label": "Badge icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "cal", "label": "Cal Athletes" }
+          ],
+          "default": "none"
         },
         {
           "type": "select",
