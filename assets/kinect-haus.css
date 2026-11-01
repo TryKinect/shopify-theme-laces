@@ -314,3 +314,28 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .k-film__eyebrow { font-size: 11px; }
   .k-film__heading { font-size: clamp(64px, 7.4vw, 120px); }
 }
+
+/* ---------- Feature hero (Berkeley Roster) + tile badge ---------- */
+.k-tile-badge { display: block; width: 52px; height: 52px; margin: 0 auto 10px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+.k-feature { display: grid; grid-template-columns: 1fr; background: var(--k-feature-bg, #003262); color: var(--k-feature-fg, #fff); scroll-margin-top: 80px; }
+.k-feature__media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+.k-feature__media img, .k-feature__media svg { width: 100%; height: 100%; object-fit: cover; object-position: var(--k-fp, center top); display: block; }
+.k-feature__content { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 40px 20px 48px; }
+.k-feature__badge { width: 72px; height: 72px; margin-bottom: 20px; }
+.k-feature__eyebrow { margin: 0 0 12px; color: var(--k-feature-accent, #FDB515); font-family: var(--k-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.k-feature__heading { margin: 0; color: inherit; font-family: var(--k-display); font-weight: 600; text-transform: uppercase; font-size: clamp(44px, 12vw, 64px); line-height: .92; }
+.k-feature__text { max-width: 30em; margin-top: 16px; font-size: 15px; line-height: 1.55; opacity: .9; }
+.k-feature__text p { margin: 0; }
+.k-feature__buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.k-feature__btn { display: inline-block; padding: 14px 22px; background: var(--k-feature-accent, #FDB515); color: var(--k-feature-bg, #003262); border: 1px solid var(--k-feature-accent, #FDB515); font-family: var(--k-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: background .2s, color .2s; }
+.k-feature__btn:hover { background: transparent; color: var(--k-feature-accent, #FDB515); }
+.k-feature__btn--outline { background: transparent; color: var(--k-feature-fg, #fff); border-color: currentColor; }
+.k-feature__btn--outline:hover { background: var(--k-feature-fg, #fff); color: var(--k-feature-bg, #003262); }
+@media (min-width: 768px) {
+  .k-feature { grid-template-columns: 1fr 1fr; min-height: 640px; }
+  .k-feature__media { aspect-ratio: auto; }
+  .k-feature__content { padding: 64px clamp(32px, 6vw, 96px); }
+  .k-feature__badge { width: 88px; height: 88px; }
+  .k-feature__heading { font-size: clamp(64px, 6.4vw, 104px); }
+  .k-feature__text { font-size: 16px; }
+}

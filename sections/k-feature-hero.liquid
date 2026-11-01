@@ -1,0 +1,46 @@
+<section class="k-feature" id="{{ section.settings.anchor | default: section.id | handleize }}" style="--k-feature-bg: {{ section.settings.bg }}; --k-feature-fg: {{ section.settings.fg }}; --k-feature-accent: {{ section.settings.accent }};">
+  <div class="k-feature__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1600 | image_tag:
+        loading: 'lazy',
+        sizes: '(min-width: 768px) 50vw, 100vw',
+        widths: '600, 900, 1200, 1600',
+        alt: section.settings.image.alt | default: section.settings.heading }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'k-feature__placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="k-feature__content">
+    {%- if section.settings.show_badge -%}{% render 'k-cal-badge', class: 'k-feature__badge' %}{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}<p class="k-feature__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="k-feature__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<div class="k-feature__text">{{ section.settings.text }}</div>{%- endif -%}
+    <div class="k-feature__buttons">
+      {%- if section.settings.button_1_label != blank -%}<a class="k-feature__btn" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label | escape }}</a>{%- endif -%}
+      {%- if section.settings.button_2_label != blank -%}<a class="k-feature__btn k-feature__btn--outline" href="{{ section.settings.button_2_link | default: routes.all_products_collection_url }}">{{ section.settings.button_2_label | escape }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Feature hero",
+  "class": "section-k-feature",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor ID", "info": "Link to this section with #anchor-id.", "default": "berkeley-roster" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "checkbox", "id": "show_badge", "label": "Show Cal Athletes badge", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LACES x Cal Athletes" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "The Berkeley\nRoster" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop the collab" },
+    { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "Meet the athletes" },
+    { "type": "url", "id": "button_2_link", "label": "Button 2 link" },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#003262" },
+    { "type": "color", "id": "fg", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "accent", "label": "Accent", "default": "#FDB515" }
+  ],
+  "presets": [ { "name": "Feature hero" } ]
+}
+{% endschema %}
