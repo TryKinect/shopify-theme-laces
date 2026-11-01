@@ -1,0 +1,43 @@
+<section class="k-calhero" id="section-id-{{ section.id }}">
+  <div class="k-calhero__bg">
+    {%- if section.settings.image != blank -%}
+      {%- assign k_fp = section.settings.image.presentation.focal_point | default: 'center 30%' -%}
+      <div class="k-calhero__img{% if section.settings.mobile_image != blank %} k-calhero__img--desk{% endif %}" style="--k-fp: {{ k_fp }};">
+        {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '800, 1200, 1600, 2000, 2400', alt: section.settings.image.alt }}
+      </div>
+      {%- if section.settings.mobile_image != blank -%}
+        <div class="k-calhero__img k-calhero__img--mob">
+          {{ section.settings.mobile_image | image_url: width: 1000 | image_tag: loading: 'eager', sizes: '100vw', widths: '500, 750, 1000', alt: section.settings.mobile_image.alt }}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'k-calhero__placeholder' }}
+    {%- endif -%}
+  </div>
+  {%- if section.settings.sticker != blank -%}
+    <div class="k-calhero__sticker">{{ section.settings.sticker | image_url: width: 500 | image_tag: loading: 'eager', sizes: '230px', alt: section.settings.sticker.alt }}</div>
+  {%- endif -%}
+  <div class="k-calhero__content">
+    {%- if section.settings.eyebrow != blank -%}<p class="k-cal-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h1 class="k-calhero__heading">{{ section.settings.heading | escape | newline_to_br }}</h1>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}<a class="k-cal-btn k-cal-btn--gold" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cal hero",
+  "class": "section-k-calhero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
+    { "type": "image_picker", "id": "sticker", "label": "Sticker", "info": "Shown rotated in the top-right corner." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "LACES x Cal Athletes" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Designed by Cal athletes.\nPaid to Cal athletes." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the snapback" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "range", "id": "height_desktop", "label": "Desktop height", "min": 50, "max": 100, "step": 5, "unit": "vh", "default": 85 }
+  ],
+  "presets": [{ "name": "Cal hero" }]
+}
+{% endschema %}

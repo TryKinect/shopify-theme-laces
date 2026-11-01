@@ -1,0 +1,76 @@
+{%- liquid
+  assign p = section.settings.product
+  assign pct = section.settings.fund_percent
+  if p != blank
+    assign price = p.price
+    assign item_name = section.settings.item_label | default: p.title
+  else
+    assign price = 4500
+    assign item_name = section.settings.item_label | default: 'Snapback'
+  endif
+  assign fund_cut = price | times: pct | divided_by: 100
+-%}
+<section class="k-calrcpt" id="section-id-{{ section.id }}">
+  <div class="k-calrcpt__inner">
+    <div class="k-calrcpt__copy">
+      {%- if section.settings.eyebrow != blank -%}<p class="k-cal-eyebrow">{{ section.settings.eyebrow | replace: '[price]', price | money_without_trailing_zeros | escape }}</p>{%- endif -%}
+      <h2 class="k-calrcpt__heading">{{ section.settings.heading | escape }}{% if section.settings.highlight != blank %}<br><em>{{ section.settings.highlight | escape }}</em>{% endif %}</h2>
+      {%- if section.settings.text != blank -%}<div class="k-calrcpt__text">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}<a class="k-cal-btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>{%- endif -%}
+    </div>
+    <div class="k-receipt" role="table" aria-label="{{ section.settings.receipt_title | escape }} receipt">
+      <p class="k-receipt__title">{{ section.settings.receipt_title | escape }}</p>
+      <p class="k-receipt__sub">{{ section.settings.receipt_subtitle | escape }}</p>
+      <div class="k-receipt__row" role="row"><span>1× {{ item_name | escape }}</span><span>{{ price | money }}</span></div>
+      {%- for block in section.blocks -%}
+        <div class="k-receipt__row{% if block.settings.highlight %} k-receipt__row--hl{% endif %}" role="row" {{ block.shopify_attributes }}>
+          <span>{{ block.settings.label | escape }}</span>
+          <span>{%- if block.settings.value == '[fund]' -%}{{ fund_cut | money }}{%- else -%}{{ block.settings.value | escape }}{%- endif -%}</span>
+        </div>
+      {%- endfor -%}
+      <div class="k-receipt__total"><span>Total</span><span>{{ price | money }}</span></div>
+      {%- if section.settings.receipt_footer != blank -%}<p class="k-receipt__foot">{{ section.settings.receipt_footer | escape }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cal receipt",
+  "class": "section-k-calrcpt",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Receipt product", "info": "Price and fund share are calculated from this product." },
+    { "type": "text", "id": "item_label", "label": "Receipt item name", "default": "Snapback, Squirrel Bear" },
+    { "type": "range", "id": "fund_percent", "label": "Fund share", "min": 1, "max": 50, "step": 1, "unit": "%", "default": 10 },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Use [price] for the product price.", "default": "Where your [price] goes" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The hat that" },
+    { "type": "text", "id": "highlight", "label": "Highlighted heading", "default": "pays back." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>School merch pays a licensing fee to the school. We skipped that. 10% of every LACES x Cal hat goes straight into the Cal LACES Athlete Fund, and every Cal athlete who hits their monthly Activity Goals gets an equal share.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the hats" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "receipt_title", "label": "Receipt title", "default": "LACES" },
+    { "type": "text", "id": "receipt_subtitle", "label": "Receipt subtitle", "default": "Order · Cal Athletes collab" },
+    { "type": "text", "id": "receipt_footer", "label": "Receipt footer", "default": "★ Thank you for backing every Cal athlete ★" }
+  ],
+  "blocks": [
+    {
+      "type": "line",
+      "name": "Receipt line",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value", "info": "Use [fund] for the calculated fund share." },
+        { "type": "checkbox", "id": "highlight", "label": "Highlight", "default": false }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Cal receipt",
+    "blocks": [
+      { "type": "line", "settings": { "label": "Licensing fee to school", "value": "$0.00" } },
+      { "type": "line", "settings": { "label": "→ Cal LACES Athlete Fund", "value": "[fund]", "highlight": true } },
+      { "type": "line", "settings": { "label": "Athletes it's split between", "value": "ALL" } },
+      { "type": "line", "settings": { "label": "Sports included", "value": "EVERY ONE" } }
+    ]
+  }]
+}
+{% endschema %}

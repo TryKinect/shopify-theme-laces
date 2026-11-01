@@ -1,0 +1,46 @@
+<section class="k-calband" id="section-id-{{ section.id }}">
+  <div class="k-calband__art">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', sizes: '100vw', widths: '800, 1200, 1600, 2400', alt: section.settings.image.alt }}
+    {%- else -%}
+      <img src="{{ 'k-cal-roster.jpg' | asset_url }}" alt="Squirrel Bear in six Cal sports uniforms" loading="lazy" width="1600" height="893">
+    {%- endif -%}
+  </div>
+  <div class="k-calband__row">
+    {%- for block in section.blocks -%}
+      <div class="k-calband__col" {{ block.shopify_attributes }}>
+        <p class="k-calband__title">{{ block.settings.title | escape }}</p>
+        <p class="k-calband__text">{{ block.settings.text | escape }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cal pillars",
+  "class": "section-k-calband",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Banner image", "info": "Defaults to the Squirrel Bear roster graphic." }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Cal pillars",
+    "blocks": [
+      { "type": "pillar", "settings": { "title": "First", "text": "Cal athletes are the first in the nation to co-design an original icon and earn from it." } },
+      { "type": "pillar", "settings": { "title": "Every sport", "text": "Gymnastics, swim, volleyball, football, rowing, track. Not just headline names." } },
+      { "type": "pillar", "settings": { "title": "Equal split", "text": "Hit your monthly Activity Goals, earn the same share as everyone else." } }
+    ]
+  }]
+}
+{% endschema %}
