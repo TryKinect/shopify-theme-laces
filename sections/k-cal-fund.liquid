@@ -1,0 +1,51 @@
+{%- assign fund = section.settings.product -%}
+<section class="k-calfund" id="section-id-{{ section.id }}">
+  <div class="k-calfund__art">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 768px) 420px, 100vw', widths: '600, 900, 1200', alt: section.settings.image.alt }}
+    {%- else -%}
+      <img src="{{ 'k-cal-fund.jpg' | asset_url }}" alt="Squirrel Bear holding the Athlete Fund jar" loading="lazy" width="966" height="1200">
+    {%- endif -%}
+  </div>
+  <div class="k-calfund__copy">
+    {%- if section.settings.eyebrow != blank -%}<p class="k-cal-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="k-calfund__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<div class="k-calfund__text">{{ section.settings.text }}</div>{%- endif -%}
+    {%- if fund != blank -%}
+      {%- assign current = fund.selected_or_first_available_variant -%}
+      {%- form 'product', fund, class: 'k-calfund__form' -%}
+        <fieldset class="k-calfund__amounts">
+          <legend class="visually-hidden">{{ fund.options.first | escape }}</legend>
+          {%- for variant in fund.variants -%}
+            <label class="k-calfund__amt{% unless variant.available %} is-disabled{% endunless %}">
+              <input type="radio" name="id" value="{{ variant.id }}" data-k-label="{{ variant.title | escape }}"{% if variant.id == current.id %} checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+              <span>{{ variant.title | escape }}</span>
+            </label>
+          {%- endfor -%}
+        </fieldset>
+        <button type="submit" class="k-cal-btn" data-k-fund-btn data-k-prefix="{{ section.settings.button_label | escape }}"{% unless fund.available %} disabled{% endunless %}>
+          {{ section.settings.button_label | escape }} <span data-k-fund-amt>{{ current.title | escape }}</span>
+        </button>
+      {%- endform -%}
+      <script>
+        (function(){var s=document.getElementById('section-id-{{ section.id }}');if(!s)return;var o=s.querySelector('[data-k-fund-amt]');s.addEventListener('change',function(e){if(e.target.name==='id'&&o)o.textContent=e.target.getAttribute('data-k-label');});})();
+      </script>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cal fund",
+  "class": "section-k-calfund",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Fund product" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Defaults to the Squirrel Bear fund jar graphic." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Don't need a hat?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Fill the fund." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Contribute directly to the Cal LACES Athlete Fund. It goes to the athletes who earn it each month. Contributions are not tax-deductible and are non-refundable.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Contribute" }
+  ],
+  "presets": [{ "name": "Cal fund" }]
+}
+{% endschema %}
