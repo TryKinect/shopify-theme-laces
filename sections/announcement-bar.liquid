@@ -13,6 +13,7 @@
   -%}
   <announcement-bar id="section-id-{{ section.id }}" class="announcement-bar
       {%- if section.blocks.size > 0 %} announcement-bar--with-announcement{% endif -%}
+      {%- if section.settings.enable_marquee and section.blocks.size > 0 %} announcement-bar--marquee{% endif -%}
       {%- if longest_announcement > 45 and section.settings.menu != blank %} announcement-bar--tablet-wrap{% endif -%}
       " {%- render 'animation-attrs', attrs: 'data-cc-animate' -%}>
     {% style %}
@@ -57,7 +58,21 @@
       </div>
 
       <div class="announcement-bar__middle">
-        {%- if section.blocks.size > 0 -%}
+        {%- if section.settings.enable_marquee and section.blocks.size > 0 -%}
+          <div class="k-marquee" style="--k-marquee-speed: {{ section.settings.marquee_speed | default: 45 }}s;">
+            <div class="k-marquee__track">
+              {%- for i in (1..2) -%}
+                <div class="k-marquee__half" style="display:flex"{% if i == 2 %} aria-hidden="true"{% endif %}>
+                  {%- for j in (1..4) -%}
+                    {%- for block in section.blocks -%}
+                      <div class="k-marquee__item" {% if i == 1 and j == 1 %}{{ block.shopify_attributes }}{% endif %}>{{ block.settings.text }}</div>
+                    {%- endfor -%}
+                  {%- endfor -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- elsif section.blocks.size > 0 -%}
           <div class="announcement-bar__announcements">
             {%- for block in section.blocks -%}
               {%- liquid
@@ -143,6 +158,22 @@
   "name": "Announcement bar",
   "class": "section-announcement-bar",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_marquee",
+      "label": "Scrolling marquee",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "Marquee loop duration",
+      "min": 15,
+      "max": 120,
+      "step": 5,
+      "unit": "s",
+      "default": 45
+    },
     {
       "type": "range",
       "id": "message_font_size",

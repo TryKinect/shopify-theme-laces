@@ -3,7 +3,13 @@
 
 <div class="page-header">
   <div class="container">
-    <h1 class="visually-hidden">{{ 'general.search.title' | t }}</h1>
+    <h1 class="k-search-title">
+      {%- if search.performed and search.terms != blank -%}
+        Results for &ldquo;{{ search.terms | escape }}&rdquo;
+      {%- else -%}
+        {{ 'general.search.title' | t }}
+      {%- endif -%}
+    </h1>
 
     <div class="main-search">
       <div class="main-search__container">

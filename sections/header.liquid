@@ -73,6 +73,7 @@
           <button class="mobile-nav-toggle" aria-label="{{ 'general.navigation.menu' | t }}" aria-controls="main-nav">
             {%- render 'icon-menu' -%}
           </button>
+          <a class="k-header-shop" href="{{ routes.all_products_collection_url }}">Shop</a>
           {% if section.settings.enable_search %}
             <a class="show-search-link" href="{{ routes.search_url }}" aria-label="{{ 'sections.header.search' | t }}">
               <span class="show-search-link__icon">

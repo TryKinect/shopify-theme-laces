@@ -152,7 +152,7 @@ Parameters:
                 {%- endunless -%}
               {%- endif -%}
               {%- unless compact -%}
-                {%- render 'product-label', product: product, cheapest_variant: cheapest_variant -%}
+                <div class="k-label-slot">{%- render 'product-label', product: product, cheapest_variant: cheapest_variant -%}</div>
               {%- endunless -%}
             </div>
           </a>
@@ -180,6 +180,7 @@ Parameters:
       {% endif %}
 
       <div class="product-block__detail align-ltr-{{ settings.prod_thumb_text_align }}">
+        {%- render 'k-card-swatches', product: product -%}
         <div class="inner">
           <div class="innerer">
             <a class="product-link{% if settings.quickbuy_style == 'whole' %}{% unless no_quick_buy %} quickbuy-toggle{% endunless %}{% endif %}" href="{{ product_url }}">
@@ -199,6 +200,8 @@ Parameters:
                 </div>
               {%- endif -%}
             </a>
+
+            {%- if k_quick_add -%}{%- render 'k-quick-add', product: product -%}{%- endif -%}
 
             {%- if settings.swatch_source != 'none' and settings.prod_thumb_show_options and hide_swatches == blank -%}
               {%- liquid

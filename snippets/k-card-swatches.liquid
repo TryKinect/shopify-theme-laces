@@ -1,0 +1,34 @@
+{%- comment -%}Color-family swatches on product cards, from product.metafields.custom.sibling_products (same source as the PDP "Colors" picker).{%- endcomment -%}
+{%- assign k_sibs = product.metafields.custom.sibling_products.value -%}
+{%- if k_sibs and k_sibs.size > 1 -%}
+  {%- assign k_shown = 0 -%}
+  {%- assign k_more = 0 -%}
+  <div class="k-swatches" role="group" aria-label="Colors">
+    {%- for s in k_sibs -%}
+      {%- if s.metafields.custom.hide_from_sibling_picker == true -%}{%- continue -%}{%- endif -%}
+      {%- if k_shown >= 7 -%}
+        {%- assign k_more = k_more | plus: 1 -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign k_shown = k_shown | plus: 1 -%}
+      {%- assign k_cheap = s.variants | sort: 'price' | first -%}
+      {%- capture k_price -%}{%- render 'price', product: s, current_variant: k_cheap, show_currency_code: settings.product_currency_code_enabled, show_labels: true -%}{%- endcapture -%}
+      {%- capture k_label -%}{%- render 'product-label', product: s, cheapest_variant: k_cheap -%}{%- endcapture -%}
+      <button type="button"
+        class="k-swatch{% if s.id == product.id %} k-swatch--active{% endif %}"
+        data-id="{{ s.id }}"
+        data-url="{{ s.url }}"
+        data-title="{{ s.title | escape }}"
+        data-img="{{ s.featured_media | image_url: width: 800 }}"
+        data-thumb="{{ s.featured_media | image_url: width: 60 }}"
+        data-price="{{ k_price | strip | escape }}"
+        data-label="{{ k_label | strip | escape }}"
+        data-available="{{ s.available }}"
+        data-variant="{{ s.selected_or_first_available_variant.id }}"
+        data-single="{% if s.variants.size == 1 %}true{% else %}false{% endif %}"
+        aria-label="{{ s.title | split: ' - ' | last | escape }}"
+        title="{{ s.title | split: ' - ' | last | escape }}"></button>
+    {%- endfor -%}
+    {%- if k_more > 0 -%}<span class="k-swatches__more">+{{ k_more }}</span>{%- endif -%}
+  </div>
+{%- endif -%}
