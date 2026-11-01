@@ -13,7 +13,7 @@
 .announcement-bar--marquee .announcement-bar__left,
 .announcement-bar--marquee .announcement-bar__right { display: none !important; }
 .announcement-bar--marquee .container { padding-left: 0; padding-right: 0; }
-.announcement-bar--marquee .announcement-bar__middle { flex: 1 1 100%; max-width: 100%; padding: 0; }
+.announcement-bar--marquee .announcement-bar__middle { flex: 1 1 100%; max-width: none !important; padding: 0; }
 .k-marquee { overflow: hidden; width: 100%; padding: 7px 0; }
 .k-marquee__track { display: flex; width: max-content; animation: k-marquee var(--k-marquee-speed, 45s) linear infinite; }
 .k-marquee:hover .k-marquee__track { animation-play-state: paused; }
