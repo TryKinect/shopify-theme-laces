@@ -43,7 +43,7 @@
   .pageheader .logo-area.container { padding-left: 6px; padding-right: 6px; }
   .pageheader .logo-area .mobile-nav-toggle { margin-left: 0; }
   .pageheader .logo-area__right .show-search-link { margin-right: 0; }
-  .collection-slider-row .hometitle { padding-right: 100px; }
+  .collection-slider-row .hometitle { padding-right: 100px; padding-left: 16px; }
   .collection-slider-row .view-all .small-feature-link { height: 34px; padding: 0 14px; font-size: 10px; }
 }
 .pageheader .logo-area__right__inner { gap: 6px; }
@@ -89,6 +89,7 @@
 .collection-slider-row .view-all {
   position: absolute; top: 0; right: 0; margin: 0;
 }
+@media (max-width: 767.98px) { .collection-slider-row .view-all { right: 16px; } }
 .k-btn-outline,
 .collection-slider-row .view-all .small-feature-link {
   display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 22px;
@@ -288,4 +289,28 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
     letter-spacing: .1em;
     text-transform: uppercase;
   }
+}
+
+/* Filmstrip hero */
+.k-film { position: relative; overflow: hidden; background: #111; color: #fff; }
+.k-film__strip { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; height: var(--k-film-h-mob, 80vh); min-height: 520px; }
+.k-film__tile { position: relative; display: block; overflow: hidden; background: #222; }
+.k-film__tile--desk { display: none; }
+.k-film__tile img, .k-film__tile svg { width: 100%; height: 100%; object-fit: cover; object-position: var(--k-fp, center); display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.k-film__tile:hover img { transform: scale(1.04); }
+.k-film::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.25) 0, transparent 22%, transparent 42%, rgba(0,0,0,.62) 100%); pointer-events: none; }
+.k-film__content { position: absolute; left: 0; right: 0; bottom: 28px; z-index: 2; padding: 0 16px; text-align: center; pointer-events: none; }
+.k-film__eyebrow { margin: 0 0 10px; font-family: var(--k-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+.k-film__heading { margin: 0; color: #fff; font-family: var(--k-display); font-weight: 600; text-transform: uppercase; font-size: clamp(40px, 11vw, 56px); line-height: .92; letter-spacing: .005em; }
+.k-film__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+.k-film__btn { pointer-events: auto; display: inline-block; padding: 14px 22px; background: #fff; color: #111; border: 1px solid #fff; font-family: var(--k-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: background .2s, color .2s; }
+.k-film__btn:hover { background: transparent; color: #fff; }
+.k-film__btn--outline { background: transparent; color: #fff; }
+.k-film__btn--outline:hover { background: #fff; color: #111; }
+@media (min-width: 768px) {
+  .k-film__strip { grid-template-columns: repeat(var(--k-film-cols, 5), 1fr); grid-template-rows: 1fr; height: var(--k-film-h, 95vh); min-height: 620px; gap: 4px; }
+  .k-film__tile--desk { display: block; }
+  .k-film__content { bottom: 64px; }
+  .k-film__eyebrow { font-size: 11px; }
+  .k-film__heading { font-size: clamp(64px, 7.4vw, 120px); }
 }
