@@ -61,9 +61,9 @@
           "settings": {
             "title": "Fit & Fabric",
             "icon": "",
-            "content": "<ul><li><strong>Premium 5-Panel Design</strong>: Sleek and structured, offering a modern fit that’s comfortable for any occasion.</li><li><strong>Adjustable Snapback Closure</strong>: Easily customizable for a secure and comfortable fit every time.</li><li><strong>100% Cotton Fabric</strong>: Soft and breathable, providing a high-quality feel that’s comfortable all day.</li><li><strong>Unisex</strong>: Designed to look great on everyone, adding a versatile edge to any outfit.</li><li><strong>Effortless Comfort and Quality</strong>: Crafted with attention to detail for feel and fit.</li></ul>",
+            "content": "",
             "page": "",
-            "custom_liquid": "",
+            "custom_liquid": "{%- assign k_t = product.title | downcase -%}{%- if k_t contains 'dad' -%}<ul><li><strong>Soft, Unstructured Crown:</strong> Relaxed and easy-wearing with a low-profile fit that naturally molds to your head over time.</li><li><strong>Washed Twill Fabric:</strong> Soft, broken-in cotton twill with a worn-in feel from the very first wear.</li><li><strong>Curved Brim:</strong> Classic curved brim for an effortless everyday look.</li><li><strong>Adjustable Strap Closure:</strong> Fabric strap with a rubberized metal buckle for a customizable, comfortable fit.</li><li><strong>Low Profile Fit:</strong> Designed with a relaxed silhouette that sits naturally and comfortably.</li><li><strong>Lived-In Feel:</strong> Easygoing, timeless, and made to feel like your favorite hat from day one.</li></ul>{%- else -%}<ul><li><strong>Premium 5-Panel Design</strong>: Sleek and structured, offering a modern fit that’s comfortable for any occasion.</li><li><strong>Adjustable Snapback Closure</strong>: Easily customizable for a secure and comfortable fit every time.</li><li><strong>100% Cotton Fabric</strong>: Soft and breathable, providing a high-quality feel that’s comfortable all day.</li><li><strong>Unisex</strong>: Designed to look great on everyone, adding a versatile edge to any outfit.</li><li><strong>Effortless Comfort and Quality</strong>: Crafted with attention to detail for feel and fit.</li></ul>{%- endif -%}",
             "open": false,
             "variant_content": false,
             "show_in_quickbuy": false
@@ -104,7 +104,6 @@
         "vendor",
         "divider",
         "variant-picker",
-        "k_fit_toggle",
         "k_fit_toggle",
         "buy-buttons",
         "description",
@@ -149,7 +148,7 @@
       "type": "k-pdp-fit",
       "settings": {
         "active": "auto",
-        "auto_default": "high",
+        "auto_default": "mid",
         "text": "<p>The snapback sits taller with a structured front panel. Prefer low and broken-in? Grab the Squirrel Bear dad hat.</p>"
       }
     },
@@ -312,10 +311,82 @@
         "button_style": "primary",
         "color_scheme": "default"
       }
+    },
+    "k_specs": {
+      "type": "k-pdp-specs",
+      "blocks": {
+        "s0": {
+          "type": "spec",
+          "settings": {
+            "value": "Mid-high",
+            "label": "Profile",
+            "show_for": "snapback"
+          }
+        },
+        "s1": {
+          "type": "spec",
+          "settings": {
+            "value": "Curved",
+            "label": "Brim",
+            "show_for": "snapback"
+          }
+        },
+        "s2": {
+          "type": "spec",
+          "settings": {
+            "value": "Snap",
+            "label": "Closure",
+            "show_for": "snapback"
+          }
+        },
+        "s3": {
+          "type": "spec",
+          "settings": {
+            "value": "Low",
+            "label": "Profile",
+            "show_for": "dad"
+          }
+        },
+        "s4": {
+          "type": "spec",
+          "settings": {
+            "value": "Curved",
+            "label": "Brim",
+            "show_for": "dad"
+          }
+        },
+        "s5": {
+          "type": "spec",
+          "settings": {
+            "value": "Buckle",
+            "label": "Strap closure",
+            "show_for": "dad"
+          }
+        },
+        "s6": {
+          "type": "spec",
+          "settings": {
+            "value": "100%",
+            "label": "Cotton twill",
+            "show_for": "all"
+          }
+        }
+      },
+      "block_order": [
+        "s0",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
+    "k_specs",
     "k_cal_receipt",
     "k_cal_pillars",
     "k_strip",

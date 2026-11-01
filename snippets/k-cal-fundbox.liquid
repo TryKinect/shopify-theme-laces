@@ -1,6 +1,7 @@
 {%- comment -%}
   Cal PDP: "$X goes to Cal athletes" box + optional Athlete Fund add-on.
-  The add-on adds the fund variant via /cart/add.js, then lets the theme's own add-to-cart run.
+  When checked, the hat form (main or sticky) is rewritten to items[0]=hat, items[1]=fund so the theme's
+  own AJAX add sends both in one all-or-nothing request; theme error handling shows failures.
 {%- endcomment -%}
 {%- liquid
   assign pct = pct | default: 10
@@ -23,17 +24,30 @@
   <script>
     (function(){
       var cb=document.currentScript.previousElementSibling.querySelector('.k-caladd__cb');
-      var root=cb.closest('.product-form')||document;
-      var busy=false;
-      root.addEventListener('click',function(e){
-        var btn=e.target.closest('button[name="add"]');
-        if(!btn||!cb.checked||busy)return;
-        e.preventDefault();e.stopImmediatePropagation();
-        busy=true;
-        fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:[{id:+cb.getAttribute('data-k-fund-variant'),quantity:1}]})})
-          .catch(function(){})
-          .then(function(){cb.checked=false;btn.click();busy=false;});
+      var pid='{{ product.id }}';
+      var added=[];
+      function restore(){
+        added.forEach(function(el){el.remove();});
+        document.querySelectorAll('[data-k-fund-renamed]').forEach(function(el){el.name=el.getAttribute('data-k-fund-renamed');el.removeAttribute('data-k-fund-renamed');});
+        added=[];
+      }
+      function hidden(form,name,val){var i=document.createElement('input');i.type='hidden';i.name=name;i.value=val;form.appendChild(i);added.push(i);}
+      document.addEventListener('submit',function(e){
+        var form=e.target;
+        if(!cb.checked||!form.matches||!form.matches('form.js-product-form')||form.getAttribute('data-product-id')!==pid)return;
+        restore();
+        var id=form.querySelector('[name="id"]');
+        if(!id)return;
+        var qty=form.querySelector('[name="quantity"]');
+        hidden(form,'items[0][id]',id.value);
+        hidden(form,'items[0][quantity]',qty?qty.value:1);
+        hidden(form,'items[1][id]',cb.getAttribute('data-k-fund-variant'));
+        hidden(form,'items[1][quantity]','1');
+        id.setAttribute('data-k-fund-renamed','id');id.name='k_id';
+        if(qty){qty.setAttribute('data-k-fund-renamed','quantity');qty.name='k_quantity';}
       },true);
+      document.addEventListener('on:cart:add',function(){if(added.length){restore();cb.checked=false;}});
+      document.addEventListener('on:cart:error',function(){if(added.length)restore();});
     })();
   </script>
 {%- endif -%}
