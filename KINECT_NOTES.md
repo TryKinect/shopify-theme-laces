@@ -36,3 +36,29 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - OPEN: **$25 Athlete Fund add-on** (`snippets/k-cal-fundbox.liquid`): when it's checked, submitting the main or sticky ATC form rewrites it to `items[0]`=hat, `items[1]`=fund, so the theme's own AJAX add sends both in one all-or-nothing `/cart/add` request; errors show in the theme's normal error message and the box stays checked. Depends on Symmetry's `form.js-product-form[data-product-id]` + `on:cart:add`/`on:cart:error` events, so re-check after a theme update. Test on the draft: (1) cart drawer shows both lines, (2) the Shop Pay / dynamic checkout button **skips the add-on** (it bypasses the form), (3) sticky ATC adds both, (4) Loop/one-click-upsell apps don't conflict. It relies on product handle `cal-athletes-fund` (`all_products`). Renaming that handle hides the add-on.
 - WATCH: "$X goes to Cal athletes" = product price × 10% (hard-set `pct: 10` in the template's custom-liquid block and `fund_percent` in the receipt section). If the commitment changes, update both.
 - WATCH: Cal PDP receipt reuses `k-cal-receipt` and defaults to the current product when no product is set (the dad hat shows $38 → $3.80).
+
+## Apps & purchases
+**Nothing needs to be bought for the Kinect changes so far** (homepage tile, Cal page, PDP redesign). Everything uses the Symmetry theme (already owned) and free, built-in Shopify features. Prices for optional apps are not listed because they haven't been checked.
+
+**Free Shopify built-ins the changes need (setup, not purchases):**
+- OPEN: **Custom data / metafields** (Settings → Custom data → Products): create `custom.fit_pair` (Product reference) for the Snapback / Dad hat toggle. `custom.sibling_products` (colorway swatches) already exists.
+- OPEN: **Product templates** (Product → Theme template): assign `cal` to the 2 Cal hats.
+- WATCH: **Cal Athletes Fund product** (`cal-athletes-fund`): a normal Shopify product. It needs to stay active and published to the Online Store, or the fund buttons and the add-on disappear.
+- OPEN: **Theme Access app** (free, by Shopify): create a password for Devin so changes can be checked on the real draft instead of local renders.
+
+**Apps installed on the live store** (seen in the live product page HTML; the list may be incomplete because apps without a storefront script don't appear):
+
+| App | What it does | Touches Kinect changes? |
+|---|---|---|
+| Vitals | Reviews + conversion widgets (app embed) | WATCH: reviews on the PDP come from here. If its sticky-ATC / bundle / upsell widgets are on, test them with the fund add-on (they may add to cart outside the theme form and skip the add-on). |
+| Loop Returns | Returns + return coverage (`return-coverage-block`); live theme is "[Loop Checkout+]" | OPEN: mark `cal-athletes-fund` as **non-returnable** in Loop (the page promises "non-refundable"), and check that return coverage doesn't price or cover the fund line. |
+| Shogun | Page builder (`shogun-*` sections/templates, `product.json`) | WATCH: `product.json` keeps its Shogun sections. Don't remove them. |
+| Klaviyo | Email/SMS onsite embed | No. "Early access" sign-up forms come from here. |
+| Gorgias | Live chat / helpdesk | No. Its chat bubble may overlap the sticky ATC bar on mobile; check on the draft. |
+| Triple Whale | Attribution pixel | No. Fund add-on purchases show up as 2 line items. |
+| Growi | Creator / affiliate tracking | No. |
+| Bestpush | Push notifications | No. |
+| Kinect embed (`laces-embed-check`) | Kinect's own app embed | No. |
+
+**Optional purchase (only if wanted):**
+- OPEN: **Fund add-on via Shop Pay / express checkout.** The theme add-on can't hook into the dynamic checkout button. Ways to fix it: (a) hide the dynamic checkout button on the `cal` template (free, a template setting); (b) use a bundle/add-on app (Vitals may already include bundles, so check before buying anything); (c) ask for the fund in the cart drawer instead of on the PDP. Recommended: (a), unless express checkout matters on those 2 hats.
