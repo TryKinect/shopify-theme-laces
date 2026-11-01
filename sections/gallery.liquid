@@ -80,7 +80,7 @@
       {%- for block in section.blocks -%}
         {%- liquid
           assign show_overlay_text = false
-          if block.settings.title != blank or block.settings.subheading != blank or block.settings.button_label != blank
+          if block.settings.title != blank or block.settings.subheading != blank or block.settings.button_label != blank or block.settings.k_badge == 'cal'
             assign show_overlay_text = true
           endif
         -%}
