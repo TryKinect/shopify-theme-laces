@@ -53,9 +53,11 @@
   display: none; margin-left: 6px;
   font-family: var(--k-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: inherit;
 }
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023.98px) {
   .k-header-shop { display: inline-block; }
   #proxy-nav, #main-nav { display: none !important; }
+}
+@media (min-width: 768px) {
   .pageheader .logo-area { min-height: 72px; }
   .reveal-mobile-nav .page-shade, .reveal-mobile-nav .header-shade { visibility: visible; height: 100%; opacity: 1; pointer-events: auto; }
   .section-header { z-index: 8000; }
@@ -438,4 +440,100 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .k-fitsec__name { font-size: 15px; }
   .k-strip { grid-auto-columns: 70%; overflow-x: auto; scroll-snap-type: x mandatory; }
   .k-strip__item { scroll-snap-align: start; }
+}
+
+/* ---------- Desktop inline nav (>=1024px): links left, logo centre, icons right ----------
+   Symmetry's inlineNavigationCheck() adds .pageheader--layout-inline-permitted when the links fit
+   the left half; otherwise #main-nav drops to a row under the logo. Tablet keeps the drawer. */
+@media (min-width: 1024px) {
+  .pageheader .logo-area .mobile-nav-toggle { display: none; }
+  .pageheader .logo-area__left { max-width: calc(50% - 110px); }
+  .pageheader .logo-area__left__inner { width: 100% !important; max-width: none !important; }
+  #proxy-nav .navigation__tier-1-container { left: -12px; text-align: left; }
+  #proxy-nav .navigation__tier-1 > .navigation__item > .navigation__link,
+  #main-nav .navigation__tier-1 > .navigation__item > .navigation__link {
+    font-family: var(--k-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    padding-left: 12px; padding-right: 12px;
+  }
+  #main-nav .navigation--main .navigation__tier-1 { text-align: center; }
+  #proxy-nav .navigation__link[aria-haspopup]::after,
+  #main-nav .navigation__tier-1 > .navigation__item > .navigation__link[aria-haspopup]::after {
+    content: ""; display: inline-block; width: 5px; height: 5px; margin-left: 7px; vertical-align: middle;
+    border-right: 1.3px solid currentColor; border-bottom: 1.3px solid currentColor; transform: translateY(-3px) rotate(45deg);
+  }
+  #main-nav .navigation__tier-2 .navigation__link { font-size: 14px; }
+}
+/* Drawer: every item with a submenu shows a chevron */
+.mobile-navigation-drawer .navigation__tier-1 > .navigation__item > .navigation__children-toggle {
+  display: flex !important; align-items: center; justify-content: center; flex: 0 0 56px; padding: 0; color: var(--k-ink);
+  position: static !important; height: auto !important; align-self: stretch;
+}
+.mobile-navigation-drawer .navigation__tier-1 > .navigation__item > .navigation__children-toggle svg { width: 16px; height: 16px; }
+
+/* ---------- Athlete label on cards ---------- */
+.product-block .product-label-container .product-label.product-label--athlete,
+.product-label.product-label--athlete { background: #003262 !important; color: #fdb515 !important; border-color: #003262 !important; }
+.product-label.product-label--athlete span { background: transparent !important; color: inherit !important; }
+
+/* ---------- In-grid story card (snippets/k-grid-promo.liquid) ---------- */
+.product-block.k-grid-promo { align-self: stretch; display: flex; flex-direction: column; }
+.k-grid-promo .k-grid-promo__link { flex: 1 1 auto;
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-height: 320px;
+  overflow: hidden; background: #003262; color: #fff; text-decoration: none;
+}
+.k-grid-promo__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.k-grid-promo__link:hover .k-grid-promo__img { transform: scale(1.04); }
+.k-grid-promo__body {
+  position: relative; display: flex; flex-direction: column; gap: 6px; padding: 18px;
+  background: linear-gradient(to top, rgba(0, 20, 45, .88) 0%, rgba(0, 20, 45, .55) 60%, rgba(0, 20, 45, 0) 100%); padding-top: 80px;
+}
+.k-grid-promo__badge { width: 48px; height: 48px; margin-bottom: 4px; }
+.k-grid-promo__kicker { font-family: var(--k-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #fdb515; }
+.k-grid-promo__heading { font-family: var(--k-display); font-size: clamp(24px, 2.2vw, 34px); line-height: 1; font-weight: 600; text-transform: uppercase; }
+.k-grid-promo__text { font-size: 13px; line-height: 1.4; opacity: .9; }
+.k-grid-promo__cta { margin-top: 6px; font-family: var(--k-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 767.98px) {
+  .k-grid-promo .k-grid-promo__link { min-height: 260px; }
+  .k-grid-promo__body { padding: 12px; padding-top: 60px; }
+  .k-grid-promo__badge { width: 36px; height: 36px; }
+  .k-grid-promo__text { display: none; }
+}
+
+/* ---------- Collection tabs (related collections) + one-line description ---------- */
+.related-collection-links--buttons {
+  display: flex; flex-wrap: nowrap; justify-content: center; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+}
+.related-collection-links--buttons::-webkit-scrollbar { display: none; }
+.related-collection-links--buttons .btn {
+  flex: 0 0 auto; margin: 0; min-height: 0; padding: 9px 14px; border: 1px solid var(--k-line); border-radius: 999px;
+  background: #fff; color: var(--k-ink); font-family: var(--k-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap;
+}
+.related-collection-links--buttons .btn:hover { border-color: var(--k-ink); }
+.related-collection-links--buttons .btn.k-tab--active { background: var(--k-ink); border-color: var(--k-ink); color: #fff; }
+.related-collection-links--buttons .related-collection-links__expander { display: none !important; }
+.related-collection-links--buttons .btn.hidden:not(.related-collection-links__expander) { display: inline-flex !important; }
+@media (max-width: 767.98px) {
+  .related-collection-links--buttons { justify-content: flex-start; padding-left: 16px; padding-right: 16px; }
+}
+.k-coll-desc { max-width: 620px; margin-left: auto; margin-right: auto; font-size: 15px; line-height: 1.5; color: var(--k-muted); }
+.text-overlay__rte.k-coll-desc { color: inherit; }
+
+/* ---------- Reviews: hide the Vitals widget when a product has 0 reviews ---------- */
+.vtl-pr-main-widget:has(.vtl-pr-stats--no-reviews),
+.vtl-pr-main-widget.k-reviews-empty { display: none !important; }
+
+/* ---------- Third-party floating UI on mobile ---------- */
+/* Klaviyo popup is held (kinect-haus.js adds .k-hold-popups) until the shopper scrolls or 20s pass */
+.k-hold-popups div.needsclick[role="dialog"][aria-label="POPUP Form"] { display: none !important; }
+.k-hold-popups body.klaviyo-prevent-body-scrolling { overflow: visible !important; position: static !important; }
+@media (max-width: 767.98px) {
+  /* Wishlist launcher: icon-only circle instead of a 113px pill over the grid */
+  .nm-wishlist-open-list-button { font-size: 0 !important; width: 44px; height: 44px; padding: 0 !important; justify-content: center; border-radius: 50% !important; }
+  .nm-wishlist-open-list-button svg { margin: 0 !important; }
+  /* Vitals "someone just bought" toasts cover product cards */
+  .template-collection .vitals-recent-sales-row, .template-product .vitals-recent-sales-row,
+  .template-search .vitals-recent-sales-row { display: none !important; }
+  /* Lift chat + wishlist above the theme's sticky add-to-cart when it is showing */
+  body:has(.sticky-atc:not(.invisible)) iframe#chat-button { bottom: 92px !important; }
+  body:has(.sticky-atc:not(.invisible)) .nm-wishlist-open-list-button { bottom: 92px !important; }
 }

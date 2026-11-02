@@ -32,9 +32,11 @@
       <div class="container{% if header_image_enabled %} container--not-mobile{% endif %} lightish-spaced-row-above">
         <related-collection-link-buttons class="related-collection-links related-collection-links--buttons align-center{% if header_image_enabled %} image-overlay__over{% endif %}" data-expander-btn-text="{{ 'sections.collection.view_all_related_collections' | t }}">
           {%- for loop_collection in section.settings.related_collections -%}
-            {%- unless loop_collection.handle == collection.handle -%}
-              <a class="btn btn--tertiary" href="{{ loop_collection.url }}">{{ loop_collection.title | escape }}</a>
-            {%- endunless -%}
+            {%- if loop_collection.handle == collection.handle -%}
+              <a class="btn btn--tertiary k-tab--active" href="{{ loop_collection.url }}" aria-current="page">{{ loop_collection.title | remove: ' Collection' | escape }}</a>
+            {%- else -%}
+              <a class="btn btn--tertiary" href="{{ loop_collection.url }}">{{ loop_collection.title | remove: ' Collection' | escape }}</a>
+            {%- endif -%}
           {%- endfor -%}
         </related-collection-link-buttons>
       </div>
@@ -149,7 +151,7 @@
             {%- endif -%}
 
             {% if collection.description != blank and section.settings.coll_desc_pos == 'above' %}
-              <div class="text-overlay__rte rte cf align-center reading-width large-text">{{ collection.description }}</div>
+              <div class="text-overlay__rte rte cf align-center reading-width large-text k-coll-desc">{{ collection.description }}</div>
             {% endif %}
 
             {%- if related_collections_count > 0 and section.settings.related_collections_style == 'buttons' -%}
@@ -179,7 +181,7 @@
         {%- endif -%}
 
         {% if collection.description != blank and section.settings.coll_desc_pos == 'above' %}
-          <div class="rte cf align-center reading-width">{{ collection.description }}</div>
+          <div class="rte cf align-center reading-width k-coll-desc">{{ collection.description }}</div>
         {% endif %}
       </div>
     </div>
@@ -320,12 +322,21 @@
                 endfor
               endif
 
+              assign k_promo_handles = section.settings.k_promo_collections | remove: ' ' | split: ','
+              assign k_promo_show = false
+              if section.settings.k_promo_enable and paginate.current_page == 1 and k_promo_handles contains collection.handle
+                assign k_promo_show = true
+              endif
+
               for product in collection.products
                 assign prioritised_loading = false
                 if forloop.index0 < section.settings.grid
                   assign prioritised_loading = true
                 endif
                 render 'product-block', product: product, custom_aspect_ratio: chosen_aspect_ratio, animate: true, prioritised_loading: prioritised_loading
+                if k_promo_show and forloop.index == section.settings.k_promo_position
+                  render 'k-grid-promo', image: section.settings.k_promo_image, kicker: 'LACES x Cal Athletes', heading: section.settings.k_promo_heading, text: section.settings.k_promo_text, cta: 'Meet the roster', link: section.settings.k_promo_link
+                endif
               endfor
             -%}
           </div>
@@ -350,6 +361,54 @@
 {
   "name": "Collection pages",
   "settings": [
+    {
+      "type": "header",
+      "content": "Kinect: in-grid story card"
+    },
+    {
+      "type": "checkbox",
+      "id": "k_promo_enable",
+      "label": "Show story card in the grid",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "k_promo_collections",
+      "label": "Collection handles",
+      "info": "Comma-separated, e.g. snapback,football",
+      "default": "snapback,football"
+    },
+    {
+      "type": "range",
+      "id": "k_promo_position",
+      "label": "Insert after product",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "image_picker",
+      "id": "k_promo_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "k_promo_heading",
+      "label": "Heading",
+      "default": "Designed by Cal Athletes"
+    },
+    {
+      "type": "text",
+      "id": "k_promo_text",
+      "label": "Text",
+      "default": "Every hat supports the Cal LACES Athlete Fund."
+    },
+    {
+      "type": "url",
+      "id": "k_promo_link",
+      "label": "Link"
+    },
     {
       "type": "header",
       "content": "Heading"
@@ -608,7 +667,8 @@
     {
       "type": "collection_list",
       "id": "related_collections",
-      "label": "Collections"
+      "label": "Collections",
+      "info": "Kinect: shown as tabs under the title. The current collection is highlighted."
     },
     {
       "type": "select",

@@ -78,3 +78,38 @@
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
+
+/* Kinect x LACES: third-party UI coordination.
+   - Mobile: hold the Klaviyo popup (CSS in kinect-haus.css) until the shopper has scrolled 1.5 screens or 20s pass, once per session.
+   - Mark the Vitals reviews widget empty when it has 0 reviews (fallback for browsers without :has()). */
+(() => {
+  const root = document.documentElement;
+  const KEY = 'kPopupsReleased';
+  let released = false;
+  try { released = sessionStorage.getItem(KEY) === '1'; } catch (e) { released = true; }
+  if (!released && window.matchMedia('(max-width: 767.98px)').matches) {
+    root.classList.add('k-hold-popups');
+    let timer;
+    const release = () => {
+      root.classList.remove('k-hold-popups');
+      try { sessionStorage.setItem(KEY, '1'); } catch (e) { /* private mode */ }
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(timer);
+    };
+    const onScroll = () => { if (window.scrollY > window.innerHeight * 1.5) release(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    timer = setTimeout(release, 20000);
+  }
+
+  const markEmptyReviews = () => {
+    document.querySelectorAll('.vtl-pr-main-widget:not(.k-reviews-empty)').forEach((w) => {
+      if (w.querySelector('.vtl-pr-stats--no-reviews, .vtl-pr-main-widget__summary-no-reviews')) w.classList.add('k-reviews-empty');
+    });
+  };
+  const start = () => {
+    markEmptyReviews();
+    const end = document.getElementById('vitals-end-section') || document.body;
+    new MutationObserver(markEmptyReviews).observe(end, { childList: true, subtree: true });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();

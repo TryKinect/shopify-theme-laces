@@ -36,3 +36,41 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - OPEN: **$25 Athlete Fund add-on** (`snippets/k-cal-fundbox.liquid`): when it's checked, submitting the main or sticky ATC form rewrites it to `items[0]`=hat, `items[1]`=fund, so the theme's own AJAX add sends both in one all-or-nothing `/cart/add` request; errors show in the theme's normal error message and the box stays checked. Depends on Symmetry's `form.js-product-form[data-product-id]` + `on:cart:add`/`on:cart:error` events, so re-check after a theme update. Test on the draft: (1) cart drawer shows both lines, (2) the Shop Pay / dynamic checkout button **skips the add-on** (it bypasses the form), (3) sticky ATC adds both, (4) Loop/one-click-upsell apps don't conflict. It relies on product handle `cal-athletes-fund` (`all_products`). Renaming that handle hides the add-on.
 - WATCH: "$X goes to Cal athletes" = product price × 10% (hard-set `pct: 10` in the template's custom-liquid block and `fund_percent` in the receipt section). If the commitment changes, update both.
 - WATCH: Cal PDP receipt reuses `k-cal-receipt` and defaults to the current product when no product is set (the dad hat shows $38 → $3.80).
+
+## Navigation, merchandising, collections, reviews, pop-ups (nav-merch PR)
+
+### Manual Shopify Admin steps (Theme Access can't do these)
+- OPEN: **Admin → Content → Menus → `signature-2026` (desktop) and `signature-mobile` (drawer).** The theme renders whatever these menus contain. Proposed structure (top level → children):
+  - **Shop** → Hats (Snapback `/collections/snapback`, Dad Hats `/collections/dad-hat`, Football `/collections/football`, All Hats `/collections/all-hats`) · Apparel (Hoodies `/collections/hoodies`, Socks `/collections/socks`). Bestsellers/New photo tiles come from the header's existing "Menu promotion" blocks (Theme editor → Header).
+  - **New** → `/collections/new-arrivals` (pick one of `new` / `new-arrivals`, see below)
+  - **Bestsellers** → `/collections/best-sellers`
+  - **Rep Your City** → Bay Area `/collections/bay-area`, West `/collections/west-coast`, East `/collections/east-coast`, Midwest `/collections/midwest`, South `/collections/the-south`
+  - **Athlete Collabs** → Cal Athletes `/pages/cal-athletes`, Women Know Ball `/pages/women-know-ball`, VOICES `/collections/voices-collection`, Bay Area Host Committee `/collections/bahc`, All collabs `/pages/collaborations`
+  - **About** → Our Story, Athlete Fund, Join the Roster (NIL `/pages/nil`), Roster site `https://roster.getlaces.co`
+  - Remove the collection literally named "1" and fix label/destination mismatches: "About" currently opens NIL, "Join Our Roster" opens the Athlete Fund page, "Sale" opens the full catalog.
+- WATCH: **Desktop nav layout is automatic.** At ≥1024px Symmetry puts the links inline on the left of the centered logo only if they fit; otherwise they drop to a centered row under the logo (what today's 7-item menu does at 1440px). Shorter/fewer top-level items (≤6, short labels) keep it inline. 768–1023px still uses the ☰ drawer.
+- OPEN: **Sale collection**: 73/77 products are in it but none have a compare-at price. Either set compare-at prices for a real sale or remove Sale from menus (`nav_featured_link` = "Sale" in the header settings highlights it).
+- OPEN: **Duplicate/odd collections**: `new` vs `new-arrivals`, `hoodies` vs `apparel`, handle `1`. Retire one of each pair (redirect the old URL in Admin → Navigation → URL redirects).
+- OPEN: **Basketball (`basketball-collection`) and Wooly Pig** have 0 published products. Publish them or unpublish the collections so menus/links don't land on empty pages.
+- OPEN: **Collection descriptions**: tabs and description slot are ready, but most collections have no description. Add one line each in Admin → Collections (shown above the grid in muted text). Suggested: Snapback, Dad Hats, Football, Rep Your City, Rep Your Team, Hoodies, Socks, LACES Signature.
+- OPEN: **Collection titles show as tab labels** (" Collection" is stripped). Rename "LACES Hoodie Collection" → "Hoodies" etc. in Admin if you want cleaner tabs.
+
+### Collection tabs + in-grid story card (`sections/main-collection.liquid`, `snippets/k-grid-promo.liquid`, `templates/collection.json`)
+- WATCH: Tabs = the section's **Related collections** list (Theme editor → Collection → Related collections): All Hats, Snapback, Dad Hats, Football, Rep Your Team, Rep Your City, LACES Signature, Hoodies, Socks. The current collection is highlighted. Applies to the default collection template only; `collection.hoodies`, `collection.voices`, `collection.bahc`, `collection.landing`, `collection.what-s-new` templates have their own settings.
+- WATCH: Story card ("Designed by Cal Athletes" → `/pages/cal-athletes`) shows on page 1 of the handles in **"Collection handles"** (`snapback,football,all-hats,rep-your-team`) after product 3. Image = `158.jpg` (Cal volleyball photo from the Cal page). Renaming a collection handle silently removes the card there.
+- WATCH: `main-collection` schema is at Shopify's 40-settings limit. **Adding one more setting makes Shopify ignore the section's new settings** (that's why kicker/CTA text are fixed in the snippet call). Remove a setting before adding one.
+- OPEN: Card copy "Every hat supports the Cal LACES Athlete Fund." needs the same legal/fund-accuracy sign-off as the Cal page copy. Editable in the Theme editor.
+- OPEN: Women Know Ball / VOICES cards: no product tags identify those lines yet. Tag products (e.g. `line_wkb`, `line_voices`) and we can add a second card per line.
+
+### Athlete label on product cards (`snippets/product-label.liquid`)
+- WATCH: Label priority: product metafield `custom.designed_by` (text, shows "Designed by <name>") → title contains "Cal Athletes" → tag `Athlete Design` / `Athlete Designed` → no label. Today 6 products have the `Athlete Design` tag and 2 Cal hats match by title.
+- OPEN: To show athlete names, create a product metafield definition `custom.designed_by` (single-line text) in Admin → Settings → Custom data → Products, and fill it per product.
+
+### Homepage (`templates/index.json`)
+- WATCH: Added **Cal Athletes banner** (reused the old disabled Labor Day "image with text overlay" section, now "Cal Athletes banner", after New Arrivals) and a **Rep Your City** product row (`rep-your-city`, after Rep Your Team). Deleted the disabled "LACES Rookies" featured-blog section to stay at 24/25 sections. One slot left.
+
+### Reviews (Vitals) and third-party pop-ups (`assets/kinect-haus.css`, `assets/kinect-haus.js`)
+- WATCH: Vitals' reviews widget (`#vitals-end-section .vtl-pr-main-widget`) is hidden when it contains `.vtl-pr-stats--no-reviews`. If Vitals changes its markup the empty block comes back; if you switch to Judge.me/Yotpo, re-check. Populated reviews are untouched. Vitals doesn't render on the local preview, so **verify on the draft** with a 0-review product and one with reviews.
+- WATCH: **Klaviyo popup on mobile** is held (hidden, page scroll unlocked) until the shopper scrolls 1.5 screens or 20 s pass, once per browser session. It targets `[role=dialog][aria-label="POPUP Form"]`; if Klaviyo changes that label the hold stops working (popup just shows normally). Better long-term: set the form's mobile timing in **Klaviyo → Signup forms → Targeting & behavior** (e.g. show after 15 s or 40% scroll) and remove the theme hold.
+- WATCH: Mobile only: Wishlist launcher is an icon-only circle; Vitals "recent sales" toasts are hidden on collection/product/search; Gorgias chat + Wishlist lift above the theme's sticky add-to-cart when it's showing. Gorgias' position can also be set in **Gorgias → Chat → Appearance**.
+- OPEN: Manual QA on the draft after merge: Klaviyo popup (mobile delayed, desktop normal), Gorgias chat opens, Wishlist add/open, Vitals reviews (empty vs populated), Loop + one-click upsell at checkout, Bestpush notify-me on a sold-out hat, Kinect widget.
