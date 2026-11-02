@@ -40,15 +40,16 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 ## Navigation, merchandising, collections, reviews, pop-ups (nav-merch PR)
 
 ### Manual Shopify Admin steps (Theme Access can't do these)
-- OPEN: **Admin → Content → Menus → `signature-2026` (desktop) and `signature-mobile` (drawer).** The theme renders whatever these menus contain. Proposed structure (top level → children):
-  - **Shop** → Hats (Snapback `/collections/snapback`, Dad Hats `/collections/dad-hat`, Football `/collections/football`, All Hats `/collections/all-hats`) · Apparel (Hoodies `/collections/hoodies`, Socks `/collections/socks`). Bestsellers/New photo tiles come from the header's existing "Menu promotion" blocks (Theme editor → Header).
-  - **New** → `/collections/new-arrivals` (pick one of `new` / `new-arrivals`, see below)
-  - **Bestsellers** → `/collections/best-sellers`
-  - **Rep Your City** → Bay Area `/collections/bay-area`, West `/collections/west-coast`, East `/collections/east-coast`, Midwest `/collections/midwest`, South `/collections/the-south`
-  - **Athlete Collabs** → Cal Athletes `/pages/cal-athletes`, Women Know Ball `/pages/women-know-ball`, VOICES `/collections/voices-collection`, Bay Area Host Committee `/collections/bahc`, All collabs `/pages/collaborations`
-  - **About** → Our Story, Athlete Fund, Join the Roster (NIL `/pages/nil`), Roster site `https://roster.getlaces.co`
+- OPEN: **Desktop header = split nav (Varun picked option C).** 4 links left of the logo, 2 text links right of it, icons far right; mobile keeps ☰. Three menus in Admin → Content → Menus:
+  - **`signature-2026` (desktop left, 4 top-level items only)**:
+    - **Shop** → Hats (Snapback `/collections/snapback`, Dad Hats `/collections/dad-hat`, Football `/collections/football`, All Hats `/collections/all-hats`) · Apparel (Hoodies `/collections/hoodies`, Socks `/collections/socks`) · Rep Your City (Bay Area `/collections/bay-area`, West `/collections/west-coast`, East `/collections/east-coast`, Midwest `/collections/midwest`, South `/collections/the-south`). Bestsellers/New photo tiles come from the header's existing "Menu promotion" blocks (Theme editor → Header).
+    - **New** → `/collections/new-arrivals` (pick one of `new` / `new-arrivals`, see below)
+    - **Bestsellers** → `/collections/best-sellers`
+    - **Collabs** → Cal Athletes `/pages/cal-athletes`, Women Know Ball `/pages/women-know-ball`, VOICES `/collections/voices-collection`, Bloom, Bay Area Host Committee `/collections/bahc`, All collabs `/pages/collaborations`
+  - **New menu `header-right` (desktop right, 2 items, no children)**: **About** → Our Story page · **Roster** → `https://roster.getlaces.co`. Then Theme editor → Header → "Right-side links (desktop)" → pick `header-right`. Nothing shows on the right until this is set. Only top-level links render there; nested items are ignored.
+  - **`signature-mobile` (☰ drawer)**: same 4 as desktop plus **About** (Our Story, Athlete Fund, Join the Roster `/pages/nil`) and **Roster**, since the right-side links are desktop-only.
   - Remove the collection literally named "1" and fix label/destination mismatches: "About" currently opens NIL, "Join Our Roster" opens the Athlete Fund page, "Sale" opens the full catalog.
-- WATCH: **Desktop nav sits on the same line as the logo, never a second row.** At ≥1024px Symmetry measures whether the top-level links fit in the left half; if yes they're inline, if not the header falls back to ☰ + SHOP (same as tablet). Today's 7-item menu (incl. "Women Know Ball™", "Collections") fits inline from ~1440px wide; below that you get the drawer. Shorter top-level labels (e.g. Shop / New / Bestsellers / Cities / Collabs / About) fit from ~1200px. Every extra or longer top-level item pushes that breakpoint wider.
+- WATCH: **Desktop nav sits on the same line as the logo, never a second row.** At ≥1024px Symmetry measures whether the left links fit; if not, the header falls back to ☰ + SHOP and hides the right-side links. With the 4-link menu + 2 right links it fits down to 1024px (checked 1024/1100/1280/1440). With 5 or fewer top-level links the theme uses roomier 12px/wide-tracked spacing; today's 7-link menu keeps the tight 11px spacing (inline from ~1440px). Keep top-level labels to one or two short words.
 - OPEN: **Sale collection**: 73/77 products are in it but none have a compare-at price. Either set compare-at prices for a real sale or remove Sale from menus (`nav_featured_link` = "Sale" in the header settings highlights it).
 - OPEN: **Duplicate/odd collections**: `new` vs `new-arrivals`, `hoodies` vs `apparel`, handle `1`. Retire one of each pair (redirect the old URL in Admin → Navigation → URL redirects).
 - OPEN: **Basketball (`basketball-collection`) and Wooly Pig** have 0 published products. Publish them or unpublish the collections so menus/links don't land on empty pages.

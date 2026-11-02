@@ -542,3 +542,33 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   body:not(.scrolled-to-bottom):has(.sticky-atc:not(.sticky-atc--out):not(.sticky-atc--hide-on-mobile)) iframe#chat-button { bottom: 92px !important; }
   body:not(.scrolled-to-bottom):has(.sticky-atc:not(.sticky-atc--out):not(.sticky-atc--hide-on-mobile)) .nm-wishlist-open-list-button { bottom: 92px !important; }
 }
+
+/* Split desktop nav: short secondary links beside the utility icons */
+.k-header-links { display: none; }
+@media (min-width: 1024px) {
+  .pageheader--layout-inline-permitted .k-header-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-right: 22px;
+  }
+  .k-header-links__link {
+    font-family: var(--k-mono);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .k-header-links__link:hover,
+  .k-header-links__link[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
+  .pageheader .logo-area__right__inner { display: flex; align-items: center; justify-content: flex-end; }
+  /* Roomier spacing once the desktop menu is trimmed to 5 or fewer top-level links */
+  #proxy-nav .navigation__tier-1:not(:has(> .navigation__item:nth-child(6))) > .navigation__item > .navigation__link {
+    font-size: 12px;
+    letter-spacing: .14em;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
