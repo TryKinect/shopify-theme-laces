@@ -510,7 +510,7 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 }
 .related-collection-links--buttons::-webkit-scrollbar { display: none; }
 .related-collection-links--buttons .btn {
-  flex: 0 0 auto; margin: 0; min-height: 0; padding: 9px 14px; border: 1px solid var(--k-line); border-radius: 999px;
+  flex: 0 0 auto; margin: 0; min-height: 0; padding: 9px 14px; border: 1px solid var(--k-line);
   background: #fff; color: var(--k-ink); font-family: var(--k-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap;
 }
 .related-collection-links--buttons .btn:hover { border-color: var(--k-ink); }
@@ -539,6 +539,6 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .template-collection .vitals-recent-sales-row, .template-product .vitals-recent-sales-row,
   .template-search .vitals-recent-sales-row { display: none !important; }
   /* Lift chat + wishlist above the theme's sticky add-to-cart when it is showing */
-  body:has(.sticky-atc:not(.invisible)) iframe#chat-button { bottom: 92px !important; }
-  body:has(.sticky-atc:not(.invisible)) .nm-wishlist-open-list-button { bottom: 92px !important; }
+  body:not(.scrolled-to-bottom):has(.sticky-atc:not(.sticky-atc--out):not(.sticky-atc--hide-on-mobile)) iframe#chat-button { bottom: 92px !important; }
+  body:not(.scrolled-to-bottom):has(.sticky-atc:not(.sticky-atc--out):not(.sticky-atc--hide-on-mobile)) .nm-wishlist-open-list-button { bottom: 92px !important; }
 }
