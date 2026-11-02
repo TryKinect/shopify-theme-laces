@@ -447,13 +447,13 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
    the left half; otherwise #main-nav drops to a row under the logo. Tablet keeps the drawer. */
 @media (min-width: 1024px) {
   .pageheader .logo-area .mobile-nav-toggle { display: none; }
-  .pageheader .logo-area__left { max-width: calc(50% - 110px); }
+  .pageheader .logo-area__left { max-width: calc(50% - 92px); }
   .pageheader .logo-area__left__inner { width: 100% !important; max-width: none !important; }
   #proxy-nav .navigation__tier-1-container { left: -12px; text-align: left; }
   #proxy-nav .navigation__tier-1 > .navigation__item > .navigation__link,
   #main-nav .navigation__tier-1 > .navigation__item > .navigation__link {
-    font-family: var(--k-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-    padding-left: 12px; padding-right: 12px;
+    font-family: var(--k-mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase;
+    padding-left: 7px; padding-right: 7px;
   }
   #main-nav .navigation--main .navigation__tier-1 { text-align: center; }
   #proxy-nav .navigation__link[aria-haspopup]::after,
@@ -462,6 +462,10 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
     border-right: 1.3px solid currentColor; border-bottom: 1.3px solid currentColor; transform: translateY(-3px) rotate(45deg);
   }
   #main-nav .navigation__tier-2 .navigation__link { font-size: 14px; }
+  /* Links only ever sit inline with the logo; if they don't fit, use the drawer instead of a second row */
+  .pageheader:not(.pageheader--layout-inline-permitted) .logo-area .mobile-nav-toggle { display: inline-block; }
+  .pageheader:not(.pageheader--layout-inline-permitted) .k-header-shop { display: inline-block; }
+  .pageheader:not(.pageheader--layout-inline-permitted) + #main-nav { display: none !important; }
 }
 /* Drawer: every item with a submenu shows a chevron */
 .mobile-navigation-drawer .navigation__tier-1 > .navigation__item > .navigation__children-toggle {
@@ -474,6 +478,7 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .product-block .product-label-container .product-label.product-label--athlete,
 .product-label.product-label--athlete { background: #003262 !important; color: #fdb515 !important; border-color: #003262 !important; }
 .product-label.product-label--athlete span { background: transparent !important; color: inherit !important; }
+.image-cont .custom-product-badge.custom-product-badge--athlete { background: #003262; color: #fdb515; border-color: #003262; }
 
 /* ---------- In-grid story card (snippets/k-grid-promo.liquid) ---------- */
 .product-block.k-grid-promo { align-self: stretch; display: flex; flex-direction: column; }

@@ -98,7 +98,8 @@ Parameters:
 {% if product.metafields.custom.badges.value != blank %}
   <div class="custom-product-badges">
     {% for badge in product.metafields.custom.badges.value %}
-      <span class="custom-product-badge{% if badge contains 'Excluded' or badge contains 'excluded' %} custom-product-badge--excluded{% endif %}">
+      {%- assign k_badge_lc = badge | downcase -%}
+      <span class="custom-product-badge{% if badge contains 'Excluded' or badge contains 'excluded' %} custom-product-badge--excluded{% endif %}{% if k_badge_lc contains 'athlete' or k_badge_lc contains 'designed by' %} custom-product-badge--athlete{% endif %}">
         {{ badge }}
       </span>
     {% endfor %}

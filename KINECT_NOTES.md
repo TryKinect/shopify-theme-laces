@@ -48,7 +48,7 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
   - **Athlete Collabs** → Cal Athletes `/pages/cal-athletes`, Women Know Ball `/pages/women-know-ball`, VOICES `/collections/voices-collection`, Bay Area Host Committee `/collections/bahc`, All collabs `/pages/collaborations`
   - **About** → Our Story, Athlete Fund, Join the Roster (NIL `/pages/nil`), Roster site `https://roster.getlaces.co`
   - Remove the collection literally named "1" and fix label/destination mismatches: "About" currently opens NIL, "Join Our Roster" opens the Athlete Fund page, "Sale" opens the full catalog.
-- WATCH: **Desktop nav layout is automatic.** At ≥1024px Symmetry puts the links inline on the left of the centered logo only if they fit; otherwise they drop to a centered row under the logo (what today's 7-item menu does at 1440px). Shorter/fewer top-level items (≤6, short labels) keep it inline. 768–1023px still uses the ☰ drawer.
+- WATCH: **Desktop nav sits on the same line as the logo, never a second row.** At ≥1024px Symmetry measures whether the top-level links fit in the left half; if yes they're inline, if not the header falls back to ☰ + SHOP (same as tablet). Today's 7-item menu (incl. "Women Know Ball™", "Collections") fits inline from ~1440px wide; below that you get the drawer. Shorter top-level labels (e.g. Shop / New / Bestsellers / Cities / Collabs / About) fit from ~1200px. Every extra or longer top-level item pushes that breakpoint wider.
 - OPEN: **Sale collection**: 73/77 products are in it but none have a compare-at price. Either set compare-at prices for a real sale or remove Sale from menus (`nav_featured_link` = "Sale" in the header settings highlights it).
 - OPEN: **Duplicate/odd collections**: `new` vs `new-arrivals`, `hoodies` vs `apparel`, handle `1`. Retire one of each pair (redirect the old URL in Admin → Navigation → URL redirects).
 - OPEN: **Basketball (`basketball-collection`) and Wooly Pig** have 0 published products. Publish them or unpublish the collections so menus/links don't land on empty pages.
@@ -64,6 +64,7 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 
 ### Athlete label on product cards (`snippets/product-label.liquid`)
 - WATCH: Label priority: product metafield `custom.designed_by` (text, shows "Designed by <name>") → title contains "Cal Athletes" → tag `Athlete Design` / `Athlete Designed` → no label. Today 6 products have the `Athlete Design` tag and 2 Cal hats match by title.
+- WATCH: Products that already have an athlete badge in the existing `custom.badges` metafield (list) keep that badge (now navy/gold) and skip the theme label, so nothing shows twice. Today that's the Legacy hats.
 - OPEN: To show athlete names, create a product metafield definition `custom.designed_by` (single-line text) in Admin → Settings → Custom data → Products, and fill it per product.
 
 ### Homepage (`templates/index.json`)

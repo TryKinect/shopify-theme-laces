@@ -16,6 +16,12 @@
       assign k_meta_is_athlete = true
       assign k_athlete_label = blank
     endif
+    for k_badge in product.metafields.custom.badges.value
+      assign k_badge_lc = k_badge | downcase
+      if k_badge_lc contains 'athlete' or k_badge_lc contains 'designed by'
+        assign k_athlete_label = blank
+      endif
+    endfor
   -%}
   {%- if k_athlete_label != blank -%}
     {%- assign label_count = label_count | plus: 1 -%}
