@@ -1,8 +1,36 @@
 {%- capture label_html -%}
   {%- assign label_count = 0 -%}
+  {%- liquid
+    assign k_designer = product.metafields.custom.designed_by.value
+    assign k_athlete_label = blank
+    if k_designer != blank
+      assign k_athlete_label = 'Designed by ' | append: k_designer
+    elsif product.title contains 'Cal Athletes'
+      assign k_athlete_label = 'Cal Athletes'
+    elsif product.tags contains 'Athlete Design' or product.tags contains 'Athlete Designed'
+      assign k_athlete_label = 'Athlete Designed'
+    endif
+    assign k_meta_label = product.metafields.theme.label | downcase
+    assign k_meta_is_athlete = false
+    if k_meta_label contains 'athlete' or k_meta_label contains 'designed by'
+      assign k_meta_is_athlete = true
+      assign k_athlete_label = blank
+    endif
+    for k_badge in product.metafields.custom.badges.value
+      assign k_badge_lc = k_badge | downcase
+      if k_badge_lc contains 'athlete' or k_badge_lc contains 'designed by'
+        assign k_athlete_label = blank
+      endif
+    endfor
+  -%}
+  {%- if k_athlete_label != blank -%}
+    <span class="product-label product-label--athlete">
+      <span>{{ k_athlete_label | escape }}</span>
+    </span>
+  {%- endif -%}
   {%- if product.metafields.theme.label != blank -%}
     {%- assign label_count = label_count | plus: 1 -%}
-    <span class="product-label product-label--meta">
+    <span class="product-label product-label--meta{% if k_meta_is_athlete %} product-label--athlete{% endif %}">
       <span>{{ product.metafields.theme.label | escape }}</span>
     </span>
   {%- endif -%}

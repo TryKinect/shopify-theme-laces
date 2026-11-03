@@ -151,6 +151,13 @@
 
       <div class="logo-area__right">
         <div class="logo-area__right__inner">
+          {%- if section.settings.menu_linklist_right != blank and linklists[section.settings.menu_linklist_right].links.size > 0 -%}
+            <nav class="k-header-links" aria-label="{{ linklists[section.settings.menu_linklist_right].title | escape }}">
+              {%- for link in linklists[section.settings.menu_linklist_right].links -%}
+                <a class="k-header-links__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+              {%- endfor -%}
+            </nav>
+          {%- endif -%}
           {% if shop.customer_accounts_enabled %}
             {% if customer %}
               <a class="header-account-link" href="{{ routes.account_url }}" aria-label="{{ 'sections.header.account' | t | escape }}">
@@ -546,6 +553,12 @@
       "id": "menu_linklist",
       "label": "Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_linklist_right",
+      "label": "Right-side links (desktop)",
+      "info": "Top-level links only, shown as text next to the icons when the menu fits beside the logo. Add these links to the mobile menu too."
     },
     {
       "type": "select",

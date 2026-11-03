@@ -1,0 +1,18 @@
+{%- comment -%}
+  Kinect: story card inserted into collection grids (sections/main-collection.liquid).
+  Params: image, kicker, heading, text, cta, link
+{%- endcomment -%}
+<div class="k-grid-promo">
+  <a class="k-grid-promo__link" href="{{ link | default: '/pages/cal-athletes' }}">
+    {%- if image != blank -%}
+      {{ image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 768px) 25vw, 50vw', class: 'k-grid-promo__img', alt: heading }}
+    {%- endif -%}
+    <span class="k-grid-promo__body">
+      {%- render 'k-cal-badge', class: 'k-grid-promo__badge' -%}
+      {%- if kicker != blank -%}<span class="k-grid-promo__kicker">{{ kicker | escape }}</span>{%- endif -%}
+      <span class="k-grid-promo__heading">{{ heading | escape }}</span>
+      {%- if text != blank -%}<span class="k-grid-promo__text">{{ text | escape }}</span>{%- endif -%}
+      {%- if cta != blank -%}<span class="k-grid-promo__cta">{{ cta | escape }} &rarr;</span>{%- endif -%}
+    </span>
+  </a>
+</div>
