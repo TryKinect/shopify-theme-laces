@@ -1,0 +1,78 @@
+{%- liquid
+  assign stats = section.blocks | where: 'type', 'stat'
+  assign steps = section.blocks | where: 'type', 'step'
+-%}
+<section class="k-impact section-id-{{ section.id }}">
+  <div class="container">
+    <div class="k-impact__grid">
+      <div class="k-impact__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 1000px) 50vw, 100vw', widths: '600, 900, 1200, 1400', alt: section.settings.image.alt | default: section.settings.heading }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'k-impact__placeholder' }}
+        {%- endif -%}
+      </div>
+      <div class="k-impact__body">
+        {%- if section.settings.eyebrow != blank -%}<p class="k-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 class="k-impact__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+        {%- if section.settings.text != blank -%}<div class="k-impact__text rte">{{ section.settings.text }}</div>{%- endif -%}
+
+        {%- if stats.size > 0 -%}
+          <dl class="k-impact__stats">
+            {%- for block in stats -%}
+              <div class="k-impact__stat" {{ block.shopify_attributes }}>
+                <dt>{{ block.settings.label | escape }}</dt>
+                <dd>{{ block.settings.value | escape }}</dd>
+              </div>
+            {%- endfor -%}
+          </dl>
+        {%- endif -%}
+
+        {%- if steps.size > 0 -%}
+          <ol class="k-impact__steps">
+            {%- for block in steps -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="k-impact__num">{{ forloop.index | prepend: '0' }}</span>
+                <span><strong>{{ block.settings.title | escape }}</strong> {{ block.settings.text | escape }}</span>
+              </li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
+
+        <div class="k-impact__buttons">
+          {%- if section.settings.button_1_label != blank -%}<a class="btn btn--primary" href="{{ section.settings.button_1_link }}">{{ section.settings.button_1_label | escape }}</a>{%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}<a class="btn btn--secondary" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kinect impact story",
+  "class": "section-k-impact",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The LACES Athlete Fund" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Every hat pays an athlete." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label" },
+    { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label" },
+    { "type": "url", "id": "button_2_link", "label": "Button 2 link" }
+  ],
+  "blocks": [
+    { "type": "stat", "name": "Stat", "settings": [
+      { "type": "text", "id": "value", "label": "Value", "default": "$40,000+" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Athlete Fund total" }
+    ] },
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "text", "label": "Text" }
+    ] }
+  ],
+  "presets": [{ "name": "Kinect impact story" }]
+}
+{% endschema %}

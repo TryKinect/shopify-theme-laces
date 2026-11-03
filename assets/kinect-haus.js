@@ -120,3 +120,19 @@
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
+
+// Product row tabs (sections/k-product-tabs.liquid)
+document.querySelectorAll('[data-k-ptabs]').forEach((root) => {
+  const tabs = [...root.querySelectorAll('[role="tab"]')];
+  const select = (tab) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      const panelId = t.getAttribute('aria-controls');
+      root.querySelector(`#${panelId}`).hidden = !on;
+      const link = root.querySelector(`[data-k-tab-link="${panelId}"]`);
+      if (link) link.hidden = !on;
+    });
+  };
+  tabs.forEach((t) => t.addEventListener('click', () => select(t)));
+});

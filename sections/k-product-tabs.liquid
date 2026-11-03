@@ -1,0 +1,117 @@
+{%- liquid
+  assign tabs = section.blocks | where: 'type', 'tab'
+  assign limit = section.settings.limit
+  assign k_skip = ','
+  for p in collections[section.settings.exclude_collection].products
+    assign k_skip = k_skip | append: p.handle | append: ','
+    for sib in p.metafields.custom.sibling_products.value
+      assign k_skip = k_skip | append: sib.handle | append: ','
+    endfor
+  endfor
+  case settings.prod_thumb_shape
+    when 'portrait-23'
+      assign k_ratio = 0.67
+    when 'portrait-45'
+      assign k_ratio = 0.8
+    when 'landscape-54'
+      assign k_ratio = 1.25
+    when 'landscape-32'
+      assign k_ratio = 1.5
+    else
+      assign k_ratio = 1.0
+  endcase
+-%}
+<section class="k-ptabs section-id-{{ section.id }}{% if section.settings.image != blank %} k-ptabs--feature{% endif %}" data-k-ptabs>
+  <div class="container">
+    <div class="k-ptabs__head">
+      <div class="k-ptabs__titles">
+        {%- if section.settings.eyebrow != blank -%}<p class="k-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.title != blank -%}<h2 class="h4 m-0 k-ptabs__title">{{ section.settings.title | escape }}</h2>{%- endif -%}
+        {%- if tabs.size > 1 -%}
+          <div class="k-ptabs__tabs" role="tablist">
+            {%- for block in tabs -%}
+              <button type="button" role="tab" class="k-ptabs__tab" id="k-tab-{{ block.id }}" aria-controls="k-panel-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- for block in tabs -%}
+        {%- assign k_url = block.settings.view_all_link | default: collections[block.settings.collection].url -%}
+        {%- if k_url != blank -%}
+          <a class="k-ptabs__all btn btn--secondary" data-k-tab-link="k-panel-{{ block.id }}" href="{{ k_url }}"{% unless forloop.first %} hidden{% endunless %}>{{ block.settings.view_all_label | default: 'View all' | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- for block in tabs -%}
+      {%- liquid
+        if block.settings.products != blank
+          assign k_source = block.settings.products
+        else
+          assign k_source = collections[block.settings.collection].products
+        endif
+        assign k_seen = k_skip
+        assign k_count = 0
+      -%}
+      <div class="k-ptabs__panel" id="k-panel-{{ block.id }}" role="tabpanel" aria-labelledby="k-tab-{{ block.id }}"{% unless forloop.first %} hidden{% endunless %}>
+        <div class="product-grid product-grid--per-row-{{ section.settings.grid }} k-ptabs__grid">
+          {%- if section.settings.image != blank and forloop.first -%}
+            <a class="k-ptabs__feature" href="{{ section.settings.image_link | default: collections[block.settings.collection].url }}">
+              {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 768px) 25vw, 62vw', widths: '400, 600, 800, 1000', alt: section.settings.image_caption | default: section.settings.title }}
+              {%- if section.settings.image_caption != blank -%}<span class="k-ptabs__feature-cap">{{ section.settings.image_caption | escape }} <span aria-hidden="true">&rarr;</span></span>{%- endif -%}
+            </a>
+          {%- endif -%}
+          {%- for product in k_source -%}
+            {%- if k_count >= limit -%}{%- break -%}{%- endif -%}
+            {%- assign k_key = ',' | append: product.handle | append: ',' -%}
+            {%- if k_skip contains k_key -%}{%- continue -%}{%- endif -%}
+            {%- if section.settings.one_per_design and k_seen contains k_key -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign k_seen = k_seen | append: product.handle | append: ','
+              for sib in product.metafields.custom.sibling_products.value
+                assign k_seen = k_seen | append: sib.handle | append: ','
+              endfor
+              assign k_count = k_count | plus: 1
+            -%}
+            {%- render 'product-block', product: product, no_quick_buy_markup: true, grid: section.settings.grid, custom_aspect_ratio: k_ratio -%}
+          {%- else -%}
+            {%- for i in (1..4) -%}{%- render 'onboarding-product-block', forloop: forloop -%}{%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kinect product row",
+  "class": "section-k-ptabs",
+  "settings": [
+    { "type": "paragraph", "content": "Kinect: one product row, or several rows behind tabs (one tab per block). With 'One card per design' on, colorways of a hat already shown (via the custom.sibling_products metafield) are skipped." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Bestsellers" },
+    { "type": "range", "id": "grid", "label": "Products per row (desktop)", "min": 3, "max": 5, "step": 1, "default": 4 },
+    { "type": "range", "id": "limit", "label": "Products per tab", "min": 3, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "one_per_design", "label": "One card per design", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Feature photo", "info": "Shown as the first tile of the row (e.g. a lifestyle shot beside 3 products)." },
+    { "type": "text", "id": "image_caption", "label": "Feature photo caption" },
+    { "type": "url", "id": "image_link", "label": "Feature photo link" },
+    { "type": "collection", "id": "exclude_collection", "label": "Skip products from collection", "info": "e.g. Bestsellers, so a hat already shown higher up the page isn't repeated." }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab label", "default": "Tab" },
+        { "type": "product_list", "id": "products", "label": "Products", "limit": 12, "info": "Hand-picked products. Leave empty to use the collection." },
+        { "type": "collection", "id": "collection", "label": "Or a collection" },
+        { "type": "text", "id": "view_all_label", "label": "Button label", "default": "View all" },
+        { "type": "url", "id": "view_all_link", "label": "Button link", "info": "Defaults to the collection." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Kinect product row", "blocks": [{ "type": "tab" }] }]
+}
+{% endschema %}

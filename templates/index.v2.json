@@ -1,0 +1,561 @@
+{
+  "sections": {
+    "k_filmstrip_hero": {
+      "type": "k-filmstrip-hero",
+      "blocks": {
+        "k_film_1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_website_headers_2_8f0402e6-d4e3-4353-95ec-2d5a883c1115.jpg",
+            "link": "shopify://collections/women-know-ball"
+          }
+        },
+        "k_film_2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/7M403489.jpg",
+            "link": "shopify://collections/all-hats"
+          }
+        },
+        "k_film_3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_website_headers_7.jpg",
+            "link": "shopify://collections/hoodies"
+          }
+        },
+        "k_film_4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_website_headers_8_785fa37f-a5d4-4070-860a-f3293d6be86d.jpg",
+            "link": "shopify://pages/collaborations"
+          }
+        },
+        "k_film_5": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Mari_3.jpg",
+            "link": "shopify://collections/best-sellers"
+          }
+        }
+      },
+      "block_order": [
+        "k_film_1",
+        "k_film_2",
+        "k_film_3",
+        "k_film_4",
+        "k_film_5"
+      ],
+      "settings": {
+        "eyebrow": "Every purchase supports rising athletes",
+        "heading": "Made for the ones\nwho know ball.",
+        "button_1_label": "Shop bestsellers",
+        "button_1_link": "shopify://collections/best-sellers",
+        "button_2_label": "New arrivals",
+        "button_2_link": "shopify://collections/new-arrivals",
+        "height_desktop": 95,
+        "height_mobile": 80
+      }
+    },
+    "k_press": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_0": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/8.png",
+            "image_width": 120,
+            "link": ""
+          }
+        },
+        "logo_1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/9.png",
+            "image_width": 120,
+            "link": ""
+          }
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/7_f002e5e8-855f-4940-9d0b-71e1a66c3b8f.png",
+            "image_width": 120,
+            "link": ""
+          }
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/4_34518672-a0d3-4856-8e32-c59fd6151a9c.png",
+            "image_width": 120,
+            "link": ""
+          }
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/6_6c684655-a426-4ad7-b074-2388ce010d65.png",
+            "image_width": 120,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_0",
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4"
+      ],
+      "settings": {
+        "title": "As seen in",
+        "image_opacity": 60,
+        "color_scheme": "default"
+      }
+    },
+    "k_impact": {
+      "type": "k-impact",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "$40,000+",
+            "label": "Athlete Fund total"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "Monthly",
+            "label": "Payouts to athletes"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "Any sport",
+            "label": "Any school, any level"
+          }
+        },
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Athletes design it.",
+            "text": "In-app polls let our athletes shape every hat."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "You rep it.",
+            "text": "Every purchase goes back to the community."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "They get paid.",
+            "text": "Athletes earn on every sale they drive, plus a share of the monthly Athlete Fund."
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/LACES_-_website_headers_7.jpg",
+        "eyebrow": "The LACES Athlete Fund",
+        "heading": "Every hat\npays an athlete.",
+        "text": "<p>Most brands just sell products. When you buy LACES, you're directly funding college athletes who are building their brand and earning on their own terms.</p>",
+        "button_1_label": "How the fund works",
+        "button_1_link": "shopify://pages/laces-athlete-fund",
+        "button_2_label": "Join as an athlete",
+        "button_2_link": "shopify://pages/nil"
+      }
+    },
+    "k_bestsellers": {
+      "type": "k-product-tabs",
+      "blocks": {
+        "t": {
+          "type": "tab",
+          "settings": {
+            "label": "Bestsellers",
+            "view_all_label": "View all",
+            "collection": "best-sellers"
+          }
+        }
+      },
+      "block_order": [
+        "t"
+      ],
+      "settings": {
+        "eyebrow": "Most loved",
+        "title": "Bestsellers",
+        "grid": 4,
+        "limit": 8,
+        "one_per_design": true
+      }
+    },
+    "k_collabs": {
+      "type": "k-collab-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "title": "LACES x Cal Athletes",
+            "label": "Cal Athletes",
+            "image": "shopify://shop_images/DSC02448.jpg",
+            "product": "snapback-laces-x-cal-athletes",
+            "link": "shopify://pages/cal-athletes"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "title": "Women Know Ball",
+            "label": "LACES exclusive",
+            "image": "shopify://shop_images/LACES_-_website_headers_2_649f235a-0b9a-430c-8ce1-71bccccf948c.jpg",
+            "product": "women-know-ball-black",
+            "link": "shopify://pages/women-know-ball"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "Bloom x LACES",
+            "label": "Bloom Eatery",
+            "image": "shopify://shop_images/LACES_-_website_headers.jpg",
+            "product": "bloom-x-laces-2",
+            "link": "shopify://pages/bloom"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "title": "BAHC x LACES",
+            "label": "Bay Area Host Committee",
+            "image": "shopify://shop_images/BAHC_x_LACES_MOMA_1.png",
+            "product": "bahc-worldsgame",
+            "link": "shopify://pages/bahc"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c4",
+        "c5"
+      ],
+      "settings": {
+        "eyebrow": "Collabs",
+        "title": "Designed by athletes",
+        "text": "Every collab starts with the athletes and the communities behind it.",
+        "link_label": "All collabs",
+        "link": "shopify://pages/collaborations"
+      }
+    },
+    "k_originals": {
+      "type": "k-product-tabs",
+      "blocks": {
+        "t": {
+          "type": "tab",
+          "settings": {
+            "label": "Signature",
+            "view_all_label": "Shop signature",
+            "products": [
+              "the-golden-standard",
+              "laces-cursive-hat-black",
+              "dad-hat-laces-cursive-offwhite",
+              "athletes-crew-laces-block-white"
+            ],
+            "view_all_link": "shopify://collections/laces-signature"
+          }
+        }
+      },
+      "block_order": [
+        "t"
+      ],
+      "settings": {
+        "eyebrow": "Signature",
+        "title": "The LACES signature line",
+        "grid": 4,
+        "limit": 4,
+        "one_per_design": true,
+        "exclude_collection": "best-sellers"
+      }
+    },
+    "k_rep": {
+      "type": "k-product-tabs",
+      "blocks": {
+        "city": {
+          "type": "tab",
+          "settings": {
+            "label": "Rep your city",
+            "view_all_label": "View all",
+            "products": [
+              "los-angeles-vintage",
+              "santa-barbara-vintage",
+              "miami-vintage",
+              "orange-county-vintage",
+              "dad-hat-bay-area-downside-up",
+              "new-york-vintage",
+              "hawaii-vintage",
+              "bay-area-vintage-green"
+            ],
+            "collection": "rep-your-city"
+          }
+        },
+        "team": {
+          "type": "tab",
+          "settings": {
+            "label": "Rep your team",
+            "view_all_label": "View all",
+            "products": [
+              "los-angeles-football",
+              "new-york-football",
+              "chicago-football",
+              "dallas-football",
+              "philadelphia-football",
+              "green-bay-football",
+              "kansas-city-football",
+              "new-england-football",
+              "pittsburgh-football"
+            ],
+            "collection": "football"
+          }
+        }
+      },
+      "block_order": [
+        "city",
+        "team"
+      ],
+      "settings": {
+        "eyebrow": "Where you're from",
+        "title": "Rep it",
+        "grid": 4,
+        "limit": 4,
+        "one_per_design": true,
+        "exclude_collection": "best-sellers"
+      }
+    },
+    "k_categories": {
+      "type": "gallery",
+      "blocks": {
+        "k_cat_hats": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_website_headers_1_5eec9daf-dffd-486e-afe9-8630eb434b3c.jpg",
+            "enlarge_media": false,
+            "subheading": "",
+            "title": "Hats",
+            "button_label": "Shop Now",
+            "link": "shopify://collections/all-hats",
+            "text_alignment": "bottom center"
+          }
+        },
+        "k_cat_hoodies": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_website_headers_11.jpg",
+            "enlarge_media": false,
+            "subheading": "",
+            "title": "Hoodies",
+            "button_label": "Shop Now",
+            "link": "shopify://collections/hoodies",
+            "text_alignment": "bottom center"
+          }
+        },
+        "k_cat_collabs": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_website_headers_8_785fa37f-a5d4-4070-860a-f3293d6be86d.jpg",
+            "enlarge_media": false,
+            "subheading": "",
+            "title": "Collabs",
+            "button_label": "Shop Now",
+            "link": "shopify://pages/collaborations",
+            "text_alignment": "bottom center"
+          }
+        },
+        "k_cat_berkeley": {
+          "type": "media",
+          "settings": {
+            "image": "shopify://shop_images/DSC02183.jpg",
+            "enlarge_media": false,
+            "subheading": "",
+            "title": "Berkeley Roster",
+            "button_label": "Shop Now",
+            "link": "shopify://pages/cal-athletes",
+            "text_alignment": "bottom center",
+            "k_badge": "cal"
+          }
+        }
+      },
+      "block_order": [
+        "k_cat_hats",
+        "k_cat_hoodies",
+        "k_cat_collabs",
+        "k_cat_berkeley"
+      ],
+      "settings": {
+        "grid_desktop": 4,
+        "grid_mobile": "1",
+        "height": "fixed",
+        "desktop_image_height": 640,
+        "mobile_image_height": 460,
+        "title_size": 36,
+        "title_size_mobile": 30,
+        "enable_margin": true,
+        "enable_row_spacing": true,
+        "full_width": false,
+        "color_scheme": "default",
+        "enable_carousel": true,
+        "overlay_style": "full image-overlay--bg-shadow",
+        "overlay_padding": "large",
+        "button_style": "secondary"
+      }
+    },
+    "k_reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_t4VryT": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial": "Best hats I’ve ever worn. I got two because I couldn’t decide, the black and white classic color way that Steph was seen wearing and black/Ube. Not only is the style and color way perfect but the hats fit amazingly better than any other hat I own. I also love that it was created by college athletes and buying the hats supports them. So now I’m definitely buying every one for both collections. They fit exactly the way it looks like they do, in the picture of Steph wearing it.",
+            "author": "Kris",
+            "image": "shopify://shop_images/Bay-Area-Downside-Up-Black-Hat-1.png",
+            "image_caption": "Shop Bay Area",
+            "link": "shopify://collections/bay-area"
+          }
+        },
+        "16115832006dc80dc9-0": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial": "Best looking and fitting hat! The crown is perfect, not too low and not too narrow from the sides, but goes up the sides straight up and looks amazing. I get a ton of compliments and people asking where I got it from.",
+            "author": "Charlie",
+            "image": "shopify://shop_images/Bay-Area-Vintage-Hat-1.png",
+            "image_caption": "Shop Bay Area Vintage",
+            "link": "shopify://products/bay-area-vintage-black"
+          }
+        },
+        "16115832006dc80dc9-1": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": 5,
+            "testimonial": "I’ve purchased several hats from Laces and everyone has been a perfect fit and the quality excellent. As for the company’s purpose of helping athletes with the NIL. That’s awesome. Love it! You’ve got my support.",
+            "author": "Bryan",
+            "image": "shopify://shop_images/Legacy-Earned-Not-Given-Greige-Hat-4.jpg",
+            "image_caption": "Shop the Legacy Hat",
+            "link": "shopify://products/legacy-earned-not-given-green"
+          }
+        }
+      },
+      "block_order": [
+        "16115832006dc80dc9-0",
+        "16115832006dc80dc9-1",
+        "testimonial_t4VryT"
+      ],
+      "settings": {
+        "title": "From the people",
+        "layout": "image-right",
+        "text_caps": false,
+        "quote_text_size": 22,
+        "quote_text_size_mobile": 18,
+        "image_shape": "square",
+        "color_scheme": "default",
+        "use_custom_star_rating_color": false,
+        "star_rating_color": "#e9a80a",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "k_instagram": {
+      "type": "image-with-text",
+      "blocks": {
+        "98728156-df44-4876-965e-1af1683386af": {
+          "type": "heading",
+          "settings": {
+            "title": "Follow @laces.athletes",
+            "use_h1": false
+          }
+        },
+        "38dcca23-fdbf-43b6-a8f2-3aff649ebde7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Meet the athletes on our roster, see what they’re building, and follow their journeys beyond the game.</p><p><a href=\"https://instagram.com/laces.athletes\" target=\"_blank\" title=\"https://instagram.com/laces.athletes\">@INSTAGRAM</a></p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "98728156-df44-4876-965e-1af1683386af",
+        "38dcca23-fdbf-43b6-a8f2-3aff649ebde7"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/Pittsburgh-Football-Hat-7.jpg",
+        "image_2": "shopify://shop_images/Tennessee-Football-Hat-5.jpg",
+        "image_width": 700,
+        "image_link": "",
+        "image_position": "left",
+        "text_alignment": "left",
+        "color_scheme": "1"
+      }
+    },
+    "k_newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Stay in the know",
+        "subheading": "<p>New drops, athlete stories and collab launches, first.</p>",
+        "color_scheme": "default"
+      }
+    },
+    "k_hoodies": {
+      "type": "k-product-tabs",
+      "blocks": {
+        "t": {
+          "type": "tab",
+          "settings": {
+            "label": "Hoodies",
+            "collection": "hoodies",
+            "view_all_label": "Shop hoodies"
+          }
+        }
+      },
+      "block_order": [
+        "t"
+      ],
+      "settings": {
+        "eyebrow": "Apparel",
+        "title": "Heavyweight hoodies",
+        "grid": 4,
+        "limit": 3,
+        "one_per_design": false,
+        "image": "shopify://shop_images/DSC04593.jpg",
+        "image_caption": "The LACES Hoodie",
+        "image_link": "shopify://collections/hoodies"
+      }
+    }
+  },
+  "order": [
+    "k_filmstrip_hero",
+    "k_bestsellers",
+    "k_press",
+    "k_impact",
+    "k_collabs",
+    "k_hoodies",
+    "k_originals",
+    "k_rep",
+    "k_categories",
+    "k_reviews",
+    "k_instagram",
+    "k_newsletter"
+  ]
+}
