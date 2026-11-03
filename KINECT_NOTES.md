@@ -76,3 +76,13 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - WATCH: **Klaviyo popup on mobile** is held (hidden, page scroll unlocked) until the shopper scrolls 1.5 screens or 20 s pass, once per browser session. It targets `[role=dialog][aria-label="POPUP Form"]`; if Klaviyo changes that label the hold stops working (popup just shows normally). Better long-term: set the form's mobile timing in **Klaviyo → Signup forms → Targeting & behavior** (e.g. show after 15 s or 40% scroll) and remove the theme hold.
 - WATCH: Mobile only: Wishlist launcher is an icon-only circle; Vitals "recent sales" toasts are hidden on collection/product/search; Gorgias chat + Wishlist lift above the theme's sticky add-to-cart when it's showing. Gorgias' position can also be set in **Gorgias → Chat → Appearance**.
 - OPEN: Manual QA on the draft after merge: Klaviyo popup (mobile delayed, desktop normal), Gorgias chat opens, Wishlist add/open, Vitals reviews (empty vs populated), Loop + one-click upsell at checkout, Bestpush notify-me on a sold-out hat, Kinect widget.
+
+## Dropdown menus with hover previews (mega-menu PR)
+- **Shop** (mega menu): three link columns, then the two promo tiles fill the rest of the row. Hovering any link with a photo swaps the tiles for that link's photo plus "Shop now". Collection links (`/collections/...`) use the collection image, or its first product's image if it has none. Product links use the product image.
+- **Collabs** (small dropdown): links on the left, photo on the right that changes on hover. Page links (`/pages/...`) have no image of their own, so each one gets a **"Menu link preview image"** block in Theme editor → Header. Set the link name exactly as it appears in the menu, then either an image or a product. These are set up today:
+  - Cal Athletes → the Cal photo
+  - Women Know Ball → `women-know-ball-black`
+  - Bloom → `bloom-x-laces-2`
+  - Bay Area Host Committee → `bahc-worldsgame`
+- **If you rename a menu link in Admin, rename its preview block too.** Otherwise that link shows no photo.
+- The "LACES x Cal Athletes Collab" promo block is disabled (not deleted). Turning it back on makes Collabs a full-width mega menu again.
