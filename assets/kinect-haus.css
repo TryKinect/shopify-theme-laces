@@ -572,3 +572,13 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
     padding-right: 14px;
   }
 }
+
+/* Desktop mega menus: compact link columns on the left, photo tiles on the right, one row */
+@media (min-width: 1000px) {
+  #main-nav .navigation__columns--with-promos { flex-wrap: nowrap; justify-content: flex-start; }
+  #main-nav .navigation__columns--with-promos .navigation__column:not(.navigation__column--promotion) { flex: 0 0 17%; max-width: 220px; }
+  #main-nav .navigation__columns--with-promos .navigation__column--promotion { flex: 0 1 260px; max-width: 260px; }
+  #main-nav .navigation__columns--with-promos .navigation__column:not(.navigation__column--promotion) + .navigation__column--promotion { margin-inline-start: auto; }
+  /* Single link column (e.g. Collabs): keep the photo beside the links instead of across the page */
+  #main-nav .navigation__columns--with-promos > .navigation__column:first-child:not(.navigation__column--promotion) + .navigation__column--promotion { margin-inline-start: 40px; }
+}
