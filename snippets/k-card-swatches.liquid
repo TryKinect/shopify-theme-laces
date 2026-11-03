@@ -16,6 +16,7 @@
       {%- assign k_cheap = s.variants | sort: 'price' | first -%}
       {%- capture k_price -%}{%- render 'price', product: s, current_variant: k_cheap, show_currency_code: settings.product_currency_code_enabled, show_labels: true -%}{%- endcapture -%}
       {%- capture k_label -%}{%- render 'product-label', product: s, cheapest_variant: k_cheap -%}{%- endcapture -%}
+      {%- capture k_badges -%}{%- render 'k-custom-badges', product: s -%}{%- endcapture -%}
       <button type="button"
         class="k-swatch{% if s.id == product.id %} k-swatch--active{% endif %}"
         data-id="{{ s.id }}"
@@ -25,6 +26,7 @@
         data-thumb="{{ s.featured_media | image_url: width: 60 }}"
         data-price="{{ k_price | strip | escape }}"
         data-label="{{ k_label | strip | escape }}"
+        data-badges="{{ k_badges | strip | escape }}"
         data-available="{{ s.available }}"
         data-variant="{{ s.selected_or_first_available_variant.id }}"
         data-single="{% if s.variants.size == 1 %}true{% else %}false{% endif %}"

@@ -41,6 +41,8 @@
     if (price && btn.dataset.price !== undefined) price.innerHTML = btn.dataset.price;
     const labels = card.querySelector('.k-label-slot');
     if (labels && btn.dataset.label !== undefined) labels.innerHTML = btn.dataset.label;
+    const badges = card.querySelector('.k-badge-slot');
+    if (badges && btn.dataset.badges !== undefined) badges.innerHTML = btn.dataset.badges;
     const qa = card.querySelector('.k-quick-add');
     if (qa && btn.dataset.variant !== undefined) {
       const available = btn.dataset.available === 'true';
@@ -108,8 +110,13 @@
   };
   const start = () => {
     markEmptyReviews();
-    const end = document.getElementById('vitals-end-section') || document.body;
-    new MutationObserver(markEmptyReviews).observe(end, { childList: true, subtree: true });
+    const end = document.getElementById('vitals-end-section');
+    const observer = new MutationObserver(() => {
+      markEmptyReviews();
+      if (!end && document.querySelector('.vtl-pr-main-widget .vtl-pr-stats, .vtl-pr-main-widget__summary-no-reviews')) observer.disconnect();
+    });
+    observer.observe(end || document.body, { childList: true, subtree: true });
+    if (!end) setTimeout(() => observer.disconnect(), 30000);
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

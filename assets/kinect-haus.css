@@ -480,8 +480,10 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .product-label.product-label--athlete span { background: transparent !important; color: inherit !important; }
 .image-cont .custom-product-badges .custom-product-badge.custom-product-badge--athlete { background: #003262 !important; color: #fdb515 !important; border-color: #003262 !important; }
 
+.k-badge-slot { display: contents; }
+
 /* ---------- In-grid story card (snippets/k-grid-promo.liquid) ---------- */
-.product-block.k-grid-promo { align-self: stretch; display: flex; flex-direction: column; }
+.product-grid > .k-grid-promo { align-self: stretch; display: flex; flex-direction: column; }
 .k-grid-promo .k-grid-promo__link { flex: 1 1 auto;
   position: relative; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-height: 320px;
   overflow: hidden; background: #003262; color: #fff; text-decoration: none;
@@ -524,8 +526,10 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .text-overlay__rte.k-coll-desc { color: inherit; }
 
 /* ---------- Reviews: hide the Vitals widget when a product has 0 reviews ---------- */
-.vtl-pr-main-widget:has(.vtl-pr-stats--no-reviews),
 .vtl-pr-main-widget.k-reviews-empty { display: none !important; }
+@supports selector(:has(*)) {
+  .vtl-pr-main-widget:has(.vtl-pr-stats--no-reviews) { display: none !important; }
+}
 
 /* ---------- Third-party floating UI on mobile ---------- */
 /* Klaviyo popup is held (kinect-haus.js adds .k-hold-popups) until the shopper scrolls or 20s pass */
@@ -546,12 +550,8 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 /* Split desktop nav: short secondary links beside the utility icons */
 .k-header-links { display: none; }
 @media (min-width: 1024px) {
-  .pageheader--layout-inline-permitted .k-header-links {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    margin-right: 22px;
-  }
+  .k-header-links { align-items: center; gap: 28px; margin-right: 22px; }
+  .pageheader--layout-inline-permitted .k-header-links { display: flex; }
   .k-header-links__link {
     font-family: var(--k-mono);
     font-size: 12px;

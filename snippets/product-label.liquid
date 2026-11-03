@@ -24,7 +24,6 @@
     endfor
   -%}
   {%- if k_athlete_label != blank -%}
-    {%- assign label_count = label_count | plus: 1 -%}
     <span class="product-label product-label--athlete">
       <span>{{ k_athlete_label | escape }}</span>
     </span>
