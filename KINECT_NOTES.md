@@ -79,10 +79,10 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 
 ## New homepage, version 2 (`templates/index.v2.json`)
 - **Preview:** add `?view=v2` to the draft's homepage URL. The current homepage (`templates/index.json`) is unchanged.
-- **Order:** hero → Bestsellers → "As seen in" press logos → Athlete Fund story → Designed by athletes (collabs) → Hoodies → Signature line → Rep it (city/team tabs) → category tiles → reviews → Instagram → email signup.
+- **Order (products intertwined with story):** hero → Bestsellers → press logos → Women Know Ball shop-the-look → Designed by athletes (Cal / Bloom / BAHC) → Athlete Fund + NIL tiles (NIL tile is a video) → Hoodies → Signature collection video → Signature line → Rep it (city/team tabs with a photo tile) → reviews → Instagram → email signup.
 - **No repeats:** product rows show one card per design (colorways become swatches). The rows below Bestsellers skip anything that's already in the Best Sellers collection, so each hat appears once. That means adding a hat to Best Sellers removes it from the lower rows on its own.
 - **Making it the real homepage:** in the theme editor, copy the v2 sections into the home page, or swap the contents of `index.json` and `index.v2.json` in a PR. Both options are draft-only until the theme is published.
 - **Manual / mindful:**
-  - The collab cards, Hoodies photo and Fund stats ($40,000+, monthly payouts) are hand-entered. Update them in the theme editor when the numbers change.
+  - The collab cards and the Hoodies / Rep it photos are hand-picked in the theme editor.
   - VOICES has no lifestyle photo, so it's left out of the collab row. Add a card once one exists.
   - The Rep it city tab is a hand-picked list. New city hats have to be added in the theme editor.
