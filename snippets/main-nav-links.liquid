@@ -29,13 +29,20 @@
         endif
       endfor
 
+      assign k_preview = false
+      if mobile == false and has_dropdown
+        if small_promo_count > 0 or use_columns == false
+          assign k_preview = true
+        endif
+      endif
+
       if use_columns and link.levels == 1
         assign column_count = 1 | plus: small_promo_count
       else
         assign column_count = link.links.size | plus: small_promo_count
       endif
     -%}
-    <li class="navigation__item{% if has_dropdown %} navigation__item--with-children {% if use_columns %}navigation__item--with-mega-menu{% else %}navigation__item--with-small-menu{% endif %}{% endif %}{% if featured_links contains link.title %} featured-link{% endif %}{% if link.active %} navigation__item--active{% endif %}">
+    <li class="navigation__item{% if has_dropdown %} navigation__item--with-children {% if use_columns %}navigation__item--with-mega-menu{% else %}navigation__item--with-small-menu{% endif %}{% endif %}{% if featured_links contains link.title %} featured-link{% endif %}{% if link.active %} navigation__item--active{% endif %}{% if k_preview and use_columns == false %} k-small-preview{% endif %}">
       <a href="{{ link.url }}" class="navigation__link" {% if has_dropdown %}aria-haspopup="true" aria-expanded="false" aria-controls="NavigationTier2-{{ forloop.index }}{% if mobile %}-mob{% endif %}"{% endif %}>
         {{- link.title | escape -}}
       </a>
@@ -131,7 +138,7 @@
                 {% if use_columns and link.levels == 1 %}
                   <li class="navigation__item navigation__column">
                     {% for child_link in link.links %}
-                      <a href="{{ child_link.url }}" class="navigation__link{% if featured_links contains child_link.title %} featured-link{% endif %}">
+                      <a href="{{ child_link.url }}" class="navigation__link{% if featured_links contains child_link.title %} featured-link{% endif %}"{% if k_preview %}{% render 'k-nav-preview-attr', k_link: child_link %}{% endif %}>
                         {{- child_link.title | escape -}}
                       </a>
                     {% endfor %}
@@ -139,7 +146,7 @@
                 {% else %}
                   {% for child_link in link.links %}
                     <li class="navigation__item{% if child_link.links != blank %} navigation__item--with-children{% endif %}{% if use_columns %} navigation__column{% endif %}{% if featured_links contains child_link.title %} featured-link{% endif %}">
-                      <a href="{{ child_link.url }}" class="navigation__link{% if child_link.links != blank %} navigation__column-title{% endif %}" {% if child_link.links != blank %}aria-haspopup="true" aria-expanded="false"{% endif %}>
+                      <a href="{{ child_link.url }}" class="navigation__link{% if child_link.links != blank %} navigation__column-title{% endif %}" {% if child_link.links != blank %}aria-haspopup="true" aria-expanded="false"{% endif %}{% if k_preview %}{% render 'k-nav-preview-attr', k_link: child_link %}{% endif %}>
                         {{- child_link.title | escape -}}
                       </a>
                       {% if child_link.links != blank %}
@@ -151,7 +158,7 @@
                           <ul class="navigation__tier-3">
                             {% for child_child_link in child_link.links %}
                             <li class="navigation__item{% if featured_links contains child_child_link.title %} featured-link{% endif %}">
-                              <a class="navigation__link" href="{{ child_child_link.url }}">{{ child_child_link.title | escape }}</a>
+                              <a class="navigation__link" href="{{ child_child_link.url }}"{% if k_preview %}{% render 'k-nav-preview-attr', k_link: child_child_link %}{% endif %}>{{ child_child_link.title | escape }}</a>
                             </li>
                             {% endfor %}
                           </ul>
@@ -209,6 +216,9 @@
                       {%- endfor -%}
                     </li>
                   {%- endif -%}
+                {%- endif -%}
+                {%- if k_preview -%}
+                  <li class="desktop-only k-nav-preview{% unless use_columns %} k-nav-preview--side{% endunless %}" aria-hidden="true"><a href="#" tabindex="-1"><img alt="" width="900" height="900" loading="lazy"><span class="k-nav-preview__text"><span class="menu-promotion__text k-nav-preview__title"></span><span class="k-nav-preview__cta">Shop now &rarr;</span></span></a></li>
                 {%- endif -%}
               </ul>
             </div>

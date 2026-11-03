@@ -1,0 +1,34 @@
+{%- comment -%}Kinect: data-k-preview attrs for mega-menu hover previews. A "Menu link preview image" block wins; else the linked collection/product image.{%- endcomment -%}
+{%- liquid
+  assign k_img = blank
+  assign k_fit = 'contain'
+  assign k_title = k_link.title | downcase | strip
+  for b in section.blocks
+    if b.type == 'k-menu-link-image'
+      assign k_bt = b.settings.link_title | downcase | strip
+      if k_bt == k_title
+        if b.settings.image != blank
+          assign k_img = b.settings.image
+          assign k_fit = 'cover'
+        elsif b.settings.product != blank
+          assign k_img = b.settings.product.featured_image
+        endif
+        break
+      endif
+    endif
+  endfor
+  if k_img == blank
+    if k_link.type == 'collection_link' or k_link.type == 'product_link'
+      assign k_img = k_link.object.featured_image
+    else
+      assign k_path = k_link.url | split: '?' | first | split: '#' | first
+      assign k_handle = k_path | split: '/' | last
+      if k_path contains '/collections/'
+        assign k_img = collections[k_handle].featured_image
+      elsif k_path contains '/products/'
+        assign k_img = all_products[k_handle].featured_image
+      endif
+    endif
+  endif
+-%}
+{%- if k_img != blank %} data-k-preview="{{ k_img | image_url: width: 900 }}" data-k-preview-fit="{{ k_fit }}"{% endif -%}

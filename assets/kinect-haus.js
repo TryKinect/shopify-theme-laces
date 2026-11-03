@@ -120,3 +120,51 @@
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
+
+// Mega-menu hover preview: hovering a dropdown link shows its photo (over the promo tiles, or beside a small menu)
+(() => {
+  document.querySelectorAll('#main-nav .k-nav-preview').forEach((stage) => {
+    const ul = stage.parentElement;
+    const links = [...ul.querySelectorAll('a.navigation__link')];
+    const withImg = links.filter((a) => a.dataset.kPreview);
+    const side = stage.classList.contains('k-nav-preview--side');
+    const promos = ul.querySelectorAll(':scope > .navigation__column--promotion');
+    if (!withImg.length || (!side && !promos.length)) {
+      ul.closest('.k-small-preview')?.classList.remove('k-small-preview');
+      stage.remove();
+      return;
+    }
+    const link = stage.querySelector('a');
+    const img = stage.querySelector('img');
+    const title = stage.querySelector('.k-nav-preview__title');
+    const place = () => {
+      const first = promos[0];
+      const last = promos[promos.length - 1];
+      const left = first.offsetLeft + parseFloat(getComputedStyle(first).paddingLeft);
+      const right = last.offsetLeft + last.offsetWidth - parseFloat(getComputedStyle(last).paddingRight);
+      Object.assign(stage.style, { left: `${left}px`, top: `${first.offsetTop}px`, width: `${right - left}px`, height: `${first.querySelector('.menu-promotion')?.offsetHeight || first.offsetHeight}px` });
+    };
+    const set = (a) => {
+      if (img.getAttribute('src') !== a.dataset.kPreview) img.src = a.dataset.kPreview;
+      stage.dataset.fit = a.dataset.kPreviewFit || 'contain';
+      title.textContent = a.textContent.trim();
+      link.href = a.href;
+    };
+    const show = (a) => {
+      if (!side) place();
+      set(a);
+      ul.classList.add('k-previewing');
+    };
+    const reset = () => (side ? set(withImg[0]) : ul.classList.remove('k-previewing'));
+    if (side) set(withImg[0]);
+    links.forEach((a) => {
+      const handler = a.dataset.kPreview ? () => show(a) : reset;
+      a.addEventListener('mouseenter', handler);
+      a.addEventListener('focus', handler);
+    });
+    ul.addEventListener('mouseleave', reset);
+    ul.addEventListener('mouseenter', () => {
+      withImg.forEach((a) => { new Image().src = a.dataset.kPreview; });
+    }, { once: true });
+  });
+})();
