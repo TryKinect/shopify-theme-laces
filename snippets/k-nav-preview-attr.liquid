@@ -18,16 +18,22 @@
     endif
   endfor
   if k_img == blank
-    if k_link.type == 'collection_link' or k_link.type == 'product_link'
+    assign k_coll = blank
+    if k_link.type == 'collection_link'
+      assign k_coll = k_link.object
+    elsif k_link.type == 'product_link'
       assign k_img = k_link.object.featured_image
     else
       assign k_path = k_link.url | split: '?' | first | split: '#' | first
       assign k_handle = k_path | split: '/' | last
       if k_path contains '/collections/'
-        assign k_img = collections[k_handle].featured_image
+        assign k_coll = collections[k_handle]
       elsif k_path contains '/products/'
         assign k_img = all_products[k_handle].featured_image
       endif
+    endif
+    if k_coll != blank
+      assign k_img = k_coll.featured_image | default: k_coll.products.first.featured_image
     endif
   endif
 -%}

@@ -163,6 +163,7 @@
       a.addEventListener('focus', handler);
     });
     ul.addEventListener('mouseleave', reset);
+    ul.addEventListener('focusout', (e) => { if (!ul.contains(e.relatedTarget)) reset(); });
     ul.addEventListener('mouseenter', () => {
       withImg.forEach((a) => { new Image().src = a.dataset.kPreview; });
     }, { once: true });
