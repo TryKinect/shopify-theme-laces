@@ -28,9 +28,12 @@
       endunless
     endfor
   endif
+  unless k_in_tabs
+    assign related_collections_count = 0
+  endunless
 -%}
 
-{%- if related_collections_count > 0 and k_in_tabs -%}
+{%- if related_collections_count > 0 -%}
   {% capture related_collection_html %}
     {% if section.settings.related_collections_style == 'buttons' %}
       <div class="container{% if header_image_enabled %} container--not-mobile{% endif %} lightish-spaced-row-above">

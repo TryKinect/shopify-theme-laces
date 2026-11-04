@@ -628,7 +628,7 @@ body.reveal-mobile-nav :is(#gorgias-chat-container, iframe#chat-button, .nm-wish
 }
 @media (max-width: 767.98px) {
   /* Mobile PDP: keep them off the price and Add to Cart until the sticky bar takes over */
-  body.template-product:not(.scrolled-to-bottom):has(.sticky-atc.sticky-atc--out) :is(#gorgias-chat-container, iframe#chat-button, .nm-wishlist-open-list-button) {
+  body.template-product:not(.scrolled-to-bottom):has(.sticky-atc.sticky-atc--out:not(.sticky-atc--hide-on-mobile)) :is(#gorgias-chat-container, iframe#chat-button, .nm-wishlist-open-list-button) {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;

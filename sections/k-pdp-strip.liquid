@@ -1,10 +1,14 @@
 {%- liquid
   assign imgs = product.media | where: 'media_type', 'image'
-  assign need = section.settings.skip | plus: 2
+  assign k_skip = section.settings.skip
+  assign k_max_skip = imgs.size | minus: 2 | at_least: 0
+  if k_skip > k_max_skip
+    assign k_skip = k_max_skip
+  endif
 -%}
-{%- if imgs.size >= need -%}
+{%- if imgs.size >= 3 -%}
 <section class="k-strip" id="section-id-{{ section.id }}">
-  {%- for m in imgs offset: section.settings.skip limit: section.settings.count -%}
+  {%- for m in imgs offset: k_skip limit: section.settings.count -%}
     <div class="k-strip__item">
       {{ m | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 768px) 25vw, 70vw', widths: '450, 700, 900', alt: m.alt | default: product.title }}
     </div>

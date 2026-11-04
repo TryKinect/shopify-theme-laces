@@ -417,7 +417,7 @@
         assign k_color = product.metafields.custom.color | metafield_text
       endif
     -%}
-    <div class="mp-sibling-products__label">
+    <div class="mp-sibling-products__label" data-dynamic-variant-content="k-sibling-color">
       {%- if k_color != blank -%}
         Color: <span class="mp-sibling-products__current">{{ k_color }}</span>
       {%- else -%}
