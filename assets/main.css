@@ -11256,11 +11256,6 @@ model-viewer .container {
 
     
 
-h1, .h1 {
-  font-weight: 800 !important;letter-spacing: -1px !important;
-}
-
-.text-overlay .title,
-.text-overlay .text-overlay__title {
+.text-overlay .text-overlay__title:is(h1, .h1) {
   font-weight: 800 !important;letter-spacing: -1px !important;
 }
