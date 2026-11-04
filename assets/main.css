@@ -5920,7 +5920,7 @@ hotspots-image .image-overlay {
 
 .hotspot__title {
   margin-bottom: 0.75em;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .localization {
@@ -6328,7 +6328,7 @@ hotspots-image .image-overlay {
 .filter-group__heading__text {
   margin: 0.2em 0 0;
   margin-inline-end: 20px;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .filter-group__heading__indicator {
