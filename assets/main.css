@@ -850,7 +850,7 @@ button svg {
   padding-inline-end: 2.5em;
   overflow: hidden;
   color: inherit;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -11256,6 +11256,4 @@ model-viewer .container {
 
     
 
-.text-overlay .text-overlay__title:is(h1, .h1) {
-  font-weight: 800 !important;letter-spacing: -1px !important;
-}
+
