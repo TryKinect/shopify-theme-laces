@@ -576,12 +576,27 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   .k-header-links__link:hover,
   .k-header-links__link[aria-current] { text-decoration: underline; text-underline-offset: 4px; }
   .pageheader .logo-area__right__inner { display: flex; align-items: center; justify-content: flex-end; }
-  /* Roomier spacing once the desktop menu is trimmed to 5 or fewer top-level links */
+  /* Roomier spacing with 4 or fewer top-level links (5 only from 1440px, below that they no longer fit beside the logo) */
+  #proxy-nav .navigation__tier-1:not(:has(> .navigation__item:nth-child(5))) > .navigation__item > .navigation__link {
+    font-size: 12px;
+    letter-spacing: .14em;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+@media (min-width: 1440px) {
   #proxy-nav .navigation__tier-1:not(:has(> .navigation__item:nth-child(6))) > .navigation__item > .navigation__link {
     font-size: 12px;
     letter-spacing: .14em;
     padding-left: 14px;
     padding-right: 14px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1199px) {
+  #proxy-nav .navigation__tier-1:has(> .navigation__item:nth-child(5)) > .navigation__item > .navigation__link {
+    letter-spacing: .03em;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 

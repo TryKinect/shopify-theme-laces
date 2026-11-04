@@ -6,7 +6,7 @@ Update it in the same PR as the change. Shopify ignores this file (it is not a t
 Status: **OPEN** = needs action/answer · **WATCH** = fine today, breaks if X changes · **DONE** = resolved
 
 ## Global
-- WATCH: `main` syncs to the unpublished **Kinect Theme** draft. Never push/publish to the live theme ("[Loop Checkout+] LACES Shopify").
+- WATCH: **Kinect Theme is now the published (live) theme** on getlaces.co (role `main`), so merging to `main` ships to customers. Confirm the role with `shopify theme list` before assuming draft-only.
 - WATCH: Custom code lives in `assets/kinect-haus.css`, `assets/kinect-haus.js`, `snippets/k-*.liquid`, `sections/k-*.liquid`, **and inside template JSON** (`templates/*.json`: `custom-liquid` blocks, accordion `custom_liquid`, section `custom_css`). Grep templates too before changing a snippet. Symmetry `main.css` is untouched, so theme updates stay mergeable.
 - OPEN: Changes are verified with local static renders, not the real draft. The Shopify CLI needs 2FA/Theme Access token. Check every PR on the draft before publishing.
 - WATCH: PRs are merged by Varun (Devin's merge is blocked by a safety hook).
@@ -112,3 +112,17 @@ Team calls: no division/conference filter (NFL agreement), Rep Your Team removed
 - Search & Discovery filters and collection rules are shared with the live theme.
 - Color is the crown + brim color read off each product photo (two-tone football hats = Cream + brim color). Spot-check before relying on it.
 - Open question: Bay Area Vintage Navy is tagged as a collab; mapped as City until confirmed.
+
+## Women Know Ball as its own nav tab (WKB-tab PR)
+Jeff's call: WKB will be its own standalone line, so it moves out of Collabs into its own top-level tab.
+
+### Manual Shopify Admin steps (menus can't be edited from the theme)
+- OPEN: **Merge this PR first, then edit the menus.** Before this PR, a 5th top-level link pushed the desktop header to ☰ on every screen under 1440px.
+- OPEN: **Kinect – Desktop `kinect-desktop`**: drag **Women Know Ball** (`/pages/women-know-ball`) out of Collabs to the top level, right after Collabs, giving Shop · New · Bestsellers · Collabs · Women Know Ball. No children.
+- OPEN: **Kinect – Mobile `kinect-mobile`**: same move, so the ☰ drawer matches.
+
+### Theme (this PR, `assets/kinect-haus.css`)
+- WATCH: Desktop link spacing now depends on the top-level count. 4 or fewer: roomy (12px, wide tracking). 5: roomy from 1440px, the normal 11px spacing from 1200 to 1439px, and tighter (5px padding, .03em) from 1024 to 1199px. With "Women Know Ball" as the 5th label it stays on the logo row at every width from 1024 to 1920px (checked 1024/1100/1199/1200/1280/1366/1439/1440/1920 against the live header). At 1024px there is about 0px to spare, so a longer label or a 6th link drops the header to ☰ below about 1100px. "WKB" leaves more room if the team prefers it.
+- WATCH: The Collabs dropdown's "Menu link preview image" block for Women Know Ball (Theme editor → Header) does nothing once the link leaves Collabs. It's kept in case WKB gets its own dropdown later.
+- OPEN: There's no `women-know-ball` collection yet (the tab links to the page). When WKB becomes a standalone collection, create it, point the tab at `/collections/women-know-ball`, and add it to the Related collections tabs if wanted.
+
