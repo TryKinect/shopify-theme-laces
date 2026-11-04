@@ -42,6 +42,7 @@ This file can be re-written at any time.
   </style>
 
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
+  {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}
     <link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -113,8 +114,13 @@ This file can be re-written at any time.
         var inlineMenuCentered = document.querySelector('.pageheader--layout-inline-menu-center'),
             logoContainer = document.querySelector('.logo-area__middle__inner');
         if(inlineMenuCentered) {
-          var rightWidth = document.querySelector('.logo-area__right__inner').clientWidth,
-              middleWidth = logoContainer.clientWidth,
+          var rightInner = document.querySelector('.logo-area__right__inner'),
+              rightLinks = rightInner.querySelector('.k-header-links'),
+              rightLinksHidden = rightLinks && getComputedStyle(rightLinks).display == 'none';
+          if (rightLinksHidden) rightLinks.style.display = 'flex';
+          var rightWidth = rightInner.clientWidth;
+          if (rightLinksHidden) rightLinks.style.display = '';
+          var middleWidth = logoContainer.clientWidth,
               logoArea = document.querySelector('.logo-area'),
               computedLogoAreaStyle = getComputedStyle(logoArea),
               logoAreaInnerWidth = logoArea.clientWidth - Math.ceil(parseFloat(computedLogoAreaStyle.paddingLeft)) - Math.ceil(parseFloat(computedLogoAreaStyle.paddingRight)),
@@ -155,6 +161,7 @@ This file can be re-written at any time.
   </script>
 
   <script src="{{ 'main.js' | asset_url }}" defer></script>
+  <script src="{{ 'kinect-haus.js' | asset_url }}" defer></script>
 
   {%- if request.design_mode -%}
     <script src="{{ 'theme-editor.js' | asset_url }}" defer data-contact="{{ shop.email | escape }}"></script>
