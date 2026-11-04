@@ -11258,10 +11258,10 @@ model-viewer .container {
 /* ALL HEADINGS */
 h1, .h1,
 h2, .h2,
-h3, .h3,
+
 h4, .h4,
 h5, .h5,
-h6, .h6, .k-film__heading,
+ .k-film__heading,
 .heading-font,
 .text-overlay .title,
 .text-overlay .text-overlay__title {
