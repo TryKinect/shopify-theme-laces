@@ -42,7 +42,7 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 ### Manual Shopify Admin steps (Theme Access can't do these)
 - OPEN: **Desktop header = split nav (Varun picked option C).** 4 links left of the logo, 2 text links right of it, icons far right; mobile keeps ☰. Three menus in Admin → Content → Menus. **Draft-only naming rule:** every menu the Kinect Theme uses is titled `Kinect – …` with a `kinect-` handle; anything else belongs to the live theme, so don't edit those (`signature-2026`, `signature-mobile`, `footer` …) until cutover. The Kinect Theme points at the Kinect menus in `sections/header-group.json`, so publishing it at cutover brings them along:
   - **Kinect – Desktop `kinect-desktop` (desktop left, 4 top-level items only)**:
-    - **Shop** → Hats (Snapback `/collections/snapback`, Dad Hats `/collections/dad-hat`, Football `/collections/football`, All Hats `/collections/all-hats`) · Apparel (Hoodies `/collections/hoodies`, Socks `/collections/socks`) · Rep Your City (Bay Area `/collections/bay-area`, West `/collections/west-coast`, East `/collections/east-coast`, Midwest `/collections/midwest`, South `/collections/the-south`). Bestsellers/New photo tiles come from the header's existing "Menu promotion" blocks (Theme editor → Header).
+    - **Shop** → Hats (Snapback `/collections/snapback`, Dad Hats `/collections/dad-hat`, Football `/collections/football`, All Hats `/collections/all-hats`) · Apparel (Hoodies `/collections/hoodies`, Socks `/collections/socks`) · By Region (West / East / Midwest / South → `/collections/all-hats?filter.p.m.custom.region=<Region>`; see the collections refresh section below). Bestsellers/New photo tiles come from the header's existing "Menu promotion" blocks (Theme editor → Header).
     - **New** → `/collections/new-arrivals` (pick one of `new` / `new-arrivals`, see below)
     - **Bestsellers** → `/collections/best-sellers`
     - **Collabs** → Cal Athletes `/pages/cal-athletes`, Women Know Ball `/pages/women-know-ball`, VOICES `/collections/voices-collection`, Bloom `/pages/bloom`, Bay Area Host Committee `/pages/bahc`, All collabs `/pages/collaborations`
@@ -53,12 +53,12 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - OPEN: **Sale collection**: 73/77 products are in it but none have a compare-at price. Either set compare-at prices for a real sale or remove Sale from menus (`nav_featured_link` = "Sale" in the header settings highlights it).
 - OPEN: **Duplicate/odd collections**: `new` vs `new-arrivals`, `hoodies` vs `apparel`, handle `1`. Retire one of each pair (redirect the old URL in Admin → Navigation → URL redirects).
 - OPEN: **Basketball (`basketball-collection`) and Wooly Pig** have 0 published products. Publish them or unpublish the collections so menus/links don't land on empty pages.
-- OPEN: **Collection descriptions**: tabs and description slot are ready, but most collections have no description. Add one line each in Admin → Collections (shown above the grid in muted text). Suggested: Snapback, Dad Hats, Football, Rep Your City, Rep Your Team, Hoodies, Socks, LACES Signature.
+- OPEN: **Collection descriptions**: tabs and description slot are ready, but most collections have no description. Add one line each in Admin → Collections (shown above the grid in muted text). Suggested: Snapback, Dad Hats, Football, Rep Your City, Collabs, LACES Signature, Apparel, Hoodies, Socks.
 - OPEN: **Collection titles show as tab labels** (" Collection" is stripped). Rename "LACES Hoodie Collection" → "Hoodies" etc. in Admin if you want cleaner tabs.
 
 ### Collection tabs + in-grid story card (`sections/main-collection.liquid`, `snippets/k-grid-promo.liquid`, `templates/collection.json`)
-- WATCH: Tabs = the section's **Related collections** list (Theme editor → Collection → Related collections): All Hats, Snapback, Dad Hats, Football, Rep Your Team, Rep Your City, LACES Signature, Hoodies, Socks. The current collection is highlighted. Applies to the default collection template only; `collection.hoodies`, `collection.voices`, `collection.bahc`, `collection.landing`, `collection.what-s-new` templates have their own settings.
-- WATCH: Story card ("Designed by Cal Athletes" → `/pages/cal-athletes`) shows on page 1 of the handles in **"Collection handles"** (`snapback,football,all-hats,rep-your-team`) after product 3. Image = `158.jpg` (Cal volleyball photo from the Cal page). Renaming a collection handle silently removes the card there.
+- WATCH: Tabs = the section's **Related collections** list (Theme editor → Collection → Related collections): All Hats, Snapback, Dad Hats, Football, Rep Your City, Collabs (`remix-collection`), LACES Signature. The current collection is highlighted. Applies to the default collection template only; `collection.hoodies` and `collection.apparel` show Apparel, Hoodies, Socks; `collection.voices`, `collection.voices`, `collection.bahc`, `collection.landing`, `collection.what-s-new` templates have their own settings.
+- WATCH: Story card ("Designed by Cal Athletes" → `/pages/cal-athletes`) shows on page 1 of the handles in **"Collection handles"** (`snapback,football,all-hats,rep-your-city`) after product 3. Image = `158.jpg` (Cal volleyball photo from the Cal page). Renaming a collection handle silently removes the card there.
 - WATCH: `main-collection` schema is at Shopify's 40-settings limit. **Adding one more setting makes Shopify ignore the section's new settings** (that's why kicker/CTA text are fixed in the snippet call). Remove a setting before adding one.
 - OPEN: Card copy "Every hat supports the Cal LACES Athlete Fund." needs the same legal/fund-accuracy sign-off as the Cal page copy. Editable in the Theme editor.
 - OPEN: Women Know Ball / VOICES cards: no product tags identify those lines yet. Tag products (e.g. `line_wkb`, `line_voices`) and we can add a second card per line.
@@ -87,3 +87,28 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
   - Bay Area Host Committee → `bahc-worldsgame`
 - **If you rename a menu link in Admin, rename its preview block too.** Otherwise that link shows no photo.
 - The "LACES x Cal Athletes Collab" promo block is disabled (not deleted). Turning it back on makes Collabs a full-width mega menu again.
+
+## Collections, tags and filters refresh (collections-refresh PR)
+
+Team calls: no division/conference filter (NFL agreement), Rep Your Team removed, Golf Bucket stays under Dad Hat, Sale removed for now, regions as one "By Region" menu column.
+
+### Draft-only (this PR)
+- Hat tabs (`templates/collection.json`): All Hats · Snapback · Dad Hat · Football · Rep Your City · Collabs (`remix-collection`) · Signature. Rep Your Team is out of the tabs and the promo-card list.
+- Apparel tabs (Apparel · Hoodies · Socks) on `templates/collection.hoodies.json` and a new `templates/collection.apparel.json`. Assign the `apparel` template to the Apparel and Socks collections in Admin; on the live theme they fall back to the default template.
+- Filter sidebar starts open on desktop.
+
+### Store-wide Admin changes (also change the live store)
+1. Export before-state (products, tags, types, `custom.badges`, collection rules, filters, redirects) to `laces-audit/` before writing.
+2. Product metafields `custom.style`, `custom.line`, `custom.region`, `custom.color` (list of single-line text), filled from `laces-audit/tags/final-map.json`. No conference/division field.
+3. `custom.badges` values normalized to Athlete Designed / Bestseller / New / Limited.
+4. Product type `Hat` on Bloom x LACES and MINDSET Blue.
+5. Existing `nav_*`, AFC/NFC tags stay untouched.
+6. Collections: All Hats = every hat; Collabs = Cal, Women Know Ball, Bloom, BAHC; Signature = hats only; Rep Your City = every city hat; new Apparel = hoodies + socks.
+7. Hide Rep Your Team and Sale from Online Store (don't delete). Redirects: `/collections/rep-your-team` → `/collections/football`, `/collections/sale` → `/collections/all-hats`.
+8. Search & Discovery filters, in order: Style · Line · Region · Color · Featured (rename of `badges`) · Availability · Price.
+9. Kinect - Desktop menu: "By Region" column under Shop with West / East / Midwest / South → `/collections/all-hats?filter.p.m.custom.region=<Region>`. Don't edit live menus.
+
+### Mindful
+- Search & Discovery filters and collection rules are shared with the live theme.
+- Color is the crown + brim color read off each product photo (two-tone football hats = Cream + brim color). Spot-check before relying on it.
+- Open question: Bay Area Vintage Navy is tagged as a collab; mapped as City until confirmed.
