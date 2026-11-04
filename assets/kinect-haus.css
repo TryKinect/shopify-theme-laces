@@ -614,3 +614,48 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
   #main-nav .k-nav-preview--side { top: 0; right: 0; width: 300px; height: 300px; opacity: 1; pointer-events: auto; }
   #main-nav .k-nav-preview--side .k-nav-preview__text { display: none; }
 }
+
+/* ---------- Site audit fixes ---------- */
+/* Vitals adds a second sticky add-to-cart on PDPs; the theme's own bar is the one the offsets below are built for */
+#bundle-sticky_add_to_cart { display: none !important; }
+
+/* Floating launchers (Gorgias chat, Wishlist, Klaviyo teaser) step aside while the cart or menu drawer is open */
+body:has(cart-drawer[aria-hidden="false"]) :is(#gorgias-chat-container, iframe#chat-button, .nm-wishlist-open-list-button, [class*="kl-teaser"]),
+body.reveal-mobile-nav :is(#gorgias-chat-container, iframe#chat-button, .nm-wishlist-open-list-button, [class*="kl-teaser"]) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+@media (max-width: 767.98px) {
+  /* Mobile PDP: keep them off the price and Add to Cart until the sticky bar takes over */
+  body.template-product:not(.scrolled-to-bottom):has(.sticky-atc.sticky-atc--out) :is(#gorgias-chat-container, iframe#chat-button, .nm-wishlist-open-list-button) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Collection cards: + Add only on touch screens (desktop has the hover quick buy) */
+@media (hover: hover) and (pointer: fine) {
+  .collection-listing .product-block .k-quick-add { display: none; }
+}
+
+/* Cart drawer: show Remove next to the quantity stepper */
+.cart-drawer .cart-item__remove { display: inline-block; margin-inline-start: 12px; }
+
+/* Collection empty state reset */
+.k-empty-reset { margin-top: -1em; }
+
+/* 404 search + links */
+.k-404__search { display: flex; gap: 8px; max-width: 460px; margin: 24px auto; }
+.k-404__search input[type="search"] { flex: 1; min-width: 0; margin: 0; }
+.k-404__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; }
+
+/* Footer social icons: 44px tap targets */
+.section-footer .social__link { min-width: 44px; min-height: 44px; }
+
+/* AI split-screen blocks (pros page) must not push the page wider than the phone */
+@media (max-width: 749px) {
+  [class*="ai-split-screen__container"], [class*="ai-split-screen__content-side"] { max-width: 100%; min-width: 0; box-sizing: border-box; }
+  [class*="ai-split-screen__heading"] { font-size: clamp(2.25rem, 11vw, 3.5rem) !important; overflow-wrap: anywhere; }
+}

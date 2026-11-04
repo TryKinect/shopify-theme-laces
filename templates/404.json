@@ -1,1 +1,1 @@
-{"sections":{"main":{"type":"main-404","settings":{}}},"order":["main"]}
+{"sections":{"main":{"type":"main-404","settings":{}},"k_404_bestsellers":{"type":"featured-collection","settings":{"title":"Best sellers","collection":"best-sellers","show_vendor":false,"enable_carousel":true,"grid":4,"rows":1,"color_scheme":"default","show_view_all":true,"full_width":false}}},"order":["main","k_404_bestsellers"]}

@@ -17,8 +17,12 @@
 
 {%- liquid
   assign related_collections_count = 0
+  assign k_in_tabs = false
   if section.settings.related_collections != empty
     for loop_collection in section.settings.related_collections
+      if loop_collection.handle == collection.handle
+        assign k_in_tabs = true
+      endif
       unless loop_collection.handle == collection.handle
         assign related_collections_count = related_collections_count | plus: 1
       endunless
@@ -26,7 +30,7 @@
   endif
 -%}
 
-{%- if related_collections_count > 0 -%}
+{%- if related_collections_count > 0 and k_in_tabs -%}
   {% capture related_collection_html %}
     {% if section.settings.related_collections_style == 'buttons' %}
       <div class="container{% if header_image_enabled %} container--not-mobile{% endif %} lightish-spaced-row-above">
@@ -292,7 +296,18 @@
 
       <div class="filters-adjacent collection-listing" data-ajax-container>
         {% if collection.products.size == 0 %}
+          {%- liquid
+            assign k_filtered = false
+            for k_filter in collection.filters
+              if k_filter.active_values.size > 0 or k_filter.min_value.value != nil or k_filter.max_value.value != nil
+                assign k_filtered = true
+              endif
+            endfor
+          -%}
           <h5 class="align-centre fully-spaced-row">{{ 'sections.collection.empty' | t }}</h5>
+          {%- if k_filtered -%}
+            <p class="align-centre k-empty-reset"><a class="btn btn--secondary" href="{{ collection.url }}?sort_by={{ current_sort }}">Clear filters</a></p>
+          {%- endif -%}
         {% else %}
           <div class="product-grid product-grid--per-row-{{ section.settings.grid }} product-grid--per-row-mob-{{ settings.prod_thumb_mob_per_row }} product-grid--per-row-mob-{{ settings.prod_thumb_mob_per_row }}">
             {%- liquid
@@ -333,7 +348,7 @@
                 if forloop.index0 < section.settings.grid
                   assign prioritised_loading = true
                 endif
-                render 'product-block', product: product, custom_aspect_ratio: chosen_aspect_ratio, animate: true, prioritised_loading: prioritised_loading
+                render 'product-block', product: product, custom_aspect_ratio: chosen_aspect_ratio, animate: true, prioritised_loading: prioritised_loading, k_quick_add: true
                 if k_promo_show and forloop.index == section.settings.k_promo_position
                   render 'k-grid-promo', image: section.settings.k_promo_image, kicker: 'LACES x Cal Athletes', heading: section.settings.k_promo_heading, text: section.settings.k_promo_text, cta: 'Meet the roster', link: section.settings.k_promo_link
                 endif

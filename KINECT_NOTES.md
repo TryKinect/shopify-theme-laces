@@ -112,3 +112,31 @@ Team calls: no division/conference filter (NFL agreement), Rep Your Team removed
 - Search & Discovery filters and collection rules are shared with the live theme.
 - Color is the crown + brim color read off each product photo (two-tone football hats = Cream + brim color). Spot-check before relying on it.
 - Open question: Bay Area Vintage Navy is tagged as a collab; mapped as City until confirmed.
+
+## Site audit fixes (audit-fixes PR)
+
+The Kinect Theme is the **published** theme now: merging to `main` ships to the live store. Review on a theme linked to the PR branch first.
+
+### Theme changes
+- Homepage: first filmstrip tile → `/pages/women-know-ball`; the Rep Your Team row is retitled Football (same `football` collection); Cal banner button is primary.
+- PDP sibling picker: "Color:" comes from a variant option named Color, then `custom.color`; otherwise it reads "More colors". It fills in once `custom.color` is populated.
+- Products with type `Contribution` (Cal Athletes Fund) skip the "ready to ship" stock line and the shipping/returns trust row. New `templates/product.fund.json` (title, price, amount, buy button, description).
+- Collection tabs only show when the current collection is one of the tabs (not on Best Sellers / What's New / All).
+- Collections drop the search-only "Most relevant" sort; an empty filtered result shows a "Clear filters" button.
+- Collection cards show "+ Add" / "Choose options" on touch screens.
+- Cart drawer shows Remove on each line.
+- `/collections` lists Best Sellers, What's New, All Hats, Snapback, Dad Hats, Football, Rep Your City, Signature, Collabs, Voices, Apparel.
+- 404 has search, category links and a Best sellers row. Contact page has an intro, the fund email and policy links.
+- Product images fall back to the product title for alt text; the PDP photo strip skips the first 3 images.
+- CSS hides Vitals' sticky add-to-cart (`#bundle-sticky_add_to_cart`), hides chat/Wishlist/Klaviyo teaser while the cart or menu drawer is open and at the top of mobile PDPs, gives footer icons 44px targets, and keeps AI split-screen blocks inside the phone width.
+
+### Manual Shopify Admin steps
+- Assign the `fund` product template to Cal Athletes Fund.
+- Assign `cal` to both Cal hats, `dad-hats` to dad hats; decide on `hats` for snapbacks.
+- Assign the `apparel` collection template to Apparel and Socks.
+- Vitals (needs an account with Vitals access): turn off its Sticky Add to Cart and the cart countdown banner; exclude "Pay now to unlock free returns" from Recent Sales.
+- Klaviyo: don't open the pop-up over the cart / right after add to cart. Gorgias: raise the mobile offset. Wishlist: allow guest wishlists.
+- Remaining audit Admin items (collection membership, sold-out sort, descriptions, badges, legacy collections and pages, filters) are in `laces-audit/LACES-site-audit.md` section B.
+
+### Mindful
+- The floating-widget rules key off third-party selectors (`iframe#chat-button`, `.nm-wishlist-open-list-button`, `[class*="kl-teaser"]`, `#bundle-sticky_add_to_cart`). If an app update renames them, the widgets just show again; nothing breaks.

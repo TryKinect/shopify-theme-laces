@@ -217,6 +217,9 @@
             <div class="toggle-target-container">
               {%- for option in filter_context.sort_options -%}
                 {%- liquid
+                  if option.value == 'relevance' and request.page_type == 'collection'
+                    continue
+                  endif
                   if section.settings.sort_show_featured == false and option.value == 'manual' and collection.default_sort_by != 'manual'
                     continue
                   endif

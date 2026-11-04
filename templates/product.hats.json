@@ -187,7 +187,7 @@
     "k_strip": {
       "type": "k-pdp-strip",
       "settings": {
-        "skip": 1,
+        "skip": 3,
         "count": 4
       }
     }

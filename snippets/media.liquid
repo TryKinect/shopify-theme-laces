@@ -12,7 +12,7 @@
             assign custom_aspect_ratio = false
           endif
 
-          render 'image' with media.preview_image, size_cols_desktop: 2, custom_aspect_ratio: custom_aspect_ratio, custom_crop: 'contain', loading: loading
+          render 'image' with media.preview_image, alt: product.title, size_cols_desktop: 2, custom_aspect_ratio: custom_aspect_ratio, custom_crop: 'contain', loading: loading
         -%}
         {%- if section.settings.show_alt_text and media.alt != blank and media.alt != product.title and media.alt != 'all-groups' -%}
           <span class="product-media__label">
@@ -34,7 +34,7 @@
           data-autoplay="{{ section.settings.enable_video_autoplay }}"
           style="padding-bottom: {{ 1 | divided_by: media.preview_image.aspect_ratio | times: 100 }}%">
         <div class="product-media__poster img-fill">
-          {% render 'image' with media.preview_image, size_cols_desktop: 2 %}
+          {% render 'image' with media.preview_image, alt: product.title, size_cols_desktop: 2 %}
           {% unless section.settings.enable_video_autoplay %}
             <button class="product-media__video-play-btn js-load-media" aria-label="{{ 'products.product.media.play_video' | t | escape }}">{% render 'icon-video-badge-full-color' %}</button>
           {% endunless %}
@@ -75,7 +75,7 @@
     {% when 'model' %}
       <product-model class="product-media product-media--model product-media--frame" style="padding-bottom: 100%" data-model-id="{{ media.id }}">
         <div class="product-media__poster img-fill">
-          {% render 'image' with media.preview_image, size_cols_desktop: 2 %}
+          {% render 'image' with media.preview_image, alt: product.title, size_cols_desktop: 2 %}
           <button class="product-media__model-play-btn js-load-media" aria-label="{{ 'products.product.media.play_model' | t }}">
             {%- render 'icon-3d-badge-full-color' -%}
           </button>
