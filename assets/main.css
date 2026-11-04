@@ -11257,4 +11257,4 @@ model-viewer .container {
     
 
 
-.text-overlay__title, .k-film__heading {font-weight: 800 !important; letter-spacing: -1px !important;}
+.text-overlay__title, .k-film__heading, .product-title{font-weight: 800 !important; letter-spacing: -1px !important;}
