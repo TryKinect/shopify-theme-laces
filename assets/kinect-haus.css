@@ -214,8 +214,9 @@ a:hover .text-overlay .text-overlay__button.btn--secondary, .text-overlay .text-
 .product-media .media-gallery img, .product-media .product-media__image img { mix-blend-mode: multiply; }
 
 @media (max-width: 767.98px) {
-  .k-swatches { gap: 5px; }
-  .k-swatch { width: 14px; height: 14px; }
+  .k-swatches { gap: 10px; }
+  .k-swatch { width: 18px; height: 18px; }
+  .k-swatch::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; }
   .k-swatches__more { font-size: 10px; }
 }
 
