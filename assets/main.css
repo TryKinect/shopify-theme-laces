@@ -190,7 +190,7 @@
   font-size: 0.8em;
 }
 .font-semibold{
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 .uppercase{
   text-transform: uppercase;
@@ -850,7 +850,7 @@ button svg {
   padding-inline-end: 2.5em;
   overflow: hidden;
   color: inherit;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3725,7 +3725,7 @@ body:not(.reveal-mobile-nav) .mobile-navigation-drawer .mobile-navigation-drawer
   margin-top: 7px;
   margin-bottom: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4em;
 }
 
@@ -3787,7 +3787,7 @@ shopify-payment-terms {
   display: block;
   margin-bottom: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4em;
 }
 
@@ -3938,7 +3938,7 @@ shopify-accelerated-checkout[disabled],
 }
 
 .product-info-accordion .disclosure__title {
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4;
 }
 
@@ -4324,7 +4324,7 @@ shopify-accelerated-checkout[disabled],
 
 .added-notification__message-title {
   color: rgb(var(--heading-color));
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .added-notification__message-text a {
@@ -4386,7 +4386,7 @@ shopify-accelerated-checkout[disabled],
 
 .cart-item__title {
   margin-bottom: 0.25em;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.3;
 }
 
@@ -4410,7 +4410,7 @@ shopify-accelerated-checkout[disabled],
 
 .cart-item__selling-price,
 .cart-item__selling-total {
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .cart-item__price .struck-out-price {
@@ -4687,7 +4687,7 @@ shopify-accelerated-checkout[disabled],
   color: inherit;
   font-family: inherit;
   font-size: inherit;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 .disclosure__content.rte h1:first-child,
 .disclosure__content.rte h2:first-child,
@@ -5920,7 +5920,7 @@ hotspots-image .image-overlay {
 
 .hotspot__title {
   margin-bottom: 0.75em;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .localization {
@@ -6328,7 +6328,7 @@ hotspots-image .image-overlay {
 .filter-group__heading__text {
   margin: 0.2em 0 0;
   margin-inline-end: 20px;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .filter-group__heading__indicator {
@@ -6687,7 +6687,7 @@ hotspots-image .image-overlay {
 .filter-toggle__group-label {
   align-self: center;
   margin: 4px 0;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .filter-toggle__options {
@@ -6771,7 +6771,7 @@ hotspots-image .image-overlay {
   padding-inline-end: 40px;
   transition: width 250ms cubic-bezier(0.01, 0.45, 0.28, 0.98);
   color: inherit;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   text-align: start;
   white-space: nowrap;
   will-change: width;
@@ -10333,7 +10333,7 @@ ul.inline li {
   display: block;
   margin-bottom: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4em;
 }
 .account-form .note {
@@ -11117,7 +11117,7 @@ model-viewer .container {
 }
 
 .mp-sibling-products__label {
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
@@ -11253,3 +11253,10 @@ model-viewer .container {
 .opt-btn:checked+.opt-label {
     background: black;
     color: white; }
+
+    
+
+
+.text-overlay__title, .k-film__heading, .product-title{font-weight: 800 !important; letter-spacing: -1px !important;}
+
+.navigation__column-title {font-family: roboto-mono, "Roboto Mono", ui-monospace, monospace; letter-spacing: 0 !important;}

@@ -71,7 +71,7 @@
   .reveal-mobile-nav .mobile-navigation-drawer:not(.mobile-navigation-drawer--child-open) .mobile-navigation-drawer__footer { transform: translate3d(0,0,0); opacity: 1; }
 }
 .mobile-navigation-drawer .navigation__tier-1 > .navigation__item > .navigation__link {
-  font-family: var(--k-display); font-weight: 600; font-size: 26px; line-height: 1.1; text-transform: uppercase; letter-spacing: .01em;
+  font-family: var(--k-display); font-weight: 800 !important;letter-spacing: -1px !important; font-size: 26px; line-height: 1.1; text-transform: uppercase; letter-spacing: .01em;
 }
 
 /* ---------- Section headings: title left, outlined VIEW ALL right ---------- */
@@ -83,7 +83,7 @@
 }
 .collection-slider-row .hometitle .has-paging__title,
 .k-section-title {
-  font-family: var(--k-display); font-weight: 600; font-size: clamp(26px, 3vw, 38px); line-height: 1;
+  font-family: var(--k-display); font-weight: 800 !important;letter-spacing: -1px !important; font-size: clamp(26px, 3vw, 38px); line-height: 1;
   text-transform: uppercase; letter-spacing: .005em; margin: 0;
 }
 .collection-slider-row .hometitle .has-paging__title a { color: inherit; }
