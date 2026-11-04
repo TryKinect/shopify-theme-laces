@@ -1,0 +1,7 @@
+{%- comment -%}Card star rating from the standard reviews metafields (synced by Vitals). Vitals' own card stars are hidden in kinect-haus.css because they duplicate when card swatches swap the card.{%- endcomment -%}
+{%- assign k_rc = product.metafields.reviews.rating_count.value | default: 0 | plus: 0 -%}
+{%- if k_rc > 0 -%}
+  {%- assign k_rv = product.metafields.reviews.rating.value.rating | plus: 0 -%}
+  {%- assign k_pct = k_rv | times: 20 | round: 1 -%}
+  <span class="k-rating" role="img" aria-label="{{ k_rv | round: 1 }} out of 5 stars, {{ k_rc }} reviews"><span class="k-rating__stars" style="--k-fill: {{ k_pct }}%" aria-hidden="true">★★★★★</span><span class="k-rating__count" aria-hidden="true">({{ k_rc }})</span></span>
+{%- endif -%}

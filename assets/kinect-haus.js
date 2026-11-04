@@ -41,6 +41,8 @@
     if (price && btn.dataset.price !== undefined) price.innerHTML = btn.dataset.price;
     const labels = card.querySelector('.k-label-slot');
     if (labels && btn.dataset.label !== undefined) labels.innerHTML = btn.dataset.label;
+    const rating = card.querySelector('.k-rating-slot');
+    if (rating && btn.dataset.rating !== undefined) rating.innerHTML = btn.dataset.rating;
     const badges = card.querySelector('.k-badge-slot');
     if (badges && btn.dataset.badges !== undefined) badges.innerHTML = btn.dataset.badges;
     const qa = card.querySelector('.k-quick-add');

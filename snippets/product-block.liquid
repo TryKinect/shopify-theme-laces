@@ -181,6 +181,7 @@ Parameters:
               {%- endif -%}
 
               <div class="product-block__title">{{ product.title | escape }}</div>
+              <div class="k-rating-slot">{%- render 'k-card-rating', product: product -%}</div>
 
               {%- if settings.prod_thumb_show_subtitle and product.metafields.descriptors.subtitle != blank -%}
                 <div class="product-block__subtitle">{{ product.metafields.descriptors.subtitle }}</div>

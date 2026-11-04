@@ -130,6 +130,17 @@
   display: inline-block; margin-left: 6px; font-family: var(--k-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--k-sale);
 }
 
+/* Card stars: rendered by snippets/k-card-rating.liquid; Vitals' injected card stars duplicate on swatch swaps */
+.product-block .vtl-pr-review-stars-snippet-container,
+.product-block .Vtl-pr-review-stars-snippet { display: none !important; }
+.k-rating { display: inline-flex; align-items: center; gap: 4px; margin: 2px 0 1px; font-size: 12px; line-height: 1; }
+.k-rating__stars {
+  letter-spacing: 1px; font-size: 13px; color: transparent;
+  background: linear-gradient(90deg, #f26b2a var(--k-fill, 100%), #d6d6d6 var(--k-fill, 100%));
+  -webkit-background-clip: text; background-clip: text;
+}
+.k-rating__count { color: var(--k-muted); font-family: var(--k-mono); font-size: 11px; }
+
 /* Family swatches (injected by kinect-haus.js) */
 .k-swatches { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 6px; align-items: center; }
 .k-swatch {
