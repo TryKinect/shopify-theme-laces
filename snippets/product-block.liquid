@@ -181,7 +181,7 @@ Parameters:
               {%- endif -%}
 
               <div class="product-block__title">{{ product.title | escape }}</div>
-              <div class="k-rating-slot">{%- render 'k-card-rating', product: product -%}</div>
+              {%- if compact != true -%}<div class="k-rating-slot">{%- render 'k-card-rating', product: product -%}</div>{%- endif -%}
 
               {%- if settings.prod_thumb_show_subtitle and product.metafields.descriptors.subtitle != blank -%}
                 <div class="product-block__subtitle">{{ product.metafields.descriptors.subtitle }}</div>
@@ -300,17 +300,6 @@ Parameters:
               {%- endfor -%}
             {%- endif -%}
 
-            {%- if settings.enable_product_reviews_collection and product.metafields.reviews.rating_count != blank and compact == false -%}
-              {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
-              {%- if rating_count > 0 -%}
-                <div class="product-block__rating">
-                  {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
-                  <span class="cc-rating-custom-caption">
-                    {{- 'products.product.reviews_count' | t: count: rating_count }}
-                  </span>
-                </div>
-              {%- endif -%}
-            {%- endif -%}
           </div>
         </div>
       </div>
