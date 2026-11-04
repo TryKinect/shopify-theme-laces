@@ -850,7 +850,7 @@ button svg {
   padding-inline-end: 2.5em;
   overflow: hidden;
   color: inherit;
-  font-weight: 800 !important;letter-spacing: -1px !important;;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3725,7 +3725,7 @@ body:not(.reveal-mobile-nav) .mobile-navigation-drawer .mobile-navigation-drawer
   margin-top: 7px;
   margin-bottom: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4em;
 }
 
@@ -3787,7 +3787,7 @@ shopify-payment-terms {
   display: block;
   margin-bottom: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4em;
 }
 
