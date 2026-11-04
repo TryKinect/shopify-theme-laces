@@ -11254,7 +11254,7 @@ model-viewer .container {
     background: black;
     color: white; }
 
-    h1, .h2, 
+    h1, .h2, .k-film__heading,
 .text-overlay .text-overlay__title {
   font-family: futura-pt-condensed, sans-serif !important;
   font-weight: 800 !important;
