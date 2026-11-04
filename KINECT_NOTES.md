@@ -87,3 +87,28 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
   - Bay Area Host Committee → `bahc-worldsgame`
 - **If you rename a menu link in Admin, rename its preview block too.** Otherwise that link shows no photo.
 - The "LACES x Cal Athletes Collab" promo block is disabled (not deleted). Turning it back on makes Collabs a full-width mega menu again.
+
+## Collections, tags and filters refresh (collections-refresh PR)
+
+Team calls: no division/conference filter (NFL agreement), Rep Your Team removed, Golf Bucket stays under Dad Hat, Sale removed for now, regions as one "By Region" menu column.
+
+### Draft-only (this PR)
+- Hat tabs (`templates/collection.json`): All Hats · Snapback · Dad Hat · Football · Rep Your City · Collabs (`remix-collection`) · Signature. Rep Your Team is out of the tabs and the promo-card list.
+- Apparel tabs (Apparel · Hoodies · Socks) on `templates/collection.hoodies.json` and a new `templates/collection.apparel.json`. Assign the `apparel` template to the Apparel and Socks collections in Admin; on the live theme they fall back to the default template.
+- Filter sidebar starts open on desktop.
+
+### Store-wide Admin changes (also change the live store)
+1. Export before-state (products, tags, types, `custom.badges`, collection rules, filters, redirects) to `laces-audit/` before writing.
+2. Product metafields `custom.style`, `custom.line`, `custom.region`, `custom.color` (list of single-line text), filled from `laces-audit/tags/final-map.json`. No conference/division field.
+3. `custom.badges` values normalized to Athlete Designed / Bestseller / New / Limited.
+4. Product type `Hat` on Bloom x LACES and MINDSET Blue.
+5. Existing `nav_*`, AFC/NFC tags stay untouched.
+6. Collections: All Hats = every hat; Collabs = Cal, Women Know Ball, Bloom, BAHC; Signature = hats only; Rep Your City = every city hat; new Apparel = hoodies + socks.
+7. Hide Rep Your Team and Sale from Online Store (don't delete). Redirects: `/collections/rep-your-team` → `/collections/football`, `/collections/sale` → `/collections/all-hats`.
+8. Search & Discovery filters, in order: Style · Line · Region · Color · Featured (rename of `badges`) · Availability · Price.
+9. Kinect - Desktop menu: "By Region" column under Shop with West / East / Midwest / South → `/collections/all-hats?filter.p.m.custom.region=<Region>`. Don't edit live menus.
+
+### Mindful
+- Search & Discovery filters and collection rules are shared with the live theme.
+- Color is the crown + brim color read off each product photo (two-tone football hats = Cream + brim color). Spot-check before relying on it.
+- Open question: Bay Area Vintage Navy is tagged as a collab; mapped as City until confirmed.
