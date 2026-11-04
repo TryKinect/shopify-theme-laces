@@ -190,7 +190,7 @@
   font-size: 0.8em;
 }
 .font-semibold{
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 .uppercase{
   text-transform: uppercase;
@@ -3938,7 +3938,7 @@ shopify-accelerated-checkout[disabled],
 }
 
 .product-info-accordion .disclosure__title {
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4;
 }
 
@@ -6687,7 +6687,7 @@ hotspots-image .image-overlay {
 .filter-toggle__group-label {
   align-self: center;
   margin: 4px 0;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
 }
 
 .filter-toggle__options {
@@ -6771,7 +6771,7 @@ hotspots-image .image-overlay {
   padding-inline-end: 40px;
   transition: width 250ms cubic-bezier(0.01, 0.45, 0.28, 0.98);
   color: inherit;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   text-align: start;
   white-space: nowrap;
   will-change: width;
@@ -10333,7 +10333,7 @@ ul.inline li {
   display: block;
   margin-bottom: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   line-height: 1.4em;
 }
 .account-form .note {
@@ -11117,7 +11117,7 @@ model-viewer .container {
 }
 
 .mp-sibling-products__label {
-  font-weight: 600;
+  font-weight: 800 !important;letter-spacing: -1px !important;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
