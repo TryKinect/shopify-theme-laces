@@ -64,10 +64,10 @@
         {%- endif -%}
 
         <div class="l-fund__actions l-reveal" style="--l-delay:.3s">
-          {%- if section.settings.button_1_label != blank -%}
+          {%- if section.settings.button_1_label != blank and section.settings.button_1_link != blank -%}
             <a class="l-btn l-btn--white" href="{{ section.settings.button_1_link }}">{{ section.settings.button_1_label | escape }}{% render 'laces-icon', icon: 'arrow', class: 'l-btn__arrow' %}</a>
           {%- endif -%}
-          {%- if section.settings.button_2_label != blank -%}
+          {%- if section.settings.button_2_label != blank and section.settings.button_2_link != blank -%}
             <a class="l-btn l-btn--ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>
           {%- endif -%}
         </div>

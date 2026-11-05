@@ -12,7 +12,7 @@ Status: **OPEN** = needs action/answer · **WATCH** = fine today, breaks if X ch
 - WATCH: PRs are merged by Varun (Devin's merge is blocked by a safety hook).
 
 ## Homepage (PR #4)
-- WATCH: `templates/index.json` is at Shopify's 25-section cap. To add a section, delete a disabled one first.
+- WATCH: `templates/index.json` has a 25-section cap (disabled sections count). It's at 22/25 after the homepage-ajay-sections PR.
 - WATCH: Berkeley Roster tile links to `/pages/cal-athletes`. If that page handle changes, the tile 404s.
 
 ## Cal Athletes page (PR #5)
@@ -69,7 +69,7 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - OPEN: To show athlete names, create a product metafield definition `custom.designed_by` (single-line text) in Admin → Settings → Custom data → Products, and fill it per product.
 
 ### Homepage (`templates/index.json`)
-- WATCH: Added **Cal Athletes banner** (reused the old disabled Labor Day "image with text overlay" section, now "Cal Athletes banner", after New Arrivals) and a **Rep Your City** product row (`rep-your-city`, after Rep Your Team). Deleted the disabled "LACES Rookies" featured-blog section to stay at 24/25 sections. One slot left.
+- WATCH: Added **Cal Athletes banner** (reused the old disabled Labor Day "image with text overlay" section, now "Cal Athletes banner", after New Arrivals) and a **Rep Your City** product row (`rep-your-city`, after Rep Your Team). Deleted the disabled "LACES Rookies" featured-blog section (the count later dropped to 22/25, see the homepage section below).
 
 ### Reviews (Vitals) and third-party pop-ups (`assets/kinect-haus.css`, `assets/kinect-haus.js`)
 - WATCH: Vitals' reviews widget (`#vitals-end-section .vtl-pr-main-widget`) is hidden when it contains `.vtl-pr-stats--no-reviews`. If Vitals changes its markup the empty block comes back; if you switch to Judge.me/Yotpo, re-check. Populated reviews are untouched. Vitals doesn't render on the local preview, so **verify on a PR-linked theme** with a 0-review product and one with reviews.

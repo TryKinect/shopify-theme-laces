@@ -37,7 +37,7 @@
         -%}
         <a class="l-tile l-reveal{% if image == blank %} l-tile--placeholder{% endif %}" href="{{ url }}" style="{{ delay_style }}" {{ block.shopify_attributes }}>
           {%- if image != blank -%}
-            {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: sizes, widths: '400, 600, 800, 1000, 1400', style: style, alt: title }}
+            {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: sizes, widths: '400, 600, 800, 1000, 1400', style: style, alt: '' }}
           {%- else -%}
             {{ 'collection-1' | placeholder_svg_tag }}
           {%- endif -%}

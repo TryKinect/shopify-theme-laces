@@ -6,23 +6,10 @@
 {%- liquid
   assign tabs = section.blocks | where: 'type', 'tab'
   assign limit = section.settings.limit
-  if settings.prod_thumb_shape == 'portrait-23'
-    assign chosen_aspect_ratio = 0.67
-  elsif settings.prod_thumb_shape == 'portrait-45'
-    assign chosen_aspect_ratio = 0.8
-  elsif settings.prod_thumb_shape == 'square'
-    assign chosen_aspect_ratio = 1.0
-  elsif settings.prod_thumb_shape == 'landscape-54'
-    assign chosen_aspect_ratio = 1.25
-  elsif settings.prod_thumb_shape == 'landscape-32'
-    assign chosen_aspect_ratio = 1.5
-  else
-    assign chosen_aspect_ratio = 1.0
-  endif
   assign first_coll = tabs.first.settings.collection
 -%}
 
-<div class="l-section l-rail-section{% if section.settings.color_scheme == 'paper' %} l-section--paper{% elsif section.settings.color_scheme == 'dark' %} l-section--dark{% endif %}" id="section-id-{{ section.id }}" data-l-rail>
+<div class="l-section l-rail-section collection-slider-row{% if section.settings.color_scheme == 'paper' %} l-section--paper{% elsif section.settings.color_scheme == 'dark' %} l-section--dark{% endif %}" id="section-id-{{ section.id }}" data-l-rail>
   <div class="l-container">
     <div class="l-sec-head l-reveal">
       <div class="l-sec-head__text">
@@ -34,9 +21,9 @@
         {%- if section.settings.show_view_all and first_coll != blank -%}
           <a class="l-link" href="{{ first_coll.url }}" data-l-view-all>{{ 'sections.featured_collection.view_all' | t }}{% render 'laces-icon', icon: 'arrow' %}</a>
         {%- endif -%}
-        <div class="l-rail-nav" aria-hidden="true">
-          <button type="button" class="l-rail-nav__btn" data-l-prev tabindex="-1">{% render 'laces-icon', icon: 'chevron-left' %}</button>
-          <button type="button" class="l-rail-nav__btn" data-l-next tabindex="-1">{% render 'laces-icon', icon: 'chevron-right' %}</button>
+        <div class="l-rail-nav">
+          <button type="button" class="l-rail-nav__btn" data-l-prev aria-label="{{ 'general.slider.previous' | t | escape }}">{% render 'laces-icon', icon: 'chevron-left' %}</button>
+          <button type="button" class="l-rail-nav__btn" data-l-next aria-label="{{ 'general.slider.next' | t | escape }}">{% render 'laces-icon', icon: 'chevron-right' %}</button>
         </div>
       </div>
     </div>
@@ -53,8 +40,39 @@
     {%- endif -%}
 
     {%- for block in tabs -%}
-      {%- assign coll = block.settings.collection -%}
-      <div class="l-rail-panel" id="l-panel-{{ section.id }}-{{ forloop.index }}" role="tabpanel" aria-labelledby="l-tab-{{ section.id }}-{{ forloop.index }}" data-url="{{ coll.url | default: routes.all_products_collection_url }}" {% unless forloop.first %}hidden{% endunless %}>
+      {%- liquid
+        assign coll = block.settings.collection
+        case settings.prod_thumb_shape
+          when 'portrait-23'
+            assign chosen_aspect_ratio = 0.67
+          when 'portrait-45'
+            assign chosen_aspect_ratio = 0.8
+          when 'square'
+            assign chosen_aspect_ratio = 1.0
+          when 'landscape-54'
+            assign chosen_aspect_ratio = 1.25
+          when 'landscape-32'
+            assign chosen_aspect_ratio = 1.5
+          when 'tallest'
+            assign chosen_aspect_ratio = 99
+            for product in coll.products limit: limit
+              if product.featured_media.preview_image.aspect_ratio < chosen_aspect_ratio
+                assign chosen_aspect_ratio = product.featured_media.preview_image.aspect_ratio
+              endif
+            endfor
+          else
+            assign chosen_aspect_ratio = 0
+            for product in coll.products limit: limit
+              if product.featured_media.preview_image.aspect_ratio > chosen_aspect_ratio
+                assign chosen_aspect_ratio = product.featured_media.preview_image.aspect_ratio
+              endif
+            endfor
+        endcase
+        if chosen_aspect_ratio == 0 or chosen_aspect_ratio == 99
+          assign chosen_aspect_ratio = 1.0
+        endif
+      -%}
+      <div class="l-rail-panel" id="l-panel-{{ section.id }}-{{ forloop.index }}" {% if tabs.size > 1 %}role="tabpanel" aria-labelledby="l-tab-{{ section.id }}-{{ forloop.index }}"{% endif %} data-url="{{ coll.url | default: routes.all_products_collection_url }}" {% unless forloop.first %}hidden{% endunless %}>
         <carousel-slider class="carousel block collection-slider">
           <div class="slider slider--no-scrollbar">
             <div class="product-grid product-grid--per-row-{{ section.settings.grid }} product-grid--per-row-mob-{{ settings.prod_thumb_mob_per_row }} slider__grid product-grid--carousel">

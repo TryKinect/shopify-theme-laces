@@ -31,10 +31,20 @@
       {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow l-reveal">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
       {%- if section.settings.heading != blank -%}<h2 class="l-display l-campaign__title l-reveal" style="--l-delay:.08s">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
       {%- if section.settings.text != blank -%}<p class="l-campaign__text l-reveal" style="--l-delay:.16s">{{ section.settings.text | escape }}</p>{%- endif -%}
-      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+      {%- liquid
+        assign show_b1 = false
+        assign show_b2 = false
+        if section.settings.button_1_label != blank and section.settings.button_1_link != blank
+          assign show_b1 = true
+        endif
+        if section.settings.button_2_label != blank and section.settings.button_2_link != blank
+          assign show_b2 = true
+        endif
+      -%}
+      {%- if show_b1 or show_b2 -%}
         <div class="l-campaign__actions l-reveal" style="--l-delay:.24s">
-          {%- if section.settings.button_1_label != blank -%}<a class="l-btn l-btn--white" href="{{ section.settings.button_1_link }}">{{ section.settings.button_1_label | escape }}{% render 'laces-icon', icon: 'arrow', class: 'l-btn__arrow' %}</a>{%- endif -%}
-          {%- if section.settings.button_2_label != blank -%}<a class="l-btn l-btn--ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>{%- endif -%}
+          {%- if show_b1 -%}<a class="l-btn l-btn--white" href="{{ section.settings.button_1_link }}">{{ section.settings.button_1_label | escape }}{% render 'laces-icon', icon: 'arrow', class: 'l-btn__arrow' %}</a>{%- endif -%}
+          {%- if show_b2 -%}<a class="l-btn l-btn--ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>{%- endif -%}
         </div>
       {%- endif -%}
     </div>
@@ -47,8 +57,14 @@
           <span class="l-campaign__product-kicker">{{ section.settings.product_kicker | default: 'Shop the piece' | escape }}</span>
           <span class="l-campaign__product-title">{{ product.title | escape }}</span>
           <span class="l-campaign__product-price">
-            {%- if product.compare_at_price > product.price -%}<span class="price__was">{{ product.compare_at_price | money }}</span>{%- endif -%}
-            {%- if product.price_varies %}From {{ product.price_min | money }}{% else %}{{ product.price | money }}{% endif -%}
+            {%- liquid
+              assign price_variant = product.selected_or_first_available_variant
+              if product.price_varies
+                assign price_variant = product.variants | sort: 'price' | first
+              endif
+            -%}
+            {%- if price_variant.compare_at_price > price_variant.price -%}<span class="price__was">{{ price_variant.compare_at_price | money }}</span>{%- endif -%}
+            {%- if product.price_varies %}From {{ price_variant.price | money }}{% else %}{{ price_variant.price | money }}{% endif -%}
           </span>
         </span>
       </a>

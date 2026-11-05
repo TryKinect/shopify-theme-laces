@@ -141,7 +141,6 @@
 @media (prefers-reduced-motion: reduce) {
   .l-reveal { opacity: 1; transform: none; transition: none; }
   .l-hero__line, .l-hero__fade { animation: none !important; opacity: 1 !important; transform: none !important; }
-  * { scroll-behavior: auto !important; }
 }
 
 /* Horizontal scroll rails (mobile) */
