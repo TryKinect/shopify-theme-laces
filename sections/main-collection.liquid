@@ -251,6 +251,9 @@
                 <div class="link-dropdown__options-inner">
                   {%- for option in collection.sort_options -%}
                     {%- liquid
+                      if option.value == 'most-relevant'
+                        continue
+                      endif
                       if section.settings.sort_show_featured == false and option.value == 'manual' and collection.default_sort_by != 'manual'
                         continue
                       endif
