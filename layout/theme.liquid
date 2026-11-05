@@ -48,6 +48,7 @@
 
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
+  {{ 'laces-base.css' | asset_url | stylesheet_tag }}
   {%- if template.name == 'index' -%}{{ 'laces-home.css' | asset_url | stylesheet_tag }}{%- endif -%}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}

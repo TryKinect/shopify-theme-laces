@@ -1,0 +1,198 @@
+{%- comment -%}
+  LACES 2026 — Footer.
+  Newsletter band · brand column (logo, tagline, socials) · link columns (menus or live
+  collection lists) · Athlete Fund card · bottom bar (payments, policies, localization, ©).
+  Uses the theme's social-media + localization-form snippets and Shopify's customer form.
+{%- endcomment -%}
+{%- liquid
+  assign copyright_year = 'now' | date: '%Y'
+-%}
+<footer class="l-footer" id="section-id-{{ section.id }}" role="contentinfo">
+  {%- if section.settings.show_newsletter -%}
+    <div class="l-footer__band">
+      <div class="l-container l-footer__band-inner">
+        <div>
+          {%- if section.settings.newsletter_eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="l-display l-footer__band-title">{{ section.settings.newsletter_heading | escape }}</h2>
+          {%- if section.settings.newsletter_text != blank -%}<p class="l-footer__band-text">{{ section.settings.newsletter_text | escape }}</p>{%- endif -%}
+        </div>
+        <div class="l-footer__form">
+          {%- form 'customer', id: 'l-footer-newsletter', class: 'newsletter-form' -%}
+            {%- if form.posted_successfully? -%}
+              <p class="form-success" role="status">{{ 'newsletter.success' | t }}</p>
+            {%- else -%}
+              {%- render 'form-errors', form: form, id: 'l-footer-newsletter-error' -%}
+              <input type="hidden" name="contact[tags]" value="prospect,newsletter,footer">
+              <label class="l-visually-hidden" for="l-footer-email">{{ 'newsletter.label' | t }}</label>
+              <div class="l-footer__field">
+                <input id="l-footer-email" type="email" name="contact[email]" placeholder="{{ 'newsletter.placeholder' | t | escape }}" autocomplete="email" required{% if form.errors %} aria-invalid="true" aria-describedby="l-footer-newsletter-error"{% endif %}>
+                <button type="submit">{{ 'newsletter.button_label' | t }}</button>
+              </div>
+              {%- if section.settings.newsletter_consent != blank -%}<p class="l-footer__consent">{{ section.settings.newsletter_consent | escape }}</p>{%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="l-container">
+    <div class="l-footer__main">
+      <div class="l-footer__brand">
+        {%- if section.settings.logo != blank -%}
+          <a class="l-footer__brand-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+            {{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'lazy', widths: '150, 300', sizes: '110px', alt: shop.name }}
+          </a>
+        {%- else -%}
+          <a class="l-footer__brand-logo l-display l-display--sm" href="{{ routes.root_url }}">{{ shop.name }}</a>
+        {%- endif -%}
+        {%- if section.settings.tagline != blank -%}<p class="l-footer__tagline">{{ section.settings.tagline | escape }}</p>{%- endif -%}
+        {%- if section.settings.brand_text != blank -%}<p class="l-footer__brand-text">{{ section.settings.brand_text | escape }}</p>{%- endif -%}
+        {%- if section.settings.show_social -%}
+          <div class="l-footer__social">
+            {%- if settings.social_instagram_url != blank -%}<a href="{{ settings.social_instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon-instagram' %}</a>{%- endif -%}
+            {%- if settings.social_tiktok_url != blank -%}<a href="{{ settings.social_tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon-tiktok' %}</a>{%- endif -%}
+            {%- if settings.social_youtube_url != blank -%}<a href="{{ settings.social_youtube_url }}" target="_blank" rel="noopener" aria-label="YouTube">{% render 'icon-youtube' %}</a>{%- endif -%}
+            {%- if settings.social_twitter_url != blank -%}<a href="{{ settings.social_twitter_url }}" target="_blank" rel="noopener" aria-label="X">{% render 'icon-twitter' %}</a>{%- endif -%}
+            {%- if settings.social_facebook_url != blank -%}<a href="{{ settings.social_facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'icon-facebook' %}</a>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="l-footer__cols">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'menu' -%}
+              {%- if block.settings.menu != blank -%}
+                <nav class="l-footer__col" aria-label="{{ block.settings.title | default: linklists[block.settings.menu].title | escape }}" {{ block.shopify_attributes }}>
+                  <h3 class="l-footer__col-title">{{ block.settings.title | default: linklists[block.settings.menu].title | escape }}</h3>
+                  <ul>
+                    {%- for link in linklists[block.settings.menu].links -%}
+                      <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </nav>
+              {%- endif -%}
+            {%- when 'collections' -%}
+              <nav class="l-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
+                <h3 class="l-footer__col-title">{{ block.settings.title | escape }}</h3>
+                <ul>
+                  {%- for c in block.settings.collections -%}
+                    <li><a href="{{ c.url }}">{{ c.title | remove: ' Collection' | escape }}</a></li>
+                  {%- endfor -%}
+                  {%- if block.settings.extra_label != blank and block.settings.extra_link != blank -%}<li><a href="{{ block.settings.extra_link }}">{{ block.settings.extra_label | escape }}</a></li>{%- endif -%}
+                </ul>
+              </nav>
+            {%- when 'links' -%}
+              <nav class="l-footer__col" aria-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
+                <h3 class="l-footer__col-title">{{ block.settings.title | escape }}</h3>
+                <ul>
+                  {%- for i in (1..6) -%}
+                    {%- assign lk = 'label_' | append: i -%}
+                    {%- assign uk = 'url_' | append: i -%}
+                    {%- if block.settings[lk] != blank and block.settings[uk] != blank -%}
+                      <li><a href="{{ block.settings[uk] }}"{% if block.settings[uk] contains 'http' %} target="_blank" rel="noopener"{% endif %}>{{ block.settings[lk] | escape }}</a></li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              </nav>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.fund_heading != blank -%}
+        <aside class="l-footer__fund" aria-label="{{ section.settings.fund_heading | escape }}">
+          <h3 class="l-footer__fund-title">{{ section.settings.fund_heading | escape }}</h3>
+          {%- if section.settings.fund_text != blank -%}<p>{{ section.settings.fund_text | escape }}</p>{%- endif -%}
+          {%- if section.settings.fund_label != blank and section.settings.fund_link != blank -%}<a class="l-link" href="{{ section.settings.fund_link }}">{{ section.settings.fund_label | escape }}{% render 'laces-icon', icon: 'arrow' %}</a>{%- endif -%}
+        </aside>
+      {%- endif -%}
+    </div>
+
+    <div class="l-footer__bottom">
+      <div class="l-footer__bottom-left">
+        {%- if section.settings.lower_menu != blank -%}
+          <nav class="l-footer__legal" aria-label="{{ 'accessibility.secondary_navigation' | t }}">
+            {%- for link in linklists[section.settings.lower_menu].links -%}<a href="{{ link.url }}">{{ link.title | escape }}</a>{%- endfor -%}
+          </nav>
+        {%- endif -%}
+        <p class="l-footer__copy">{{ 'sections.footer.copyright_html' | t: year: copyright_year, shop_url: routes.root_url, shop_name: shop.name }}</p>
+      </div>
+      <div class="l-footer__bottom-right">
+        {%- if section.settings.enable_country_selector or section.settings.enable_language_selector -%}
+          <div class="l-footer__locale">{% render 'localization-form', id: 'l-footer-localization', hide_labels: true, promote_popular: true %}</div>
+        {%- endif -%}
+        {%- if section.settings.show_payment_icons -%}
+          <div class="l-footer__payments" aria-label="Accepted payment methods">
+            {%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'l-footer__payment-icon' }}{%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "LACES · Footer",
+  "class": "section-l-footer",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Newsletter band" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter band", "default": true },
+    { "type": "text", "id": "newsletter_eyebrow", "label": "Eyebrow", "default": "Stay in the know" },
+    { "type": "text", "id": "newsletter_heading", "label": "Heading", "default": "First access to every drop." },
+    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "Exclusive offers, original stories, new product drops and athlete updates." },
+    { "type": "text", "id": "newsletter_consent", "label": "Consent note", "default": "By subscribing you agree to receive LACES emails. Unsubscribe anytime." },
+    { "type": "header", "content": "Brand" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Built by athletes. Designed for everyone." },
+    { "type": "textarea", "id": "brand_text", "label": "Text", "default": "LACES partners with athletes to create well-crafted hats while helping them build real ownership beyond the game." },
+    { "type": "checkbox", "id": "show_social", "label": "Show social icons", "default": true },
+    { "type": "header", "content": "Athlete Fund card" },
+    { "type": "text", "id": "fund_heading", "label": "Heading", "default": "Every purchase pays athletes" },
+    { "type": "text", "id": "fund_text", "label": "Text", "default": "5% of every LACES sale goes into the Athlete Fund and is split equally among athletes who hit their monthly checkpoints." },
+    { "type": "text", "id": "fund_label", "label": "Link label", "default": "How it works" },
+    { "type": "url", "id": "fund_link", "label": "Link" },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "link_list", "id": "lower_menu", "label": "Policies menu" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true },
+    { "type": "checkbox", "id": "enable_country_selector", "label": "Enable country/region selector", "default": true },
+    { "type": "checkbox", "id": "enable_language_selector", "label": "Enable language selector", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    },
+    {
+      "type": "collections",
+      "name": "Collections column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shop" },
+        { "type": "collection_list", "id": "collections", "label": "Collections", "limit": 8 },
+        { "type": "text", "id": "extra_label", "label": "Extra link label" },
+        { "type": "url", "id": "extra_link", "label": "Extra link" }
+      ]
+    },
+    {
+      "type": "links",
+      "name": "Custom links column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Brand" },
+        { "type": "text", "id": "label_1", "label": "Link 1 label" }, { "type": "url", "id": "url_1", "label": "Link 1" },
+        { "type": "text", "id": "label_2", "label": "Link 2 label" }, { "type": "url", "id": "url_2", "label": "Link 2" },
+        { "type": "text", "id": "label_3", "label": "Link 3 label" }, { "type": "url", "id": "url_3", "label": "Link 3" },
+        { "type": "text", "id": "label_4", "label": "Link 4 label" }, { "type": "url", "id": "url_4", "label": "Link 4" },
+        { "type": "text", "id": "label_5", "label": "Link 5 label" }, { "type": "url", "id": "url_5", "label": "Link 5" },
+        { "type": "text", "id": "label_6", "label": "Link 6 label" }, { "type": "url", "id": "url_6", "label": "Link 6" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}
