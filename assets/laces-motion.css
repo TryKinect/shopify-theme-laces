@@ -65,6 +65,9 @@
 .is-in .l-w > span, .is-split.is-in .l-w > span { transform: none; }
 .is-split:not(.is-in) .l-w > span { animation: l-mask-force-img .6s var(--m-ease-out) 2.5s forwards; }
 
+/* Server-split headings (hero, collection H1): words rise on load, no observer needed */
+.l-split-auto .l-w > span { transform: translateY(110%); animation: l-word-up var(--m-dur-l) var(--m-ease-out) forwards; animation-delay: calc(.05s + var(--w, 0) * .06s); transition: none; }
+
 /* Stagger helper: children of [data-l-stagger] get incremental delays (first 10) */
 [data-l-stagger] > :nth-child(1) { --l-delay: 0s; }
 [data-l-stagger] > :nth-child(2) { --l-delay: calc(var(--m-stagger) * 1); }
@@ -328,7 +331,7 @@
 
 /* ---------- 15. Reduced motion / data saver: everything visible, nothing moves ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .l-reveal, .l-mask, .l-mask > img, .l-mask > .l-mask__inner, .l-rule::after, .l-w > span, .l-ledger__row, .l-ledger__row::after, .l-fit__vs, .l-hero__line > span, .l-hero__heading.is-split .l-w > span, .l-hero__media::after, .l-hero__inner, .l-hero__media img, .l-tabs__ind, .product-grid .product-block, .l-rail-panel.is-entering .slider__item, .main-search .main-search__results .product-block, .cart-drawer .is-new, .l-hero__cue, .k-stock__dot {
+  .l-reveal, .l-mask, .l-mask > img, .l-mask > .l-mask__inner, .l-rule::after, .l-w > span, .l-split-auto .l-w > span, .l-ledger__row, .l-ledger__row::after, .l-fit__vs, .l-hero__line > span, .l-hero__heading.is-split .l-w > span, .l-hero__media::after, .l-hero__inner, .l-hero__media img, .l-tabs__ind, .product-grid .product-block, .l-rail-panel.is-entering .slider__item, .main-search .main-search__results .product-block, .cart-drawer .is-new, .l-hero__cue, .k-stock__dot {
     animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; clip-path: none !important; translate: 0 !important; scale: 1 !important;
   }
   .l-hero__cue { display: none !important; }

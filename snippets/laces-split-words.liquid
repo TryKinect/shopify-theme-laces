@@ -1,0 +1,9 @@
+{%- comment -%}
+  LACES 2026 motion — server-side word split for above-the-fold display text.
+  Outputs each word in a masked span so the kinetic reveal runs with zero script dependency
+  (the parent should carry class "l-split-auto").  Param: text {String}
+{%- endcomment -%}
+{%- assign l_words = text | strip | split: ' ' -%}
+{%- for word in l_words -%}
+  <span class="l-w"><span style="--w: {{ forloop.index0 }}">{{ word | escape }}</span></span>{% unless forloop.last %} {% endunless %}
+{%- endfor -%}

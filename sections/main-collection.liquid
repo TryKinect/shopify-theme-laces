@@ -189,7 +189,7 @@
         </nav>
         <div class="l-coll-head__row">
           {%- if section.settings.show_title -%}
-            <h1 class="l-display l-coll-head__title" data-l-split>{{ collection.title | escape }}</h1>
+            <h1 class="l-display l-coll-head__title l-split-auto">{%- render 'laces-split-words', text: collection.title -%}</h1>
           {%- endif -%}
           {%- if section.settings.show_total and paginate.items > 0 -%}
             <span class="l-coll-head__count">{{ 'sections.collection.product_count' | t: count: paginate.items }}</span>
