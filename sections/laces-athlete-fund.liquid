@@ -1,0 +1,120 @@
+{%- comment -%}
+  LACES 2026 — Athlete-first storytelling block.
+  Dark editorial panel: display headline, verified Fund copy, a "ledger" of how the model
+  works (blocks), and two CTAs (Athlete Fund / NIL). No invented figures: every line is
+  merchant-editable and defaults to copy already published on getlaces.co.
+{%- endcomment -%}
+{%- liquid
+  assign image = section.settings.image
+  assign fp = image.presentation.focal_point | default: 'center'
+  assign style = '--l-fp: ' | append: fp
+  assign rows = section.blocks | where: 'type', 'row'
+
+  # Heading: escape, keep line breaks, turn *word* into an outlined <em>
+  assign h_parts = section.settings.heading | escape | newline_to_br | split: '*'
+  capture heading_html
+    for p in h_parts
+      assign idx = forloop.index0 | modulo: 2
+      if forloop.first
+        echo p
+      elsif idx == 1
+        echo '<em>' | append: p
+      else
+        echo '</em>' | append: p
+      endif
+    endfor
+    assign star_count = h_parts.size | minus: 1 | modulo: 2
+    if star_count == 1
+      echo '</em>'
+    endif
+  endcapture
+-%}
+<section class="l-fund l-section l-section--lg l-fund--media-{{ section.settings.media_position }}" id="section-id-{{ section.id }}">
+  <div class="l-container">
+    <div class="l-fund__grid">
+      <div class="l-fund__media l-reveal">
+        {%- if image != blank -%}
+          {{ image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '600, 900, 1200, 1600', style: style, alt: image.alt }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag }}
+        {%- endif -%}
+        {%- if section.settings.media_tag != blank -%}<span class="l-fund__media-tag">{{ section.settings.media_tag | escape }}</span>{%- endif -%}
+      </div>
+
+      <div class="l-fund__copy l-on-dark">
+        {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow l-reveal">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="l-display l-fund__heading l-reveal" style="--l-delay:.08s">{{ heading_html }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}<div class="l-lede l-fund__lede l-reveal" style="--l-delay:.16s">{{ section.settings.text }}</div>{%- endif -%}
+
+        {%- if rows.size > 0 -%}
+          <ol class="l-ledger l-reveal" style="--l-delay:.22s">
+            {%- for block in rows -%}
+              <li class="l-ledger__row" {{ block.shopify_attributes }}>
+                <span class="l-ledger__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                <div>
+                  <p class="l-ledger__title">{{ block.settings.title | escape }}</p>
+                  {%- if block.settings.text != blank -%}<p class="l-ledger__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+                </div>
+                {%- if block.settings.value != blank -%}<span class="l-ledger__value">{{ block.settings.value | escape }}</span>{%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
+
+        <div class="l-fund__actions l-reveal" style="--l-delay:.3s">
+          {%- if section.settings.button_1_label != blank -%}
+            <a class="l-btn l-btn--white" href="{{ section.settings.button_1_link }}">{{ section.settings.button_1_label | escape }}{% render 'laces-icon', icon: 'arrow', class: 'l-btn__arrow' %}</a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a class="l-btn l-btn--ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.fine_print != blank -%}<p class="l-fund__fine">{{ section.settings.fine_print | escape }}</p>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LACES · Athlete Fund",
+  "class": "section-l-fund",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Portrait athlete photography works best (4:5)." },
+    { "type": "text", "id": "media_tag", "label": "Image tag", "default": "LACES athletes" },
+    { "type": "select", "id": "media_position", "label": "Image position (desktop)", "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ], "default": "left" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The LACES Athlete Fund" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "info": "Wrap a word in *asterisks* to outline it.", "default": "More than a hat.\nA whole *community* behind it." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Most brands just sell products. We reinvest in athletes. The LACES Athlete Fund is a dedicated pool of money that goes directly back to athletes in our community — and every purchase is a vote for that model.</p>" },
+    { "type": "text", "id": "button_1_label", "label": "Primary button", "default": "How the Fund works" },
+    { "type": "url", "id": "button_1_link", "label": "Primary link" },
+    { "type": "text", "id": "button_2_label", "label": "Secondary button", "default": "Join LACES NIL" },
+    { "type": "url", "id": "button_2_link", "label": "Secondary link" },
+    { "type": "text", "id": "fine_print", "label": "Fine print" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ledger row",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "5% of every LACES sale" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Goes straight into the Fund, alongside brand and sponsor contributions." },
+        { "type": "text", "id": "value", "label": "Value (optional)", "info": "Short figure shown on the right, e.g. 5%. Only use verified numbers." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LACES · Athlete Fund",
+      "blocks": [
+        { "type": "row", "settings": { "title": "5% of every LACES sale", "text": "Goes straight into the Fund, alongside brand and sponsor contributions.", "value": "5%" } },
+        { "type": "row", "settings": { "title": "Athletes earn it by showing up", "text": "Creating content, sharing their story and driving real support around what they represent.", "value": "" } },
+        { "type": "row", "settings": { "title": "Split equally, every month", "text": "Distributed equally among college athletes who meet monthly performance checkpoints.", "value": "" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

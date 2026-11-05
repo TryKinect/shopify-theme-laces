@@ -252,7 +252,7 @@
 
           {% when 'title' %}
             <div class="title-row" data-dynamic-variant-content="{{ block.id }}" {{ block.shopify_attributes }}>
-              <h1 class="product-title">{{ product.title | escape }}</h1>
+              {%- render 'laces-product-title', product: product, mode: 'pdp' -%}
             </div>
 
           {% when 'price' %}

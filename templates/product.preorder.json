@@ -1,1 +1,63 @@
-{"sections":{"main":{"type":"main-product","blocks":{"title":{"type":"title","settings":{}},"price":{"type":"price","settings":{}},"vendor":{"type":"vendor","settings":{}},"divider":{"type":"divider","settings":{}},"variant-picker":{"type":"variant-picker","settings":{}},"buy-buttons":{"type":"buy-buttons","settings":{}},"description":{"type":"description","settings":{}}},"block_order":["title","price","vendor","divider","variant-picker","buy-buttons","description"],"settings":{}},"related-products":{"type":"related-products","settings":{}}},"order":["main","related-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "divider": {
+          "type": "divider",
+          "settings": {}
+        },
+        "variant-picker": {
+          "type": "variant-picker",
+          "settings": {}
+        },
+        "buy-buttons": {
+          "type": "buy-buttons",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "l_fund_note": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "{% render 'laces-fund-note', variant: 'pdp' %}",
+            "show_in_quickbuy": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "vendor",
+        "divider",
+        "variant-picker",
+        "buy-buttons",
+        "l_fund_note",
+        "description"
+      ],
+      "settings": {}
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "related-products"
+  ]
+}

@@ -1,0 +1,116 @@
+{%- comment -%}
+  LACES 2026 — Product rail with optional collection tabs.
+  Each tab is a block pointing at a collection; panels are rendered server-side with the
+  theme's product-block + carousel-slider, so quick buy, swatches, labels and ratings all work.
+{%- endcomment -%}
+{%- liquid
+  assign tabs = section.blocks | where: 'type', 'tab'
+  assign limit = section.settings.limit
+  if settings.prod_thumb_shape == 'portrait-23'
+    assign chosen_aspect_ratio = 0.67
+  elsif settings.prod_thumb_shape == 'portrait-45'
+    assign chosen_aspect_ratio = 0.8
+  elsif settings.prod_thumb_shape == 'square'
+    assign chosen_aspect_ratio = 1.0
+  elsif settings.prod_thumb_shape == 'landscape-54'
+    assign chosen_aspect_ratio = 1.25
+  elsif settings.prod_thumb_shape == 'landscape-32'
+    assign chosen_aspect_ratio = 1.5
+  else
+    assign chosen_aspect_ratio = 1.0
+  endif
+  assign first_coll = tabs.first.settings.collection
+-%}
+
+<div class="l-section l-rail-section{% if section.settings.color_scheme == 'paper' %} l-section--paper{% elsif section.settings.color_scheme == 'dark' %} l-section--dark{% endif %}" id="section-id-{{ section.id }}" data-l-rail>
+  <div class="l-container">
+    <div class="l-sec-head l-reveal">
+      <div class="l-sec-head__text">
+        {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.text != blank -%}<p class="l-sec-head__sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+      <div class="l-sec-head__action">
+        {%- if section.settings.show_view_all and first_coll != blank -%}
+          <a class="l-link" href="{{ first_coll.url }}" data-l-view-all>{{ 'sections.featured_collection.view_all' | t }}{% render 'laces-icon', icon: 'arrow' %}</a>
+        {%- endif -%}
+        <div class="l-rail-nav" aria-hidden="true">
+          <button type="button" class="l-rail-nav__btn" data-l-prev tabindex="-1">{% render 'laces-icon', icon: 'chevron-left' %}</button>
+          <button type="button" class="l-rail-nav__btn" data-l-next tabindex="-1">{% render 'laces-icon', icon: 'chevron-right' %}</button>
+        </div>
+      </div>
+    </div>
+
+    {%- if tabs.size > 1 -%}
+      <div class="l-tabs l-reveal" role="tablist" aria-label="{{ section.settings.heading | default: 'Collections' | escape }}">
+        {%- for block in tabs -%}
+          {%- assign coll = block.settings.collection -%}
+          <button type="button" role="tab" class="l-tab" id="l-tab-{{ section.id }}-{{ forloop.index }}" aria-controls="l-panel-{{ section.id }}-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+            {{- block.settings.label | default: coll.title | default: 'Collection' | escape -}}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- for block in tabs -%}
+      {%- assign coll = block.settings.collection -%}
+      <div class="l-rail-panel" id="l-panel-{{ section.id }}-{{ forloop.index }}" role="tabpanel" aria-labelledby="l-tab-{{ section.id }}-{{ forloop.index }}" data-url="{{ coll.url | default: routes.all_products_collection_url }}" {% unless forloop.first %}hidden{% endunless %}>
+        <carousel-slider class="carousel block collection-slider">
+          <div class="slider slider--no-scrollbar">
+            <div class="product-grid product-grid--per-row-{{ section.settings.grid }} product-grid--per-row-mob-{{ settings.prod_thumb_mob_per_row }} slider__grid product-grid--carousel">
+              {%- if coll == blank -%}
+                {%- for i in (1..limit) -%}
+                  <div class="slider__item">{% render 'onboarding-product-block', forloop: forloop %}</div>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for product in coll.products limit: limit -%}
+                  <div class="slider__item">
+                    {%- render 'product-block', product: product, collection: coll, custom_aspect_ratio: chosen_aspect_ratio, no_swiping: true, no_quick_buy_markup: true, grid: section.settings.grid -%}
+                  </div>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
+        </carousel-slider>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if settings.quickbuy_style != 'off' -%}
+    <div class="quickbuy-container use-color-scheme use-color-scheme--{{ settings.quickbuy_color_scheme }} js-quickbuy">
+      <a href="#" class="close-detail" aria-label="{{ 'accessibility.close' | t }}" tabindex="-1" aria-hidden="true">{% render 'icon-close', stroke_width: 1 %}</a>
+      <div class="inner"></div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "LACES · Product rail",
+  "class": "section-l-rail",
+  "disabled_on": { "groups": ["aside"] },
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The rotation" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bestsellers" },
+    { "type": "text", "id": "text", "label": "Supporting text" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show 'View all' (follows the active tab)", "default": true },
+    { "type": "range", "id": "limit", "label": "Products per tab", "min": 4, "max": 16, "step": 1, "default": 10 },
+    { "type": "range", "id": "grid", "label": "Products per row (desktop)", "min": 3, "max": 5, "step": 1, "default": 4 },
+    { "type": "select", "id": "color_scheme", "label": "Background", "options": [ { "value": "white", "label": "White" }, { "value": "paper", "label": "Light grey" }, { "value": "dark", "label": "Black" } ], "default": "white" }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Collection tab",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Tab label override" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "LACES · Product rail", "blocks": [ { "type": "tab" } ] }
+  ]
+}
+{% endschema %}

@@ -106,6 +106,13 @@
             "variant_content": false,
             "show_in_quickbuy": false
           }
+        },
+        "l_fund_note": {
+          "type": "custom-liquid",
+          "settings": {
+            "custom_liquid": "{% render 'laces-fund-note', variant: 'pdp' %}",
+            "show_in_quickbuy": false
+          }
         }
       },
       "block_order": [
@@ -115,6 +122,7 @@
         "divider",
         "variant-picker",
         "buy-buttons",
+        "l_fund_note",
         "description",
         "feature_rating_fPRniz",
         "accordion_X4DkJx",

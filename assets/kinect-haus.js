@@ -29,7 +29,11 @@
   const swap = (card, btn) => {
     card.querySelectorAll('a.product-link, a.quickbuy-toggle').forEach((a) => { a.href = btn.dataset.url; });
     const title = card.querySelector('.product-block__title');
-    if (title) title.textContent = btn.dataset.title;
+    if (title) {
+      // LACES 2026 renders split titles (kicker / name / colorway); fall back to plain text
+      if (window.LACES && window.LACES.renderCardTitle) window.LACES.renderCardTitle(title, btn.dataset.title);
+      else title.textContent = btn.dataset.title;
+    }
     const img = card.querySelector('.product-block__image--primary img, .image-cont img');
     if (img && btn.dataset.img) {
       if (!img.dataset.kOrigSrc) { img.dataset.kOrigSrc = img.currentSrc || img.src; img.dataset.kOrigSrcset = img.srcset || ''; }
