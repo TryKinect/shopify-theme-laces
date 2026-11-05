@@ -64,11 +64,19 @@
         <p class="l-eyebrow l-hero__eyebrow l-hero__fade" style="animation-delay:.1s">{{ section.settings.eyebrow | escape }}</p>
       {%- endif -%}
       {%- if section.settings.heading != blank -%}
-        <{{ heading_tag }} class="l-display l-hero__heading">
+        {%- comment -%} Words are split server-side so the kinetic reveal never depends on script timing {%- endcomment -%}
+        {%- assign w_index = 0 -%}
+        <{{ heading_tag }} class="l-display l-hero__heading is-split">
           {%- for line in heading_lines -%}
             {%- assign clean = line | strip_html | strip -%}
             {%- if clean != blank -%}
-              <span class="l-hero__line" style="--i: {{ forloop.index0 }}"><span>{{ clean | escape }}</span></span>
+              <span class="l-hero__line" style="--i: {{ forloop.index0 }}"><span>
+                {%- assign words = clean | split: ' ' -%}
+                {%- for word in words -%}
+                  <span class="l-w"><span style="--w: {{ w_index }}">{{ word | escape }}</span></span>{% unless forloop.last %} {% endunless %}
+                  {%- assign w_index = w_index | plus: 1 -%}
+                {%- endfor -%}
+              </span></span>
             {%- endif -%}
           {%- endfor -%}
         </{{ heading_tag }}>
@@ -88,6 +96,8 @@
       {%- endif -%}
     </div>
   </div>
+
+  <span class="l-hero__cue" aria-hidden="true">Scroll</span>
 
   {%- if proof_blocks.size > 0 -%}
     <div class="l-hero__proof l-hero__fade" style="animation-delay:.8s">

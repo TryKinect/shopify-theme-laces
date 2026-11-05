@@ -27,7 +27,7 @@
     <div class="l-sec-head l-reveal">
       <div class="l-sec-head__text">
         {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-        {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title" data-l-split>{{ section.settings.heading | escape }}</h2>{%- endif -%}
         {%- if section.settings.text != blank -%}<p class="l-sec-head__sub">{{ section.settings.text | escape }}</p>{%- endif -%}
       </div>
       <div class="l-sec-head__action">
@@ -54,7 +54,7 @@
 
     {%- for block in tabs -%}
       {%- assign coll = block.settings.collection -%}
-      <div class="l-rail-panel" id="l-panel-{{ section.id }}-{{ forloop.index }}" role="tabpanel" aria-labelledby="l-tab-{{ section.id }}-{{ forloop.index }}" data-url="{{ coll.url | default: routes.all_products_collection_url }}" {% unless forloop.first %}hidden{% endunless %}>
+      <div class="l-rail-panel l-reveal l-reveal--fade" id="l-panel-{{ section.id }}-{{ forloop.index }}" role="tabpanel" aria-labelledby="l-tab-{{ section.id }}-{{ forloop.index }}" data-url="{{ coll.url | default: routes.all_products_collection_url }}" {% unless forloop.first %}hidden{% endunless %}>
         <carousel-slider class="carousel block collection-slider">
           <div class="slider slider--no-scrollbar">
             <div class="product-grid product-grid--per-row-{{ section.settings.grid }} product-grid--per-row-mob-{{ settings.prod_thumb_mob_per_row }} slider__grid product-grid--carousel">

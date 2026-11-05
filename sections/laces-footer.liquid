@@ -13,7 +13,7 @@
       <div class="l-container l-footer__band-inner">
         <div>
           {%- if section.settings.newsletter_eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</p>{%- endif -%}
-          <h2 class="l-display l-footer__band-title">{{ section.settings.newsletter_heading | escape }}</h2>
+          <h2 class="l-display l-footer__band-title" data-l-split>{{ section.settings.newsletter_heading | escape }}</h2>
           {%- if section.settings.newsletter_text != blank -%}<p class="l-footer__band-text">{{ section.settings.newsletter_text | escape }}</p>{%- endif -%}
         </div>
         <div class="l-footer__form">

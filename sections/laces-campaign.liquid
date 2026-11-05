@@ -29,7 +29,7 @@
   <div class="l-container l-campaign__inner">
     <div class="l-campaign__copy l-on-dark">
       {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow l-reveal">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-      {%- if section.settings.heading != blank -%}<h2 class="l-display l-campaign__title l-reveal" style="--l-delay:.08s">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="l-display l-campaign__title l-reveal l-reveal--fade" data-l-split style="--l-delay:.08s">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
       {%- if section.settings.text != blank -%}<p class="l-campaign__text l-reveal" style="--l-delay:.16s">{{ section.settings.text | escape }}</p>{%- endif -%}
       {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
         <div class="l-campaign__actions l-reveal" style="--l-delay:.24s">

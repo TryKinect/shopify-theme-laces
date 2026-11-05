@@ -32,7 +32,7 @@
 <section class="l-fund l-section l-section--lg l-fund--media-{{ section.settings.media_position }}" id="section-id-{{ section.id }}">
   <div class="l-container">
     <div class="l-fund__grid">
-      <div class="l-fund__media l-reveal">
+      <div class="l-fund__media l-mask">
         {%- if image != blank -%}
           {{ image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '600, 900, 1200, 1600', style: style, alt: image.alt }}
         {%- else -%}
@@ -44,12 +44,12 @@
       <div class="l-fund__copy l-on-dark">
         {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow l-reveal">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
         {%- if section.settings.heading != blank -%}
-          <h2 class="l-display l-fund__heading l-reveal" style="--l-delay:.08s">{{ heading_html }}</h2>
+          <h2 class="l-display l-fund__heading l-reveal l-reveal--fade" data-l-split style="--l-delay:.08s">{{ heading_html }}</h2>
         {%- endif -%}
         {%- if section.settings.text != blank -%}<div class="l-lede l-fund__lede l-reveal" style="--l-delay:.16s">{{ section.settings.text }}</div>{%- endif -%}
 
         {%- if rows.size > 0 -%}
-          <ol class="l-ledger l-reveal" style="--l-delay:.22s">
+          <ol class="l-ledger">
             {%- for block in rows -%}
               <li class="l-ledger__row" {{ block.shopify_attributes }}>
                 <span class="l-ledger__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
@@ -57,7 +57,7 @@
                   <p class="l-ledger__title">{{ block.settings.title | escape }}</p>
                   {%- if block.settings.text != blank -%}<p class="l-ledger__text">{{ block.settings.text | escape }}</p>{%- endif -%}
                 </div>
-                {%- if block.settings.value != blank -%}<span class="l-ledger__value">{{ block.settings.value | escape }}</span>{%- endif -%}
+                {%- if block.settings.value != blank -%}<span class="l-ledger__value" data-l-count>{{ block.settings.value | escape }}</span>{%- endif -%}
               </li>
             {%- endfor -%}
           </ol>

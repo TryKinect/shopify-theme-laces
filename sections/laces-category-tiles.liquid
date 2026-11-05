@@ -9,7 +9,7 @@
       <div class="l-sec-head l-reveal">
         <div class="l-sec-head__text">
           {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-          {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+          {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title" data-l-split>{{ section.settings.heading | escape }}</h2>{%- endif -%}
           {%- if section.settings.text != blank -%}<p class="l-sec-head__sub">{{ section.settings.text | escape }}</p>{%- endif -%}
         </div>
         {%- if section.settings.link_label != blank -%}
@@ -35,7 +35,7 @@
           assign delay = forloop.index0 | times: 0.06
           assign delay_style = '--l-delay: ' | append: delay | append: 's'
         -%}
-        <a class="l-tile l-reveal{% if image == blank %} l-tile--placeholder{% endif %}" href="{{ url }}" style="{{ delay_style }}" {{ block.shopify_attributes }}>
+        <a class="l-tile l-mask{% if image == blank %} l-tile--placeholder{% endif %}" href="{{ url }}" style="{{ delay_style }}" {{ block.shopify_attributes }}>
           {%- if image != blank -%}
             {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: sizes, widths: '400, 600, 800, 1000, 1400', style: style, alt: title }}
           {%- else -%}
@@ -45,7 +45,7 @@
             <div>
               <h3 class="l-tile__title">{{ title | escape }}</h3>
               {%- if section.settings.show_count and coll != blank -%}
-                <span class="l-tile__count">{{ coll.products_count }} {% if coll.products_count == 1 %}style{% else %}styles{% endif %}</span>
+                <span class="l-tile__count" data-l-count>{{ coll.products_count }} {% if coll.products_count == 1 %}style{% else %}styles{% endif %}</span>
               {%- elsif block.settings.caption != blank -%}
                 <span class="l-tile__count">{{ block.settings.caption | escape }}</span>
               {%- endif -%}

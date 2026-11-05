@@ -49,6 +49,7 @@
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
   {{ 'laces-2026.css' | asset_url | stylesheet_tag }}
+  {{ 'laces-motion.css' | asset_url | stylesheet_tag }}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}
     <link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}" media="print" onload="this.media='all'">

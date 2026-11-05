@@ -1,0 +1,339 @@
+/* =====================================================================
+   LACES 2026 — Phase 2 motion layer ("Athlete-First Editorial — Immersive Motion Edition")
+   Loads after laces-2026.css. Owns motion tokens, the unified reveal system, scroll-linked
+   (native CSS scroll-driven) effects, interaction feedback and component choreography.
+   Rules: transform/opacity/clip-path only · every effect has a reduced-motion path ·
+   nothing that carries meaning depends on an animation to become visible.
+   ===================================================================== */
+
+/* ---------- 1. Motion tokens ---------- */
+:root {
+  --m-dur-xs: .16s;           /* taps, swatches, icon nudges */
+  --m-dur-s: .28s;            /* hovers, tabs, underline */
+  --m-dur-m: .6s;             /* reveals, card crossfades */
+  --m-dur-l: .95s;            /* headline words, masks */
+  --m-dur-xl: 1.6s;           /* hero image settle */
+  --m-ease-out: cubic-bezier(.16, 1, .3, 1);     /* expo-out: decisive arrival */
+  --m-ease-inout: cubic-bezier(.65, 0, .35, 1);  /* symmetric: tabs, panels */
+  --m-ease-soft: cubic-bezier(.2, .7, .2, 1);    /* hover scales */
+  --m-ease-spring: cubic-bezier(.34, 1.4, .64, 1); /* small UI pops only */
+  --m-stagger: .07s;
+  --m-reveal-y: 22px;
+  --m-mask-scale: 1.1;        /* image starts zoomed inside a mask, settles to 1 */
+  --m-hover-scale: 1.045;
+  --m-line: 1px;
+  /* Phase 1 aliases keep working */
+  --l-ease: var(--m-ease-soft);
+  --l-ease-out: var(--m-ease-out);
+  --l-dur: var(--m-dur-m);
+}
+
+/* CLS fix: Symmetry only sets --theme-header-height from JS after load, so the transparent-header
+   negative margin used to apply late and shift <main>. Provide the real header heights up front. */
+:root { --theme-header-height: 77px; }
+@media (max-width: 767.98px) { :root { --theme-header-height: 65px; } }
+
+/* ---------- 2. Unified reveal system ---------- */
+/* Base .l-reveal (defined in laces-2026.css) = fade + rise. Variants below. */
+.l-reveal { transition-duration: var(--m-dur-m); transition-timing-function: var(--m-ease-out); transform: translateY(var(--m-reveal-y)); }
+.l-reveal--fade { transform: none; }
+.l-reveal--left { transform: translateX(-28px); }
+.l-reveal--right { transform: translateX(28px); }
+.l-reveal.is-in { transform: none; }
+
+/* Masked image reveal: wrapper clips from the bottom, the image settles from a zoom */
+.l-mask { clip-path: inset(100% 0 0 0); transition: clip-path var(--m-dur-l) var(--m-ease-out) var(--l-delay, 0s); will-change: clip-path; }
+.l-mask > img, .l-mask > picture > img, .l-mask > .l-mask__inner { transform: scale(var(--m-mask-scale)); transition: transform calc(var(--m-dur-l) * 1.4) var(--m-ease-out) var(--l-delay, 0s); transform-origin: center; }
+.l-mask.is-in { clip-path: inset(0 0 0 0); will-change: auto; }
+.l-mask.is-in > img, .l-mask.is-in > picture > img, .l-mask.is-in > .l-mask__inner { transform: none; }
+.l-mask--left { clip-path: inset(0 100% 0 0); }
+.l-mask--left.is-in { clip-path: inset(0); }
+/* Safety net mirrors .l-reveal: no JS → content shows after 2.5s */
+.l-mask:not(.is-in) { animation: l-mask-force .8s var(--m-ease-out) 2.5s forwards; }
+@keyframes l-mask-force { to { clip-path: inset(0); } }
+.l-mask:not(.is-in) > img, .l-mask:not(.is-in) > .l-mask__inner { animation: l-mask-force-img .8s var(--m-ease-out) 2.5s forwards; }
+@keyframes l-mask-force-img { to { transform: none; } }
+
+/* Drawn rule: a hairline that grows from the left */
+.l-rule { position: relative; }
+.l-rule::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: var(--m-line); background: currentColor; opacity: .18; transform: scaleX(0); transform-origin: left; transition: transform var(--m-dur-l) var(--m-ease-out) var(--l-delay, 0s); }
+.l-rule.is-in::after { transform: scaleX(1); }
+
+/* Split words (JS wraps words in .l-w > span). Masked rise per word. */
+.l-w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .06em; margin-bottom: -.06em; }
+.l-w > span { display: inline-block; transform: translateY(110%); transition: transform var(--m-dur-l) var(--m-ease-out); transition-delay: calc(var(--l-delay, 0s) + var(--w, 0) * .045s); }
+.is-in .l-w > span, .is-split.is-in .l-w > span { transform: none; }
+.is-split:not(.is-in) .l-w > span { animation: l-mask-force-img .6s var(--m-ease-out) 2.5s forwards; }
+
+/* Stagger helper: children of [data-l-stagger] get incremental delays (first 10) */
+[data-l-stagger] > :nth-child(1) { --l-delay: 0s; }
+[data-l-stagger] > :nth-child(2) { --l-delay: calc(var(--m-stagger) * 1); }
+[data-l-stagger] > :nth-child(3) { --l-delay: calc(var(--m-stagger) * 2); }
+[data-l-stagger] > :nth-child(4) { --l-delay: calc(var(--m-stagger) * 3); }
+[data-l-stagger] > :nth-child(5) { --l-delay: calc(var(--m-stagger) * 4); }
+[data-l-stagger] > :nth-child(6) { --l-delay: calc(var(--m-stagger) * 5); }
+[data-l-stagger] > :nth-child(7) { --l-delay: calc(var(--m-stagger) * 6); }
+[data-l-stagger] > :nth-child(8) { --l-delay: calc(var(--m-stagger) * 7); }
+[data-l-stagger] > :nth-child(9) { --l-delay: calc(var(--m-stagger) * 8); }
+[data-l-stagger] > :nth-child(10) { --l-delay: calc(var(--m-stagger) * 9); }
+
+/* ---------- 3. Hero choreography ---------- */
+/* LCP-safe: the image is opaque from first paint; only transform animates. */
+.l-hero__media img, .l-hero__media .l-hero__fade { opacity: 1; transform: scale(1.08); animation: l-hero-settle var(--m-dur-xl) var(--m-ease-out) forwards; transform-origin: center 40%; }
+@keyframes l-hero-settle { to { transform: scale(1); } }
+.l-hero__media::after { opacity: 0; animation: l-fade var(--m-dur-l) var(--m-ease-out) .1s forwards; }
+/* Headline: word-level rise once JS splits; line-level rise stays as the no-JS fallback */
+.l-hero__line > span { animation-duration: var(--m-dur-l); animation-timing-function: var(--m-ease-out); }
+.l-hero__heading.is-split .l-hero__line > span { animation: none; transform: none; }
+.l-hero__heading.is-split .l-w > span { transform: translateY(110%); animation: l-word-up var(--m-dur-l) var(--m-ease-out) forwards; animation-delay: calc(.12s + var(--w, 0) * .07s); transition: none; }
+@keyframes l-word-up { to { transform: none; } }
+/* Scroll cue */
+.l-hero__cue { position: absolute; right: var(--l-gutter); bottom: 72px; z-index: 2; display: none; flex-direction: column; align-items: center; gap: 10px; color: rgba(255,255,255,.8); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; writing-mode: vertical-rl; opacity: 0; animation: l-fade var(--m-dur-l) var(--m-ease-out) 1s forwards; }
+.l-hero__cue::after { content: ""; width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,0)); transform-origin: top; animation: l-cue 1.8s var(--m-ease-inout) infinite; }
+@keyframes l-cue { 0% { transform: scaleY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+@media (min-width: 1024px) { .l-hero__cue { display: flex; } }
+/* Scroll-linked parallax + content dissolve (native scroll-driven animations; no JS, no-op where unsupported) */
+@supports (animation-timeline: scroll()) {
+  .l-hero__media img, .l-hero__media .l-hero__fade { animation: l-hero-settle var(--m-dur-xl) var(--m-ease-out) forwards, l-hero-parallax linear both; animation-timeline: auto, scroll(root block); animation-range: normal, 0px 90vh; }
+  @keyframes l-hero-parallax { to { transform: translateY(16%) scale(1.06); } }
+  .l-hero__inner { animation: l-hero-dissolve linear both; animation-timeline: scroll(root block); animation-range: 0px 70vh; }
+  @keyframes l-hero-dissolve { to { opacity: 0; transform: translateY(-40px); } }
+}
+
+/* ---------- 4. Interaction system ---------- */
+/* Primary / white / ghost buttons: fill sweeps in from the left, label rides on top */
+.l-btn { position: relative; isolation: isolate; overflow: hidden; transition: color var(--m-dur-s) var(--m-ease-out), border-color var(--m-dur-s), transform var(--m-dur-xs) var(--m-ease-out); }
+.l-btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #000; transform: translateX(-101%); transition: transform var(--m-dur-s) var(--m-ease-out); }
+.l-btn:hover::before, .l-btn:focus-visible::before { transform: none; }
+.l-btn:hover { background: var(--l-ink); }
+.l-btn--white::before { background: var(--l-ink); }
+.l-btn--white:hover { color: #fff; background: #fff; }
+.l-btn--outline::before, .l-btn--ghost::before { background: currentColor; }
+.l-btn--outline:hover { color: #fff; background: transparent; }
+.l-btn--outline:hover::before { background: var(--l-ink); }
+.l-btn--ghost:hover { color: var(--l-ink); background: transparent; }
+.l-btn--ghost:hover::before { background: #fff; }
+.l-btn:active { transform: scale(.98); }
+.l-btn .l-btn__arrow { transition: transform var(--m-dur-s) var(--m-ease-out); }
+.l-btn:hover .l-btn__arrow { transform: translateX(4px); }
+/* Text links: underline draws right→left out, left→right in */
+.l-link { border-bottom: 0; background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; padding-bottom: 4px; transition: background-size var(--m-dur-s) var(--m-ease-out); }
+.l-link:hover { background-size: 100% 1px; animation: l-underline var(--m-dur-m) var(--m-ease-out); }
+@keyframes l-underline { 0% { background-size: 100% 1px; background-position: 100% 100%; } 45% { background-size: 0 1px; background-position: 100% 100%; } 50% { background-position: 0 100%; } 100% { background-size: 100% 1px; background-position: 0 100%; } }
+.l-link svg { transition: transform var(--m-dur-s) var(--m-ease-out); }
+/* Icon buttons / rail arrows */
+.l-rail-nav__btn { transition: border-color var(--m-dur-s), background var(--m-dur-s), color var(--m-dur-s), transform var(--m-dur-xs); }
+.l-rail-nav__btn:not([disabled]):hover { background: var(--l-ink); color: #fff; border-color: var(--l-ink); }
+.l-rail-nav__btn:not([disabled]):active { transform: scale(.94); }
+/* Focus: smooth ring */
+:focus-visible { transition: outline-offset var(--m-dur-xs); }
+/* Tap feedback (touch) */
+@media (hover: none) { .l-tile:active, .l-story:active, .l-fit__panel:active, .l-community__item:active { transform: scale(.985); transition: transform var(--m-dur-xs); } }
+
+/* ---------- 5. Header, mega menu, drawer, search ---------- */
+.pageheader, .pageheader .logo-area { transition: background-color var(--m-dur-m) var(--m-ease-out), color var(--m-dur-m) var(--m-ease-out), border-color var(--m-dur-m), min-height var(--m-dur-s) var(--m-ease-out); }
+.pageheader .logo img { transition: transform var(--m-dur-s) var(--m-ease-out); }
+.l-header-compact .pageheader--sticky .logo img { transform: scale(.9); }
+#proxy-nav .navigation__tier-1 > .navigation__item > .navigation__link::before { transition: transform var(--m-dur-s) var(--m-ease-out); }
+@media (min-width: 1000px) {
+  .navigation .navigation__tier-2-container { transition: opacity var(--m-dur-s) var(--m-ease-out), visibility var(--m-dur-s), transform var(--m-dur-s) var(--m-ease-out); transform: translateY(-6px); }
+  .navigation .navigation__item--show-children > .navigation__tier-2-container { transform: none; }
+  #main-nav .navigation__tier-2 .navigation__item, #main-nav .navigation__column { opacity: 0; transform: translateY(6px); transition: opacity var(--m-dur-s) var(--m-ease-out), transform var(--m-dur-s) var(--m-ease-out); }
+  #main-nav .navigation__item--show-children .navigation__tier-2 .navigation__item, #main-nav .navigation__item--show-children .navigation__column { opacity: 1; transform: none; }
+  #main-nav .navigation__item--show-children .navigation__column:nth-child(2), #main-nav .navigation__item--show-children .navigation__tier-2 .navigation__item:nth-child(2) { transition-delay: .03s; }
+  #main-nav .navigation__item--show-children .navigation__column:nth-child(3), #main-nav .navigation__item--show-children .navigation__tier-2 .navigation__item:nth-child(3) { transition-delay: .06s; }
+  #main-nav .navigation__item--show-children .navigation__column:nth-child(4), #main-nav .navigation__item--show-children .navigation__tier-2 .navigation__item:nth-child(4) { transition-delay: .09s; }
+  #main-nav .navigation__item--show-children .navigation__column:nth-child(5), #main-nav .navigation__item--show-children .navigation__tier-2 .navigation__item:nth-child(5) { transition-delay: .12s; }
+  #main-nav .menu-promotion__image img { transition: transform var(--m-dur-l) var(--m-ease-soft); }
+  #main-nav .menu-promotion:hover .menu-promotion__image img { transform: scale(1.04); }
+  #main-nav .k-nav-preview img { transition: opacity var(--m-dur-s); }
+}
+/* Mobile drawer: expo ease, items cascade */
+.mobile-navigation-drawer { transition-timing-function: var(--m-ease-out) !important; transition-duration: .5s !important; }
+.enable-mobile-nav-transition .mobile-navigation-drawer { transition: transform .5s var(--m-ease-out), visibility .5s; }
+.mobile-navigation-drawer .navigation__tier-1 > .navigation__item { opacity: 0; transform: translateX(-10px); transition: opacity var(--m-dur-m) var(--m-ease-out), transform var(--m-dur-m) var(--m-ease-out); }
+.reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item { opacity: 1; transform: none; }
+.reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(2) { transition-delay: .04s; }
+.reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(3) { transition-delay: .08s; }
+.reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(4) { transition-delay: .12s; }
+.reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(5) { transition-delay: .16s; }
+.reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(6) { transition-delay: .2s; }
+.mobile-navigation-drawer--child-open .navigation__tier-1 > .navigation__item { transition-delay: 0s !important; }
+/* Search overlay */
+.main-search { transition: opacity var(--m-dur-s) var(--m-ease-out), visibility var(--m-dur-s), transform var(--m-dur-s) var(--m-ease-out) !important; transform: translateY(-8px); }
+.show-search .main-search { transform: none; }
+.main-search .main-search__input { transition: border-color var(--m-dur-s); }
+.main-search .main-search__results .product-block { animation: l-rise var(--m-dur-m) var(--m-ease-out) both; }
+.main-search .main-search__results .product-block:nth-child(2) { animation-delay: .05s; }
+.main-search .main-search__results .product-block:nth-child(3) { animation-delay: .1s; }
+.main-search .main-search__results .product-block:nth-child(4) { animation-delay: .15s; }
+.main-search .main-search__results .product-block:nth-child(5) { animation-delay: .2s; }
+@keyframes l-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+/* Real loading state only: Symmetry adds .main-search--loading while fetching */
+.main-search--loading .main-search__input-container::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, transparent, var(--l-ink), transparent); background-size: 40% 100%; animation: l-scan 1s linear infinite; }
+.main-search .main-search__input-container { position: relative; }
+@keyframes l-scan { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+
+/* ---------- 6. Product cards ---------- */
+.product-block .image-cont { overflow: hidden; }
+.product-block .image-cont img { transition: transform var(--m-dur-l) var(--m-ease-soft), opacity var(--m-dur-m) var(--m-ease-inout) !important; }
+.image-cont--with-secondary-image .product-block__image { transition: opacity var(--m-dur-m) var(--m-ease-inout) !important; }
+@media (min-width: 960px) {
+  .image-cont--with-secondary-image:hover .product-block__image--active { transition-delay: 0s !important; }
+  .product-block:hover .image-cont img { transform: scale(var(--m-hover-scale)); }
+}
+.product-block .product-label, .image-cont .custom-product-badge { transition: transform var(--m-dur-s) var(--m-ease-out), opacity var(--m-dur-s); }
+.product-block .image-cont .btn.quickbuy-toggle { transition: transform var(--m-dur-s) var(--m-ease-out), opacity var(--m-dur-s) var(--m-ease-out), background var(--m-dur-xs), color var(--m-dur-xs); }
+.k-swatch { transition: transform var(--m-dur-xs) var(--m-ease-spring), box-shadow var(--m-dur-xs); }
+.k-swatch:hover { transform: scale(1.15); }
+.k-swatch--active { transform: scale(1.1); }
+.product-block .product-block__title .l-card__name, .product-block .product-block__title .l-card__colorway { transition: opacity var(--m-dur-xs); }
+.product-block.is-swapping .product-block__title, .product-block.is-swapping .product-price--block { animation: l-blink var(--m-dur-s) var(--m-ease-out); }
+@keyframes l-blink { 0% { opacity: .35; transform: translateY(2px); } 100% { opacity: 1; transform: none; } }
+/* Quick add / add-to-cart feedback (Kinect quick add + Symmetry buttons share the pattern) */
+.k-quick-add__btn, .add-to-cart.btn, .sticky-atc .btn { position: relative; transition: background var(--m-dur-xs), color var(--m-dur-xs), transform var(--m-dur-xs); }
+.k-quick-add__btn:active, .add-to-cart.btn:active { transform: scale(.98); }
+.btn.is-loading { pointer-events: none; }
+.btn.is-loading::after, .k-quick-add__btn.is-loading::after { content: ""; position: absolute; inset: 0; margin: auto; width: 16px; height: 16px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: l-spin .7s linear infinite; }
+.btn.is-loading > *, .k-quick-add__btn.is-loading { color: transparent; }
+.btn.is-loading::after { color: #fff; }
+@keyframes l-spin { to { transform: rotate(360deg); } }
+.l-added { animation: l-added var(--m-dur-s) var(--m-ease-out); }
+@keyframes l-added { 0% { transform: scale(.97); } 60% { transform: scale(1.01); } 100% { transform: none; } }
+.product-grid .product-block { animation: l-rise var(--m-dur-m) var(--m-ease-out) both; animation-delay: calc(var(--i, 0) * .04s); }
+.product-grid .product-block.l-no-anim { animation: none; }
+
+/* ---------- 7. Category tiles ---------- */
+.l-tile img { transition: transform var(--m-dur-l) var(--m-ease-soft); }
+.l-tile .l-tile__title { transition: transform var(--m-dur-m) var(--m-ease-out); }
+.l-tile .l-tile__count { transition: transform var(--m-dur-m) var(--m-ease-out), opacity var(--m-dur-m); }
+.l-tile::after { transition: opacity var(--m-dur-m); }
+@media (hover: hover) {
+  .l-tile:hover img { transform: scale(var(--m-hover-scale)) translate3d(var(--l-px, 0), var(--l-py, 0), 0); }
+  .l-tile:hover .l-tile__title { transform: translateY(-4px); }
+  .l-tile:hover .l-tile__count { transform: translateY(-2px); }
+  .l-tile:hover .l-tile__arrow { transform: translate(2px, -2px) rotate(0deg); }
+  .l-tile .l-tile__arrow { transform: rotate(-20deg); transition: transform var(--m-dur-m) var(--m-ease-out), background var(--m-dur-s), color var(--m-dur-s); }
+  .l-tile .l-tile__arrow svg { transition: transform var(--m-dur-s) var(--m-ease-out); }
+}
+.l-tile.l-mask { will-change: clip-path; }
+.l-tile.l-mask > img { transition: clip-path 0s, transform calc(var(--m-dur-l) * 1.4) var(--m-ease-out) var(--l-delay, 0s); }
+@media (hover: hover) { .l-tile.l-mask.is-in > img { transition: transform var(--m-dur-l) var(--m-ease-soft); } }
+
+/* ---------- 8. Rails & tabs ---------- */
+.l-tabs { position: relative; }
+.l-tabs__ind { position: absolute; top: 0; left: 0; height: 38px; width: 0; background: var(--l-ink); pointer-events: none; transition: transform var(--m-dur-s) var(--m-ease-inout), width var(--m-dur-s) var(--m-ease-inout), opacity var(--m-dur-xs); opacity: 0; }
+.l-tabs.has-ind .l-tabs__ind { opacity: 1; }
+.l-tabs.has-ind .l-tab { background: transparent; position: relative; z-index: 1; transition: color var(--m-dur-s) var(--m-ease-out), border-color var(--m-dur-s); }
+.l-tabs.has-ind .l-tab[aria-selected="true"] { background: transparent; border-color: transparent; }
+.l-section--dark .l-tabs__ind { background: #fff; }
+.l-rail-panel.is-entering .slider__item { animation: l-rise var(--m-dur-m) var(--m-ease-out) both; animation-delay: calc(var(--i, 0) * .05s); }
+.l-rail-panel .slider__item { --i: 0; }
+.l-rail-panel .slider__item:nth-child(2) { --i: 1; } .l-rail-panel .slider__item:nth-child(3) { --i: 2; } .l-rail-panel .slider__item:nth-child(4) { --i: 3; } .l-rail-panel .slider__item:nth-child(5) { --i: 4; } .l-rail-panel .slider__item:nth-child(6) { --i: 5; }
+.l-rail-panel .product-grid .product-block { animation: none; }
+
+/* ---------- 9. Athlete Fund ---------- */
+.l-ledger__row { position: relative; border-bottom-color: transparent; }
+.l-ledger__row::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: rgba(255,255,255,.18); transform: scaleX(0); transform-origin: left; transition: transform var(--m-dur-l) var(--m-ease-out) calc(var(--l-delay, 0s) + .2s); }
+.l-ledger.is-in .l-ledger__row::after { transform: scaleX(1); }
+.l-ledger__row { opacity: 0; transform: translateY(14px); transition: opacity var(--m-dur-m) var(--m-ease-out) var(--l-delay, 0s), transform var(--m-dur-m) var(--m-ease-out) var(--l-delay, 0s); }
+.l-ledger.is-in .l-ledger__row { opacity: 1; transform: none; }
+.l-ledger:not(.is-in) .l-ledger__row { animation: l-force-in .6s var(--m-ease-out) 2.5s forwards; }
+.l-ledger__row:nth-child(1) { --l-delay: 0s; } .l-ledger__row:nth-child(2) { --l-delay: .12s; } .l-ledger__row:nth-child(3) { --l-delay: .24s; } .l-ledger__row:nth-child(4) { --l-delay: .36s; } .l-ledger__row:nth-child(5) { --l-delay: .48s; }
+.l-fund__heading em { transition: color var(--m-dur-l) var(--m-ease-out) .5s, -webkit-text-stroke-color var(--m-dur-l) var(--m-ease-out) .5s; }
+.l-fund__media img { transition: transform var(--m-dur-xl) var(--m-ease-soft); }
+@supports (animation-timeline: view()) {
+  .l-fund__media { overflow: hidden; }
+  .l-fund__media img { animation: l-parallax-y linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; scale: 1.12; }
+  @keyframes l-parallax-y { from { translate: 0 -5%; } to { translate: 0 5%; } }
+  .l-campaign__media img { animation: l-parallax-y linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; scale: 1.12; }
+}
+
+/* ---------- 10. Stories, fit compare, campaign, community ---------- */
+.l-story__media img { transition: transform var(--m-dur-l) var(--m-ease-soft); }
+.l-story__num { transition: background var(--m-dur-s), color var(--m-dur-s); }
+.l-story:hover .l-story__num { background: var(--l-ink); color: #fff; }
+.l-story__title { transition: transform var(--m-dur-m) var(--m-ease-out); }
+.l-story:hover .l-story__title { transform: translateX(4px); }
+.l-story .l-story__cta.l-link { background-size: 0 1px; }
+.l-story:hover .l-story__cta.l-link { background-size: 100% 1px; animation: none; }
+.l-story:hover .l-story__cta svg { transform: translateX(3px); }
+.l-fit__panel { transition: opacity var(--m-dur-m) var(--m-ease-out); }
+@media (hover: hover) { .l-fit:hover .l-fit__panel:not(:hover) { opacity: .55; } }
+.l-fit__media img { transition: transform var(--m-dur-l) var(--m-ease-soft); }
+.l-fit__vs { transition: transform var(--m-dur-l) var(--m-ease-out); transform: translate(-50%, -50%) rotate(-90deg) scale(.6); opacity: 0; }
+.l-fit.is-in .l-fit__vs { transform: translate(-50%, -50%) rotate(0) scale(1); opacity: 1; transition-delay: .35s; }
+.l-fit:not(.is-in) .l-fit__vs { animation: l-vs-force .4s var(--m-ease-out) 2.5s forwards; }
+@keyframes l-vs-force { to { transform: translate(-50%, -50%); opacity: 1; } }
+.l-fit__specs li { transition: background var(--m-dur-xs), color var(--m-dur-xs), border-color var(--m-dur-xs); }
+.l-fit__panel:hover .l-fit__specs li { border-color: var(--l-ink); }
+.l-campaign__product { transition: transform var(--m-dur-m) var(--m-ease-out), box-shadow var(--m-dur-m); }
+.l-campaign__product:hover { transform: translateY(-3px); }
+.l-campaign__product img { transition: transform var(--m-dur-m) var(--m-ease-soft); }
+.l-campaign__product:hover img { transform: scale(1.06); }
+.l-community__item img { transition: transform var(--m-dur-l) var(--m-ease-soft); }
+.l-community__cap { transition: transform var(--m-dur-m) var(--m-ease-out), opacity var(--m-dur-m); transform: translateY(4px); opacity: .85; }
+.l-community__item:hover .l-community__cap { transform: none; opacity: 1; }
+
+/* ---------- 11. Testimonials, press, footer ---------- */
+.section-testimonials .slideshow__slide { transition: opacity var(--m-dur-m) var(--m-ease-inout) !important; }
+.section-scrolling-banner .scrolling-banner img { transition: opacity var(--m-dur-s), filter var(--m-dur-s); }
+.l-footer__field { transition: box-shadow var(--m-dur-s) var(--m-ease-out), border-color var(--m-dur-s); }
+.l-footer__field:focus-within { box-shadow: 0 0 0 3px rgba(23,23,23,.12); }
+.l-footer__field button { transition: background var(--m-dur-xs), transform var(--m-dur-xs); }
+.l-footer__field button:active { transform: scale(.97); }
+.l-footer__social a { transition: background var(--m-dur-s), color var(--m-dur-s), border-color var(--m-dur-s), transform var(--m-dur-s) var(--m-ease-out); }
+.l-footer__social a:hover { transform: translateY(-2px); }
+.l-footer__col a { display: inline-block; transition: transform var(--m-dur-s) var(--m-ease-out); }
+.l-footer__col a:hover { transform: translateX(3px); text-decoration: none; }
+
+/* ---------- 12. Cart drawer & PDP ---------- */
+.drawer, .drawer[open] { transition: transform .5s var(--m-ease-out), visibility .5s !important; }
+.cart-drawer .cart-item-list__body > [data-merge-list-item] { transition: opacity var(--m-dur-s) var(--m-ease-out), transform var(--m-dur-s) var(--m-ease-out); }
+.cart-drawer .cart-item-list__body > .is-new { animation: l-cart-in var(--m-dur-m) var(--m-ease-out); }
+@keyframes l-cart-in { 0% { opacity: 0; transform: translateX(24px); } 100% { opacity: 1; transform: none; } }
+.cart-drawer .merge-remove-item, .cart-drawer .is-removing { opacity: 0 !important; transform: translateX(16px); }
+.cart-drawer .merge-item-refreshing .cart-item__price, .cart-drawer .merge-item-refreshing .cart-item__total { opacity: .4; transition: opacity var(--m-dur-xs); }
+.cart-link__count { display: inline-block; transition: transform var(--m-dur-xs); }
+.cart-link__count.is-bumping { animation: l-bump .45s var(--m-ease-spring); }
+@keyframes l-bump { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
+.free-shipping-bar__progress, .free-shipping-bar__bar > span { transition: width var(--m-dur-l) var(--m-ease-out) !important; }
+.l-cart-fund, .l-pdp-fund { transition: background var(--m-dur-s); }
+.cart-drawer .cart-drawer__checkout-buttons .btn, .cart-drawer button[name="checkout"] { transition: background var(--m-dur-xs), transform var(--m-dur-xs); }
+.cart-drawer button[name="checkout"]:active { transform: scale(.99); }
+/* PDP */
+.media-gallery .main-image img, .media-gallery img { transition: opacity var(--m-dur-m) var(--m-ease-inout); }
+.media-gallery .thumbnails .thumbnail, .media-gallery .thumbnails .slider__item, .thumbnails img { transition: opacity var(--m-dur-s), border-color var(--m-dur-s), transform var(--m-dur-s) var(--m-ease-out); }
+.media-gallery .thumbnails .slider__item:hover img, .thumbnails .thumbnail:hover img { transform: scale(1.03); }
+.mp-sibling-products__item { transition: border-color var(--m-dur-xs), transform var(--m-dur-xs) var(--m-ease-spring) !important; }
+.mp-sibling-products__item:hover { transform: translateY(-2px); }
+.mp-sibling-products__item--active { transform: scale(1.04); }
+.sticky-atc { transition: transform .5s var(--m-ease-out), opacity .4s !important; }
+.product-info .disclosure__panel { transition: height var(--m-dur-s) var(--m-ease-inout); }
+.k-stock__dot { animation: l-pulse 2.4s var(--m-ease-inout) infinite; }
+@keyframes l-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(47,143,91,.18); } 50% { box-shadow: 0 0 0 6px rgba(47,143,91,.08); } }
+
+/* ---------- 13. Cross-document view transition (same-origin navigations) ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: l-vt-out .22s var(--m-ease-inout) both; }
+::view-transition-new(root) { animation: l-vt-in .3s var(--m-ease-out) both; }
+@keyframes l-vt-out { to { opacity: 0; } }
+@keyframes l-vt-in { from { opacity: 0; transform: translateY(6px); } }
+
+/* ---------- 14. Collection page ---------- */
+.l-coll-head__title { display: block; }
+.filter-group__items { transition: opacity var(--m-dur-s) var(--m-ease-out); }
+.related-collection-links--buttons .btn { transition: background var(--m-dur-s), color var(--m-dur-s), border-color var(--m-dur-s); }
+.utility-bar .toggle-btn__chevron { transition: transform var(--m-dur-s) var(--m-ease-out); }
+
+/* ---------- 15. Reduced motion / data saver: everything visible, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .l-reveal, .l-mask, .l-mask > img, .l-mask > .l-mask__inner, .l-rule::after, .l-w > span, .l-ledger__row, .l-ledger__row::after, .l-fit__vs, .l-hero__line > span, .l-hero__heading.is-split .l-w > span, .l-hero__media::after, .l-hero__inner, .l-hero__media img, .l-tabs__ind, .product-grid .product-block, .l-rail-panel.is-entering .slider__item, .main-search .main-search__results .product-block, .cart-drawer .is-new, .l-hero__cue, .k-stock__dot {
+    animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; clip-path: none !important; translate: 0 !important; scale: 1 !important;
+  }
+  .l-hero__cue { display: none !important; }
+  .l-link:hover { animation: none; }
+  @view-transition { navigation: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+html.l-save-data .l-hero__media img, html.l-save-data .l-fund__media img, html.l-save-data .l-campaign__media img { animation: none !important; scale: 1 !important; translate: 0 !important; transform: none !important; }
