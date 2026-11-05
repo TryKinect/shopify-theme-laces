@@ -454,7 +454,9 @@ a { transition: color .2s, opacity .2s; }
 @media (min-width: 1024px) {
   .l-stories { grid-template-columns: repeat(4, 1fr); }
   .l-stories--feature .l-story--featured { grid-column: span 2; grid-row: span 2; }
-  .l-stories--feature .l-story--featured .l-story__media { aspect-ratio: auto; flex: 1; min-height: 520px; }
+  .l-stories--feature .l-story--featured .l-story__media { aspect-ratio: auto; flex: 1 1 auto; min-height: 520px; }
+  .l-stories--feature .l-story--featured .l-story__body { flex: 0 0 auto; padding: 22px 24px 26px; }
+  .l-stories--feature .l-story--featured .l-story__text { -webkit-line-clamp: 2; max-width: 60ch; }
 }
 
 /* ---------- 12. Fit compare ---------- */
