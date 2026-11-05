@@ -105,6 +105,7 @@
       if (next) next.addEventListener('click', () => scrollBy(1));
       panels.forEach((p) => { const s = p.querySelector('.slider'); if (s) s.addEventListener('scroll', () => requestAnimationFrame(syncArrows), { passive: true }); });
       window.addEventListener('on:debounced-resize', syncArrows);
+      rail.lUnbind = () => window.removeEventListener('on:debounced-resize', syncArrows);
       setTimeout(syncArrows, 300);
     });
   };
@@ -125,6 +126,7 @@
     initHeroVideo();
     // Sections injected in the theme editor
     document.addEventListener('shopify:section:load', (e) => { initReveal(e.target); initRails(e.target); initHeroVideo(); });
+    document.addEventListener('shopify:section:unload', (e) => { e.target.querySelectorAll('[data-l-rail]').forEach((r) => r.lUnbind && r.lUnbind()); });
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
