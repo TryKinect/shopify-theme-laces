@@ -11,13 +11,16 @@
   endif
   assign price_fmt = price | money_without_trailing_zeros
   assign eyebrow = section.settings.eyebrow | replace: '[price]', price_fmt
+  assign athlete_str = athlete_pct | append: '%'
+  assign fund_str = pct | append: '%'
+  assign body = section.settings.text | replace: '[athlete]', athlete_str | replace: '[fund]', fund_str
 -%}
 <section class="k-calrcpt" id="section-id-{{ section.id }}">
   <div class="k-calrcpt__inner">
     <div class="k-calrcpt__copy">
       {%- if eyebrow != blank -%}<p class="k-cal-eyebrow">{{ eyebrow | escape }}</p>{%- endif -%}
       <h2 class="k-calrcpt__heading">{{ section.settings.heading | escape }}{% if section.settings.highlight != blank %}<br><em>{{ section.settings.highlight | escape }}</em>{% endif %}</h2>
-      {%- if section.settings.text != blank -%}<div class="k-calrcpt__text">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if body != blank -%}<div class="k-calrcpt__text">{{ body }}</div>{%- endif -%}
       {%- if section.settings.button_label != blank -%}<a class="k-cal-btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>{%- endif -%}
     </div>
     <div class="k-receipt">
@@ -48,7 +51,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Use [price] for the product price.", "default": "Where your [price] goes" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "The hat that" },
     { "type": "text", "id": "highlight", "label": "Highlighted heading", "default": "pays back." },
-    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>School merch pays a licensing fee to the school. We skipped that. 20% of every LACES x Cal hat goes to each attributed athlete, and 10% goes straight into the Cal LACES Athlete Fund. Every Cal athlete who meets their monthly benchmarks gets an equal share of the Fund.</p>" },
+    { "type": "richtext", "id": "text", "label": "Text", "info": "Use [athlete] and [fund] for the percentages set above.", "default": "<p>School merch pays a licensing fee to the school. We skipped that. [athlete] of every LACES x Cal hat goes to each attributed athlete, and [fund] goes straight into the Cal LACES Athlete Fund. Every Cal athlete who meets their monthly benchmarks gets an equal share of the Fund.</p>" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the hats" },
     { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "text", "id": "receipt_title", "label": "Receipt title", "default": "LACES" },

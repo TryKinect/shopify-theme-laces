@@ -218,7 +218,7 @@
         "eyebrow": "Where your [price] goes",
         "heading": "The hat that",
         "highlight": "pays back.",
-        "text": "<p>School merch pays a licensing fee to the school. We skipped that. 20% of every LACES x Cal hat goes to each attributed athlete, and 10% goes straight into the Cal LACES Athlete Fund. Every Cal athlete who meets their monthly benchmarks gets an equal share of the Fund.</p>",
+        "text": "<p>School merch pays a licensing fee to the school. We skipped that. [athlete] of every LACES x Cal hat goes to each attributed athlete, and [fund] goes straight into the Cal LACES Athlete Fund. Every Cal athlete who meets their monthly benchmarks gets an equal share of the Fund.</p>",
         "button_label": "Meet the athletes",
         "button_link": "shopify://pages/cal-athletes",
         "receipt_title": "LACES",
