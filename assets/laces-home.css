@@ -164,10 +164,8 @@
   .l-fit__vs { display: grid; place-items: center; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; border-radius: 50%; background: var(--l-ink); color: #fff; font-family: var(--l-display); font-weight: 800; font-size: 20px; z-index: 2; }
 }
 @media (min-width: 1024px) {
-  .l-fit__panel { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
-  .l-fit__media { aspect-ratio: auto; min-height: 420px; }
-  .l-fit__panel:nth-child(2) .l-fit__media { order: 2; }
-  .l-fit__body { align-self: center; padding: 36px 32px; }
+  .l-fit__media { aspect-ratio: 16 / 9; }
+  .l-fit__body { padding: 36px 32px; }
 }
 
 /* ---------- 13. Campaign banner ---------- */
