@@ -9,8 +9,6 @@
     assign price = 4500
     assign item_name = section.settings.item_label | default: 'Snapback'
   endif
-  assign fund_cut = price | times: pct | divided_by: 100.0 | round
-  assign athlete_cut = price | times: athlete_pct | divided_by: 100.0 | round
   assign price_fmt = price | money_without_trailing_zeros
   assign eyebrow = section.settings.eyebrow | replace: '[price]', price_fmt
 -%}
@@ -29,7 +27,7 @@
       {%- for block in section.blocks -%}
         <div class="k-receipt__row{% if block.settings.highlight %} k-receipt__row--hl{% endif %}" {{ block.shopify_attributes }}>
           <span>{{ block.settings.label | escape }}</span>
-          <span>{%- if block.settings.value == '[fund]' -%}{{ fund_cut | money }}{%- elsif block.settings.value == '[athlete]' -%}{{ athlete_cut | money }}{%- else -%}{{ block.settings.value | escape }}{%- endif -%}</span>
+          <span>{%- if block.settings.value == '[fund]' -%}{{ pct }}%{%- elsif block.settings.value == '[athlete]' -%}{{ athlete_pct }}%{%- else -%}{{ block.settings.value | escape }}{%- endif -%}</span>
         </div>
       {%- endfor -%}
       <div class="k-receipt__total"><span>Total</span><span>{{ price | money }}</span></div>
@@ -43,7 +41,7 @@
   "name": "Cal receipt",
   "class": "section-k-calrcpt",
   "settings": [
-    { "type": "product", "id": "product", "label": "Receipt product", "info": "Price and fund share are calculated from this product." },
+    { "type": "product", "id": "product", "label": "Receipt product", "info": "The receipt shows this product's name and price." },
     { "type": "text", "id": "item_label", "label": "Receipt item name", "default": "Snapback, Squirrel Bear" },
     { "type": "range", "id": "athlete_percent", "label": "Attributed athlete share", "min": 1, "max": 50, "step": 1, "unit": "%", "default": 20 },
     { "type": "range", "id": "fund_percent", "label": "Fund share", "min": 1, "max": 50, "step": 1, "unit": "%", "default": 10 },
@@ -63,7 +61,7 @@
       "name": "Receipt line",
       "settings": [
         { "type": "text", "id": "label", "label": "Label" },
-        { "type": "text", "id": "value", "label": "Value", "info": "Use [fund] or [athlete] for the calculated fund or attributed-athlete share." },
+        { "type": "text", "id": "value", "label": "Value", "info": "Use [fund] or [athlete] to show the Fund or attributed-athlete percentage." },
         { "type": "checkbox", "id": "highlight", "label": "Highlight", "default": false }
       ]
     }

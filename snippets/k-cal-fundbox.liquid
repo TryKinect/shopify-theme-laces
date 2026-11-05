@@ -1,21 +1,19 @@
 {%- comment -%}
-  Cal PDP: "$X to the athlete + $Y to the Fund" box + optional Athlete Fund add-on.
+  Cal PDP: "X% to the athlete + Y% to the Fund" box + optional Athlete Fund add-on.
   When checked, the hat form (main or sticky) is rewritten to items[0]=hat, items[1]=fund so the theme's
   own AJAX add sends both in one all-or-nothing request; theme error handling shows failures.
 {%- endcomment -%}
 {%- liquid
   assign pct = pct | default: 10
   assign athlete_pct = athlete_pct | default: 20
-  assign athlete_cut = product.price | times: athlete_pct | divided_by: 100.0 | round
-  assign fund_cut = product.price | times: pct | divided_by: 100.0 | round
   assign fund = all_products['cal-athletes-fund']
   assign fund_v = fund.selected_or_first_available_variant
 -%}
 <div class="k-calbox">
   {{ 'k-cal-fund.jpg' | asset_img_url: '160x' | img_tag: '', 'k-calbox__img' }}
   <div>
-    <p class="k-calbox__title">{{ athlete_cut | money }} to the athlete + {{ fund_cut | money }} to the Fund</p>
-    <p class="k-calbox__text">{{ athlete_pct }}% of this hat goes to each attributed athlete and {{ pct }}% to the Cal LACES Athlete Fund, split among every Cal athlete who meets their monthly benchmarks. <a href="/pages/cal-athletes">How it works</a></p>
+    <p class="k-calbox__title">{{ athlete_pct }}% to the athlete + {{ pct }}% to the Fund</p>
+    <p class="k-calbox__text">Each attributed athlete gets {{ athlete_pct }}% of this hat. The {{ pct }}% that goes to the Cal LACES Athlete Fund is split among every Cal athlete who meets their monthly benchmarks. <a href="/pages/cal-athletes">How it works</a></p>
   </div>
 </div>
 {%- if fund_v.available -%}

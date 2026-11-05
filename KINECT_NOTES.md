@@ -16,7 +16,7 @@ Status: **OPEN** = needs action/answer · **WATCH** = fine today, breaks if X ch
 - WATCH: Berkeley Roster tile links to `/pages/cal-athletes`. If that page handle changes, the tile 404s.
 
 ## Cal Athletes page (PR #5)
-- WATCH: Receipt numbers are computed from the selected product price × `athlete_percent` (20%, "→ Attributed athlete" line) and × `fund_percent` (10%, "→ Cal LACES Athlete Fund" line). If either changes, update both settings in the receipt section (page and Cal PDP) and the copy that states them.
+- WATCH: Receipt shows percentages, not dollar amounts (Varun's call): `athlete_percent` (20%, "→ Attributed athlete" line, `[athlete]` token) and `fund_percent` (10%, "→ Cal LACES Athlete Fund" line, `[fund]` token). If either changes, update both settings in the receipt section (page and Cal PDP) and the copy that states them.
 - WATCH: Old sections (old hero, rich text, fund image/text, video, The Suit) are `disabled`, not deleted. Re-enabling them changes the page order.
 - OPEN: Melius-generated Squirrel Bear art (`assets/k-cal-roster.jpg`, `assets/k-cal-fund.jpg`) needs brand/licensing sign-off before ads or print.
 - WATCH: Fund contribution claims ("not tax-deductible", "non-refundable", "equal split for athletes who meet their monthly benchmarks") come from the existing page; "Activity Goals" was renamed to "monthly benchmarks" to match the LACES x Cal economics (20% to each attributed athlete, 10% to the Cal LACES Athlete Fund). Legal should approve any wording change.
@@ -34,7 +34,7 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - WATCH: "You may also like" retitled to "Complete the rotation" on all templates.
 - OPEN: **Cal PDP template** `product.cal.json` must be assigned in Admin to `snapback-laces-x-cal-athletes` and `dad-hat-laces-x-cal-athletes` (Product → Theme template → "cal"). Until then they keep using the default template.
 - OPEN: **$25 Athlete Fund add-on** (`snippets/k-cal-fundbox.liquid`): when it's checked, submitting the main or sticky ATC form rewrites it to `items[0]`=hat, `items[1]`=fund, so the theme's own AJAX add sends both in one all-or-nothing `/cart/add` request; errors show in the theme's normal error message and the box stays checked. Depends on Symmetry's `form.js-product-form[data-product-id]` + `on:cart:add`/`on:cart:error` events, so re-check after a theme update. Test on a PR-linked theme: (1) cart drawer shows both lines, (2) the Shop Pay / dynamic checkout button **skips the add-on** (it bypasses the form), (3) sticky ATC adds both, (4) Loop/one-click-upsell apps don't conflict. It relies on product handle `cal-athletes-fund` (`all_products`). Renaming that handle hides the add-on.
-- WATCH: Cal PDP box "$X to the athlete + $Y to the Fund" = product price × 20% / × 10% (hard-set `athlete_pct: 20, pct: 10` in the template's custom-liquid block; the receipt section uses `athlete_percent` / `fund_percent`). If the split changes, update both.
+- WATCH: Cal PDP box "20% to the athlete + 10% to the Fund" shows percentages only (hard-set `athlete_pct: 20, pct: 10` in the template's custom-liquid block; the receipt section uses `athlete_percent` / `fund_percent`). If the split changes, update both.
 - WATCH: Cal PDP receipt reuses `k-cal-receipt` and defaults to the current product when no product is set (the dad hat shows $38 → $3.80).
 
 ## Navigation, merchandising, collections, reviews, pop-ups (nav-merch PR)
