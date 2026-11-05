@@ -49,6 +49,11 @@
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
   {{ 'laces-2026.css' | asset_url | stylesheet_tag }}
+  {%- if settings.laces_motion_enabled -%}
+    {{ 'laces-motion.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} LACES Phase 2 motion guard: honours prefers-reduced-motion and Save-Data before first paint. {%- endcomment -%}
+    <script>(function(d){try{var r=window.matchMedia('(prefers-reduced-motion: reduce)').matches,s=navigator.connection&&navigator.connection.saveData;d.classList.add(r||s?'l-motion-off':'l-motion');d.setAttribute('data-l-motion-level','{{ settings.laces_motion_intensity | default: 'full' }}');}catch(e){}})(document.documentElement);</script>
+  {%- endif -%}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}
     <link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -168,6 +173,7 @@
 
   <script src="{{ 'main.js' | asset_url }}" defer></script>
   <script src="{{ 'laces-2026.js' | asset_url }}" defer></script>
+  {%- if settings.laces_motion_enabled -%}<script src="{{ 'laces-motion.js' | asset_url }}" defer></script>{%- endif -%}
   <script src="{{ 'kinect-haus.js' | asset_url }}" defer></script>
 
   {%- if request.design_mode -%}

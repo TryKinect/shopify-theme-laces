@@ -16,7 +16,7 @@
   assign product = section.settings.product
 -%}
 <section class="l-campaign l-campaign--align-{{ section.settings.align }}" id="section-id-{{ section.id }}" style="--l-campaign-h: {{ section.settings.height_desktop }}px; --l-campaign-h-m: {{ section.settings.height_mobile }}px;">
-  <div class="l-campaign__media" aria-hidden="true">
+  <div class="l-campaign__media l-px" aria-hidden="true">
     {%- if img_d != blank -%}
       {{ img_d | image_url: width: 2400 | image_tag: class: 'is-desktop', loading: 'lazy', sizes: '100vw', widths: '1000, 1400, 1800, 2400', style: style_d, alt: '' }}
     {%- endif -%}

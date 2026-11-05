@@ -32,7 +32,7 @@
 <section class="l-fund l-section l-section--lg l-fund--media-{{ section.settings.media_position }}" id="section-id-{{ section.id }}">
   <div class="l-container">
     <div class="l-fund__grid">
-      <div class="l-fund__media l-reveal">
+      <div class="l-fund__media l-reveal l-reveal--clip l-px">
         {%- if image != blank -%}
           {{ image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '600, 900, 1200, 1600', style: style, alt: image.alt }}
         {%- else -%}

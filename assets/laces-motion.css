@@ -1,0 +1,290 @@
+/* ==========================================================================
+   LACES 2026 — Phase 2 motion layer
+   Loads after laces-2026.css. Every rule is scoped to html.l-motion, which is
+   set by an inline script in theme.liquid only when: the "LACES motion" theme
+   setting is on, prefers-reduced-motion is not set, and Save-Data is off.
+   Remove the class (or turn off the setting) and the site falls back to the
+   quiet Phase 1 motion. Transforms + opacity + clip-path only.
+   Sections: 1 tokens · 2 page & header · 3 hero · 4 reveals & split text
+   5 scroll-linked parallax · 6 homepage sections · 7 cards & rails · 8 buttons
+   9 nav & mega menu · 10 PDP · 11 cart · 12 collection/search · 13 cursor
+   ========================================================================== */
+
+/* 1. Tokens ---------------------------------------------------------------- */
+html.l-motion {
+  --l-ease-expo: cubic-bezier(.16, 1, .3, 1);
+  --l-ease-soft: cubic-bezier(.33, 1, .68, 1);
+  --l-ease-io: cubic-bezier(.65, 0, .35, 1);
+  --l-px: 7;              /* parallax amplitude, % of element height */
+  --l-stagger: .06s;
+}
+html.l-motion[data-l-motion-level="subtle"] { --l-px: 3.5; --l-stagger: .04s; }
+
+/* 2. Page transitions & header ---------------------------------------------- */
+@keyframes l-page-in { from { opacity: 0; } to { opacity: 1; } }
+html.l-motion.l-enter body { animation: l-page-in .45s var(--l-ease-soft) both; }
+html.l-motion.l-leaving body { opacity: 0; transition: opacity .22s var(--l-ease-io); pointer-events: none; }
+
+@keyframes l-header-in { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+html.l-motion body.template-index .pageheader { animation: l-header-in .9s var(--l-ease-expo) .35s both; }
+html.l-motion body.template-index .pageheader .logo-area__left,
+html.l-motion body.template-index .pageheader .logo-area__right { animation: l-header-in .9s var(--l-ease-expo) .55s both; }
+
+/* 3. Hero: curtain reveal + scroll-linked depth --------------------------- */
+@keyframes l-hero-curtain {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes l-hero-settle { from { transform: scale(1.1); } to { transform: none; } }
+html.l-motion .l-hero__media { animation: l-hero-curtain 1.15s var(--l-ease-expo) .05s both; }
+html.l-motion .l-hero__media img,
+html.l-motion .l-hero__media video { animation: l-fade 1.2s var(--l-ease-out) forwards, l-hero-settle 2.2s var(--l-ease-expo) both; }
+html.l-motion .l-hero__line > span { animation-duration: 1.05s; animation-timing-function: var(--l-ease-expo); }
+html.l-motion .l-hero__eyebrow { animation-name: l-fade-up; }
+html.l-motion .l-hero__actions .l-btn { animation: l-fade-up .9s var(--l-ease-expo) both; animation-delay: calc(.7s + var(--i, 0) * .1s); }
+html.l-motion .l-hero__proof li { animation: l-fade-up .8s var(--l-ease-expo) both; animation-delay: calc(.95s + var(--i, 0) * .07s); }
+@keyframes l-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* Hero depth on scroll: media drifts slower than the page, copy lifts & fades.
+   Native scroll timeline where available; laces-motion.js drives the same
+   custom properties (--l-sy) elsewhere. */
+@supports (animation-timeline: scroll()) {
+  @keyframes l-hero-depth { to { translate: 0 22%; } }
+  @keyframes l-hero-copy  { to { opacity: 0; translate: 0 -40px; } }
+  html.l-motion .l-hero .l-hero__media > * { animation-name: l-fade, l-hero-settle, l-hero-depth; animation-duration: 1.2s, 2.2s, auto; animation-timeline: auto, auto, scroll(root); animation-range: normal, normal, 0 100vh; animation-fill-mode: forwards, both, both; }
+  html.l-motion .l-hero .l-hero__inner { animation: l-hero-copy linear both; animation-timeline: scroll(root); animation-range: 0 90vh; }
+}
+html.l-motion.l-js-scroll .l-hero__media > * { translate: 0 calc(var(--l-sy, 0) * 22%); }
+html.l-motion.l-js-scroll .l-hero__inner { opacity: calc(1 - var(--l-sy, 0) * 1.1); translate: 0 calc(var(--l-sy, 0) * -40px); }
+
+/* 4. Reveal variants & split text ------------------------------------------ */
+html.l-motion .l-reveal { transition-duration: .9s; transition-timing-function: var(--l-ease-expo); transform: translateY(26px); }
+html.l-motion .l-reveal.is-in { transform: none; }
+
+/* clip reveal: block wipes up from its baseline while the image settles */
+html.l-motion .l-reveal--clip { clip-path: inset(0 0 100% 0); transform: none; transition: clip-path 1.1s var(--l-ease-expo) var(--l-delay, 0s), opacity .6s var(--l-ease-expo) var(--l-delay, 0s); }
+html.l-motion .l-reveal--clip.is-in { clip-path: inset(0 0 0 0); }
+html.l-motion .l-reveal--clip img { transform: scale(1.12); transition: transform 1.4s var(--l-ease-expo) var(--l-delay, 0s); }
+html.l-motion .l-reveal--clip.is-in img { transform: none; }
+html.l-motion .l-reveal--clip:not(.is-in) { animation: l-force-clip .6s var(--l-ease-expo) 2.5s forwards; }
+@keyframes l-force-clip { to { opacity: 1; clip-path: inset(0 0 0 0); } }
+
+/* rule that draws itself */
+html.l-motion .l-rule { transform-origin: left center; transform: scaleX(0); transition: transform 1s var(--l-ease-expo) var(--l-delay, 0s); }
+html.l-motion .l-reveal.is-in .l-rule, html.l-motion .l-rule.is-in { transform: none; }
+
+/* split words (built by laces-motion.js) */
+.l-w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .1em; margin-bottom: -.1em; }
+.l-w__in { display: inline-block; will-change: transform; }
+html.l-motion .l-w__in { transform: translateY(108%); transition: transform .9s var(--l-ease-expo); transition-delay: calc(var(--l-delay, 0s) + var(--i, 0) * .045s); }
+html.l-motion .is-in .l-w__in, html.l-motion .l-split.is-in .l-w__in { transform: none; }
+html.l-motion .l-reveal:not(.is-in) .l-w__in { animation: l-force-t .6s var(--l-ease-expo) 2.5s forwards; }
+@keyframes l-force-t { to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .l-w__in { transform: none !important; transition: none !important; } }
+
+/* 5. Scroll-linked parallax (.l-px wraps one img/video) --------------------- */
+html.l-motion .l-px { overflow: hidden; }
+html.l-motion .l-px > img, html.l-motion .l-px > video { will-change: transform; }
+@supports (animation-timeline: view()) {
+  @keyframes l-px-y { from { translate: 0 calc(var(--l-px) * -1%); } to { translate: 0 calc(var(--l-px) * 1%); } }
+  html.l-motion .l-px > img, html.l-motion .l-px > video { scale: calc(1 + var(--l-px) * .022); animation: l-px-y linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+}
+html.l-motion.l-js-scroll .l-px > img, html.l-motion.l-js-scroll .l-px > video { scale: calc(1 + var(--l-px) * .022); translate: 0 calc((var(--l-vy, .5) - .5) * var(--l-px) * 2%); }
+
+/* 6. Homepage sections ------------------------------------------------------ */
+/* Category tiles */
+html.l-motion .l-tile img { transition: transform 1.2s var(--l-ease-expo), filter .8s var(--l-ease-soft); }
+html.l-motion .l-tile:hover img { transform: scale(1.07); }
+html.l-motion .l-tile__title { transition: transform .6s var(--l-ease-expo); }
+html.l-motion .l-tile:hover .l-tile__title { transform: translateY(-4px); }
+html.l-motion .l-tile__count { transition: transform .6s var(--l-ease-expo), opacity .6s var(--l-ease-expo); }
+html.l-motion .l-tile:hover .l-tile__count { transform: translateY(-4px); }
+html.l-motion .l-tile__arrow { transition: transform .6s var(--l-ease-expo), background-color .4s, color .4s; }
+html.l-motion .l-tile:hover .l-tile__arrow { transform: translate(4px, -4px) rotate(0.001deg); background: #fff; color: var(--l-ink); }
+html.l-motion .l-tile::after { transition: opacity .6s var(--l-ease-soft); }
+html.l-motion .l-tile:hover::after { opacity: .85; }
+
+/* Athlete Fund ledger */
+html.l-motion .l-ledger__row { opacity: 0; transform: translateX(-16px); transition: opacity .8s var(--l-ease-expo), transform .8s var(--l-ease-expo); transition-delay: calc(.1s + var(--i, 0) * .09s); }
+html.l-motion .l-ledger.is-in .l-ledger__row { opacity: 1; transform: none; }
+html.l-motion .l-ledger:not(.is-in) .l-ledger__row { animation: l-force-in .6s var(--l-ease-expo) 2.5s forwards; }
+html.l-motion .l-ledger__num { display: inline-block; transition: transform .5s var(--l-ease-expo); }
+html.l-motion .l-ledger__row:hover .l-ledger__num { transform: translateX(4px); }
+html.l-motion .l-fund__heading em { display: inline-block; transition: -webkit-text-stroke-color .5s, color .5s; }
+html.l-motion .l-fund__media-tag { transition: transform .6s var(--l-ease-expo); }
+html.l-motion .l-fund__media:hover .l-fund__media-tag { transform: translateY(-3px); }
+
+/* Collab stories */
+html.l-motion .l-story__media img { transition: transform 1.3s var(--l-ease-expo); }
+html.l-motion .l-story:hover .l-story__media img { transform: scale(1.06); }
+html.l-motion .l-story__num { transition: transform .6s var(--l-ease-expo), opacity .6s; }
+html.l-motion .l-story:hover .l-story__num { transform: translateY(-4px); }
+html.l-motion .l-story__title { background-image: linear-gradient(currentColor, currentColor); background-repeat: no-repeat; background-size: 0 1px; background-position: 0 100%; transition: background-size .6s var(--l-ease-expo); display: inline; }
+html.l-motion .l-story:hover .l-story__title { background-size: 100% 1px; }
+
+/* Fit compare */
+html.l-motion .l-fit__media img { transition: transform 1.2s var(--l-ease-expo); }
+html.l-motion .l-fit__panel:hover .l-fit__media img { transform: scale(1.05); }
+html.l-motion .l-fit__specs li { opacity: 0; transform: translateY(8px); transition: opacity .6s var(--l-ease-expo), transform .6s var(--l-ease-expo); transition-delay: calc(.25s + var(--i, 0) * .06s); }
+html.l-motion .l-fit__panel.is-in .l-fit__specs li { opacity: 1; transform: none; }
+html.l-motion .l-fit__panel:not(.is-in) .l-fit__specs li { animation: l-force-in .6s var(--l-ease-expo) 2.5s forwards; }
+@keyframes l-vs-pop { from { transform: translate(-50%, -50%) scale(.6); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+html.l-motion .l-fit__vs { opacity: 0; }
+html.l-motion .l-fit.is-in .l-fit__vs { animation: l-vs-pop .7s var(--l-ease-expo) .45s both; }
+html.l-motion .l-fit__cta svg { transition: transform .5s var(--l-ease-expo); }
+html.l-motion .l-fit__panel:hover .l-fit__cta svg { transform: translateX(6px); }
+
+/* Campaign — copy drifts slower than the photo (kinetic typography) */
+@supports (animation-timeline: view()) {
+  @keyframes l-copy-drift { from { translate: 0 10%; } to { translate: 0 -10%; } }
+  html.l-motion .l-campaign__copy { animation: l-copy-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+}
+html.l-motion.l-js-scroll .l-campaign__copy { translate: 0 calc((.5 - var(--l-vy, .5)) * 20%); }
+html.l-motion .l-campaign__product { transition: transform .6s var(--l-ease-expo), background-color .4s; }
+html.l-motion .l-campaign__product:hover { transform: translateY(-6px); }
+
+/* Community */
+html.l-motion .l-community__item img { transition: transform 1.2s var(--l-ease-expo); }
+html.l-motion .l-community__item:hover img { transform: scale(1.06); }
+html.l-motion .l-community__cap { transition: transform .6s var(--l-ease-expo), opacity .6s; }
+html.l-motion .l-community__item:hover .l-community__cap { transform: translateY(-4px); }
+
+/* Footer */
+html.l-motion .l-footer__cols > * { opacity: 0; transform: translateY(16px); transition: opacity .8s var(--l-ease-expo), transform .8s var(--l-ease-expo); transition-delay: calc(var(--i, 0) * .08s); }
+html.l-motion .l-footer__cols.is-in > * { opacity: 1; transform: none; }
+html.l-motion .l-footer__cols:not(.is-in) > * { animation: l-force-in .6s var(--l-ease-expo) 2.5s forwards; }
+html.l-motion .l-footer__social a { transition: transform .5s var(--l-ease-expo), opacity .3s; }
+html.l-motion .l-footer__social a:hover { transform: translateY(-3px); }
+html.l-motion .l-footer__field { position: relative; }
+html.l-motion .l-footer__field::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .6s var(--l-ease-expo); pointer-events: none; }
+html.l-motion .l-footer__field:focus-within::after { transform: none; }
+
+/* 7. Product cards & rails ------------------------------------------------- */
+html.l-motion .product-block .image-cont { overflow: hidden; }
+html.l-motion .product-block .product-block__image img,
+html.l-motion .product-block .product-block__image .theme-img { transition: transform 1.1s var(--l-ease-expo), opacity .55s var(--l-ease-soft); }
+html.l-motion .product-block:hover .product-block__image--active img { transform: scale(1.04); }
+@media (min-width: 960px) {
+  html.l-motion .image-cont--with-secondary-image .product-block__image--active,
+  html.l-motion .image-cont--with-secondary-image .product-block__image--show-on-hover { transition: opacity .55s var(--l-ease-soft) !important; }
+  html.l-motion .image-cont--with-secondary-image .product-block__image--show-on-hover img { transform: scale(1.06); transition: transform 1.2s var(--l-ease-expo); }
+  html.l-motion .image-cont--with-secondary-image:hover .product-block__image--show-on-hover img { transform: scale(1); }
+}
+html.l-motion .product-block .quickbuy-toggle { transition: transform .55s var(--l-ease-expo), opacity .4s var(--l-ease-soft), background-color .3s, color .3s; }
+html.l-motion .product-block .product-block__title { transition: transform .5s var(--l-ease-expo); }
+html.l-motion .k-swatch { transition: transform .35s var(--l-ease-expo), box-shadow .35s; }
+html.l-motion .k-swatch:hover { transform: scale(1.18); }
+html.l-motion .k-swatch:active { transform: scale(.92); }
+html.l-motion .k-swatch.is-active { transform: scale(1.1); }
+
+/* rail: cards stagger in, panel crossfades on tab switch, nav nudges */
+html.l-motion .l-rail-panel .slider__item { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--l-ease-expo), transform .8s var(--l-ease-expo); transition-delay: calc(var(--i, 0) * var(--l-stagger)); }
+html.l-motion .l-rail-panel.is-in .slider__item { opacity: 1; transform: none; }
+html.l-motion .l-rail-panel:not(.is-in) .slider__item { animation: l-force-in .6s var(--l-ease-expo) 2.5s forwards; }
+html.l-motion .l-tab { transition: color .3s, opacity .3s, transform .4s var(--l-ease-expo); }
+html.l-motion .l-tab:active { transform: scale(.96); }
+html.l-motion .l-rail-nav__btn { transition: transform .4s var(--l-ease-expo), opacity .3s, background-color .3s, color .3s; }
+html.l-motion .l-rail-nav__btn:not(:disabled):hover { transform: scale(1.08); }
+html.l-motion .l-rail-nav__btn:not(:disabled):active { transform: scale(.94); }
+html.l-motion .l-rail-nav__btn svg { transition: transform .4s var(--l-ease-expo); }
+html.l-motion .l-rail-nav__btn[data-l-next]:not(:disabled):hover svg { transform: translateX(2px); }
+html.l-motion .l-rail-nav__btn[data-l-prev]:not(:disabled):hover svg { transform: translateX(-2px); }
+
+/* 8. Buttons & links -------------------------------------------------------- */
+html.l-motion .l-btn { position: relative; overflow: hidden; isolation: isolate; transition: color .35s var(--l-ease-soft), border-color .35s, transform .4s var(--l-ease-expo); }
+html.l-motion .l-btn::before { content: ""; position: absolute; inset: 0; background: currentColor; opacity: .12; transform: translateX(-101%); transition: transform .55s var(--l-ease-expo); z-index: -1; }
+html.l-motion .l-btn:hover::before { transform: none; }
+html.l-motion .l-btn:active { transform: scale(.97); }
+html.l-motion .l-btn__arrow, html.l-motion .l-link svg { transition: transform .5s var(--l-ease-expo); }
+html.l-motion .l-btn:hover .l-btn__arrow { transform: translateX(5px); }
+html.l-motion .l-link:hover svg { transform: translateX(5px); }
+html.l-motion .l-link { background-image: linear-gradient(currentColor, currentColor); background-repeat: no-repeat; background-size: 0 1px; background-position: 0 100%; transition: background-size .5s var(--l-ease-expo), color .3s; }
+html.l-motion .l-link:hover { background-size: 100% 1px; }
+html.l-motion .l-sec-head__action .l-link { background-size: 100% 1px; }
+html.l-motion .l-sec-head__action .l-link:hover { background-size: 0 1px; background-position: 100% 100%; }
+
+/* 9. Navigation & mega menu ------------------------------------------------- */
+@media (min-width: 768px) {
+  html.l-motion .navigation .navigation__tier-2-container { transition: opacity .38s var(--l-ease-soft), transform .5s var(--l-ease-expo), visibility 0s linear .38s; transform: translateY(-8px); opacity: 0; }
+  html.l-motion .navigation .navigation__item--show-children .navigation__tier-2-container,
+  html.l-motion body.tab-used .navigation .navigation__item--with-children:focus-within .navigation__tier-2-container { transform: none; opacity: 1; transition-delay: 0s, 0s, 0s; }
+  html.l-motion .navigation__tier-2-container .navigation__tier-2 > .navigation__item { opacity: 0; transform: translateY(8px); transition: opacity .5s var(--l-ease-expo), transform .5s var(--l-ease-expo); }
+  html.l-motion .navigation__item--show-children .navigation__tier-2-container .navigation__tier-2 > .navigation__item,
+  html.l-motion body.tab-used .navigation__item--with-children:focus-within .navigation__tier-2-container .navigation__tier-2 > .navigation__item { opacity: 1; transform: none; }
+  html.l-motion .navigation__item--show-children .navigation__tier-2-container .navigation__tier-2 > .navigation__item:nth-child(1) { transition-delay: .04s; }
+  html.l-motion .navigation__item--show-children .navigation__tier-2-container .navigation__tier-2 > .navigation__item:nth-child(2) { transition-delay: .08s; }
+  html.l-motion .navigation__item--show-children .navigation__tier-2-container .navigation__tier-2 > .navigation__item:nth-child(3) { transition-delay: .12s; }
+  html.l-motion .navigation__item--show-children .navigation__tier-2-container .navigation__tier-2 > .navigation__item:nth-child(4) { transition-delay: .16s; }
+  html.l-motion .navigation__item--show-children .navigation__tier-2-container .navigation__tier-2 > .navigation__item:nth-child(n+5) { transition-delay: .2s; }
+  html.l-motion .k-nav-preview img { transition: transform 1.1s var(--l-ease-expo); }
+  html.l-motion .k-nav-preview:hover img { transform: scale(1.04); }
+}
+html.l-motion .pageheader .cart-link__icon { display: inline-block; transition: transform .45s var(--l-ease-expo); }
+@keyframes l-bump { 0% { transform: none; } 30% { transform: scale(1.22) rotate(-6deg); } 60% { transform: scale(.96) rotate(3deg); } 100% { transform: none; } }
+html.l-motion .cart-link.l-bump .cart-link__icon { animation: l-bump .6s var(--l-ease-expo); }
+@keyframes l-count-pop { 0% { transform: scale(1); } 40% { transform: scale(1.5); } 100% { transform: scale(1); } }
+html.l-motion .cart-link.l-bump .cart-link__count { display: inline-block; animation: l-count-pop .5s var(--l-ease-expo); }
+html.l-motion .pageheader .navigation__link, html.l-motion .pageheader .header-link, html.l-motion .pageheader a[class*="header"] { transition: opacity .3s var(--l-ease-soft), color .3s; }
+html.l-motion .mobile-navigation-drawer .navigation__item { transition: opacity .5s var(--l-ease-expo), transform .5s var(--l-ease-expo); }
+
+/* 10. PDP ------------------------------------------------------------------- */
+@keyframes l-media-in { from { opacity: 0; transform: scale(1.025); } to { opacity: 1; transform: none; } }
+html.l-motion .media-gallery.l-gallery-switch .slider__item.is-active .media { animation: l-media-in .55s var(--l-ease-expo); }
+html.l-motion .media-gallery .thumbnail { transition: opacity .3s, transform .4s var(--l-ease-expo); }
+html.l-motion .media-gallery .thumbnail:hover { transform: translateY(-2px); }
+html.l-motion .media-gallery .thumbnail .media img { transition: transform .6s var(--l-ease-expo); }
+html.l-motion .media-gallery .thumbnail:hover .media img { transform: scale(1.04); }
+html.l-motion .opt-label { transition: border-color .3s, background-color .3s, color .3s, transform .35s var(--l-ease-expo), box-shadow .35s; }
+html.l-motion .opt-label:hover { transform: translateY(-1px); }
+html.l-motion .opt-label:active { transform: scale(.96); }
+html.l-motion .opt-btn:checked + .opt-label { animation: l-opt-pop .4s var(--l-ease-expo); }
+@keyframes l-opt-pop { 0% { transform: scale(.96); } 60% { transform: scale(1.03); } 100% { transform: none; } }
+@keyframes l-flash { 0% { opacity: .25; transform: translateY(4px); } 100% { opacity: 1; transform: none; } }
+html.l-motion .l-flash { animation: l-flash .5s var(--l-ease-expo); }
+html.l-motion .js-product-form [name=add] { position: relative; overflow: hidden; isolation: isolate; transition: transform .35s var(--l-ease-expo), background-color .3s, color .3s, border-color .3s; }
+html.l-motion .js-product-form [name=add]:not(:disabled):active { transform: scale(.98); }
+@keyframes l-atc-pop { 0% { transform: scale(1); } 35% { transform: scale(1.03); } 100% { transform: scale(1); } }
+html.l-motion .js-product-form [name=add].is-success { animation: l-atc-pop .55s var(--l-ease-expo); }
+
+/* 11. Cart drawer ----------------------------------------------------------- */
+html.l-motion .drawer.has-motion { transition: transform .62s var(--l-ease-expo), visibility .62s; }
+html.l-motion .drawer.has-motion.is-open { transition: visibility 0s 0s, transform .62s var(--l-ease-expo); }
+html.l-motion .cart-drawer .cart-item { transition: opacity .6s var(--l-ease-expo), transform .6s var(--l-ease-expo); }
+html.l-motion .js-cart-drawer.l-cart-stagger .cart-item { opacity: 0; transform: translateY(14px); }
+html.l-motion .js-cart-drawer.l-cart-stagger.is-open .cart-item { opacity: 1; transform: none; transition-delay: calc(.18s + var(--i, 0) * .06s); }
+@keyframes l-cart-new { 0% { opacity: 0; transform: translateX(16px); } 100% { opacity: 1; transform: none; } }
+html.l-motion .cart-item.l-cart-new { animation: l-cart-new .55s var(--l-ease-expo); }
+html.l-motion .cart-item .cart-item__image img { transition: transform .8s var(--l-ease-expo); }
+html.l-motion .cart-item:hover .cart-item__image img { transform: scale(1.04); }
+html.l-motion .cart-drawer .cart-item.l-cart-updating { opacity: .55; transition: opacity .25s; }
+html.l-motion .cart-drawer__footer, html.l-motion .cart-drawer .cart-drawer__footer { transition: opacity .5s var(--l-ease-expo), transform .5s var(--l-ease-expo); }
+html.l-motion .js-cart-drawer.l-cart-stagger:not(.is-open) .cart-drawer__footer { opacity: 0; transform: translateY(10px); }
+html.l-motion .js-cart-drawer.l-cart-stagger.is-open .cart-drawer__footer { transition-delay: .3s; }
+
+/* 12. Collection, search & skeletons ---------------------------------------- */
+@keyframes l-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+html.l-motion .l-skeleton { position: relative; overflow: hidden; background: var(--l-tile); }
+html.l-motion .l-skeleton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); animation: l-shimmer 1.3s var(--l-ease-io) infinite; }
+html.l-motion .collection-slider-row, html.l-motion .collection .product-grid, html.l-motion .main-products-grid .product-grid { transition: opacity .35s var(--l-ease-soft); }
+html.l-motion .l-grid-busy .product-grid, html.l-motion .product-grid[aria-busy="true"] { opacity: .45; pointer-events: none; }
+html.l-motion .l-grid-busy .product-grid .product-block .image-cont { position: relative; }
+html.l-motion .l-grid-busy .product-grid .product-block .image-cont::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent); animation: l-shimmer 1.3s var(--l-ease-io) infinite; }
+html.l-motion .product-grid .product-block.l-grid-in { animation: l-fade-up .7s var(--l-ease-expo) both; animation-delay: calc(var(--i, 0) * .04s); }
+html.l-motion .filter-group__header, html.l-motion .filter-group summary { transition: color .3s, opacity .3s; }
+html.l-motion .filter-group .filter-toggle, html.l-motion .filter-group__toggle svg { transition: transform .4s var(--l-ease-expo); }
+html.l-motion .facet-filters .filter-group[open] summary svg { transform: rotate(180deg); }
+html.l-motion .search-form .search-form__input, html.l-motion .predictive-search .results { transition: opacity .35s var(--l-ease-soft), transform .4s var(--l-ease-expo); }
+html.l-motion .predictive-search .product-block { animation: l-fade-up .5s var(--l-ease-expo) both; animation-delay: calc(var(--i, 0) * .04s); }
+
+/* 13. Cursor (fine pointer, ≥1024px only; built by laces-motion.js) --------- */
+.l-cursor { position: fixed; top: 0; left: 0; z-index: 2147483000; pointer-events: none; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #fff; mix-blend-mode: difference; opacity: 0; transform: translate3d(var(--x, -100px), var(--y, -100px), 0) scale(1); transition: opacity .3s var(--l-ease-soft), width .45s var(--l-ease-expo), height .45s var(--l-ease-expo), margin .45s var(--l-ease-expo); will-change: transform; display: flex; align-items: center; justify-content: center; font: 600 11px/1 var(--l-sans); letter-spacing: .08em; text-transform: uppercase; color: #000; }
+.l-cursor.is-on { opacity: 1; }
+.l-cursor.is-link { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
+.l-cursor.is-label { width: 72px; height: 72px; margin: -36px 0 0 -36px; mix-blend-mode: normal; background: #fff; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+.l-cursor.is-down { transform: translate3d(var(--x, -100px), var(--y, -100px), 0) scale(.85); }
+.l-cursor__label { opacity: 0; transition: opacity .25s; }
+.l-cursor.is-label .l-cursor__label { opacity: 1; }
+@media (hover: none), (pointer: coarse), (max-width: 1023px) { .l-cursor { display: none !important; } }
+
+/* Safety: everything in this file is additive. If motion is off, nothing applies. */
+html.l-motion-off .l-w__in, html.l-motion-off .l-ledger__row, html.l-motion-off .l-fit__specs li, html.l-motion-off .l-footer__cols > *, html.l-motion-off .l-rail-panel .slider__item { opacity: 1; transform: none; }

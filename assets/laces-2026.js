@@ -51,6 +51,8 @@
   };
 
   /* ---------- Compact sticky header ---------- */
+  window.LACES = Object.assign(window.LACES || {}, { initReveal });
+
   const initHeader = () => {
     const root = document.documentElement;
     let ticking = false;

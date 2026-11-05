@@ -1594,6 +1594,31 @@
     ]
   },
   {
+    "name": "LACES motion",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Phase 2 premium motion layer (laces-motion.css/js). Automatically disabled for visitors with reduced-motion or Save-Data enabled."
+      },
+      {
+        "type": "checkbox",
+        "id": "laces_motion_enabled",
+        "label": "Enable LACES premium motion",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "laces_motion_intensity",
+        "label": "Motion intensity",
+        "options": [
+          { "value": "full", "label": "Full (cinematic)" },
+          { "value": "subtle", "label": "Subtle" }
+        ],
+        "default": "full"
+      }
+    ]
+  },
+  {
     "name": "Animations",
     "settings": [
       {

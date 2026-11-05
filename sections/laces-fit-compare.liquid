@@ -26,7 +26,7 @@
           assign specs = block.settings.specs | split: ','
         -%}
         <a class="l-fit__panel l-reveal" href="{{ url }}" style="--l-delay: {{ forloop.index0 | times: 0.1 }}s" {{ block.shopify_attributes }}>
-          <div class="l-fit__media">
+          <div class="l-fit__media l-px">
             {%- if image != blank -%}
               {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw', widths: '500, 800, 1000, 1400', style: style, alt: block.settings.title }}
             {%- else -%}

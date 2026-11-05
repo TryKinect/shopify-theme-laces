@@ -30,7 +30,7 @@
             assign tag = 'a'
           endif
         -%}
-        <{{ tag }} class="l-community__item l-reveal" {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} style="--l-delay: {{ forloop.index0 | times: 0.05 }}s" {{ block.shopify_attributes }}>
+        <{{ tag }} class="l-community__item l-reveal l-reveal--clip" {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} style="--l-delay: {{ forloop.index0 | times: 0.05 }}s" {{ block.shopify_attributes }}>
           {%- if image != blank -%}
             {{ image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 17vw, (min-width: 768px) 33vw, 50vw', widths: '300, 400, 600, 800', style: style, alt: block.settings.caption | default: image.alt }}
           {%- else -%}
