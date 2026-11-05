@@ -140,3 +140,11 @@ The Kinect Theme is the **published** theme now: merging to `main` ships to the 
 
 ### Mindful
 - The floating-widget rules key off third-party selectors (`iframe#chat-button`, `.nm-wishlist-open-list-button`, `[class*="kl-teaser"]`, `#bundle-sticky_add_to_cart`). If an app update renames them, the widgets just show again; nothing breaks.
+
+## Homepage: filmstrip hero + LACES sections (homepage-ajay-sections PR)
+
+- DONE: Ajay's homepage sections (`sections/laces-*.liquid`, pulled from his dev theme `Development (64feb2-Ajays-MacBook-Air)` #188154970330) sit between the filmstrip hero and the existing Kinect rows. Varun's call: keep the filmstrip hero and the Kinect nav; bring Ajay's sections plus the rest of the current homepage.
+- WATCH: `assets/laces-home.css` / `assets/laces-home.js` load on the homepage only (`template.name == 'index'` in `layout/theme.liquid`). The CSS keeps only `l-` rules from Ajay's `laces-2026.css`; his header, nav, card, footer, PDP and cart restyles and the `--k-*` token overrides were left out on purpose. If his other pages are wanted later, port them separately.
+- WATCH: `templates/index.json` has 22 of 25 sections. The 10 disabled legacy sections (background videos, compact messages, hotspots, etc.) were deleted to make room; they're in git history.
+- OPEN: Ajay's rows overlap the old Kinect rows (The Rotation vs Bestsellers/New Arrivals, his Rep rail vs Football/Rep Your City, Women Know Ball campaign vs Shop the Look). Pick which to keep on the preview, then disable the rest in the editor.
+- Team rule applied: Ajay's "Rep Your Team" tile and rail tab are relabelled Football.

@@ -48,6 +48,7 @@
 
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
+  {%- if template.name == 'index' -%}{{ 'laces-home.css' | asset_url | stylesheet_tag }}{%- endif -%}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}
     <link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -167,6 +168,7 @@
 
   <script src="{{ 'main.js' | asset_url }}" defer></script>
   <script src="{{ 'kinect-haus.js' | asset_url }}" defer></script>
+  {%- if template.name == 'index' -%}<script src="{{ 'laces-home.js' | asset_url }}" defer></script>{%- endif -%}
 
   {%- if request.design_mode -%}
     <script src="{{ 'theme-editor.js' | asset_url }}" defer data-contact="{{ shop.email | escape }}"></script>
