@@ -166,7 +166,6 @@
 @media (min-width: 1024px) {
   .l-fit__panel { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
   .l-fit__media { aspect-ratio: auto; min-height: 420px; }
-  .l-fit__panel:nth-child(2) .l-fit__media { order: 2; }
   .l-fit__body { align-self: center; padding: 36px 32px; }
 }
 
