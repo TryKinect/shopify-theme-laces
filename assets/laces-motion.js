@@ -62,6 +62,9 @@
     ? new IntersectionObserver((entries, obs) => entries.forEach((en) => {
         if (!en.isIntersecting) return;
         en.target.classList.add('is-in');
+        /* horizontal snap rails on mobile: children off to the right never
+           intersect, so reveal the whole group when the group enters */
+        if (en.target.dataset.lGroup) en.target.querySelectorAll(':scope > .l-reveal').forEach((c) => c.classList.add('is-in'));
         obs.unobserve(en.target);
       }), { rootMargin: '0px 0px -6% 0px', threshold: 0.05 })
     : null;
@@ -170,7 +173,8 @@
       c.classList.add('is-on');
       const t = e.target;
       let lab = '';
-      for (const [sel, txt] of LABELS) if (t.closest && t.closest(sel)) { lab = txt; break; }
+      const onCard = t.closest && t.closest('.product-block, button, input, select, .l-rail-nav');
+      if (!onCard) for (const [sel, txt] of LABELS) if (t.closest && t.closest(sel)) { lab = txt; break; }
       const interactive = !lab && t.closest && t.closest('a, button, [role="button"], input, select, textarea, label, summary');
       c.classList.toggle('is-label', !!lab);
       c.classList.toggle('is-link', !!interactive);
@@ -258,11 +262,11 @@
     });
     mo.observe(wrap, { childList: true, subtree: true });
     document.addEventListener('click', (e) => {
-      const t = e.target.closest && e.target.closest('facet-filters a, .facets a, facet-filters input, .filter-group input, .utility-bar select, [data-sort-by], .active-filters a');
+      const t = e.target.closest && e.target.closest('facet-filters a, filter-container a:not([data-toggle-filters]):not(.filter-shade), .filters a:not(.filter-shade), facet-filters input, filter-container input, .filters input, .utility-bar .custom-select__option, .custom-select__option, [data-sort-by], .active-filters a');
       if (t) wrap.classList.add('l-grid-busy');
     }, true);
     document.addEventListener('change', (e) => {
-      if (e.target.closest && e.target.closest('facet-filters, .facets, .filter-group, .utility-bar')) wrap.classList.add('l-grid-busy');
+      if (e.target.closest && e.target.closest('facet-filters, filter-container, .filters, .filter-group, .utility-bar')) wrap.classList.add('l-grid-busy');
     }, true);
     setInterval(() => { if (wrap.classList.contains('l-grid-busy') && !document.querySelector('facet-filters[aria-busy="true"], .is-loading')) setTimeout(() => wrap.classList.remove('l-grid-busy'), 1200); }, 1500);
     const ps = document.querySelector('predictive-search, .predictive-search');
@@ -275,7 +279,8 @@
     indexChildren('.l-ledger', '.l-ledger__row', root);
     indexChildren('.l-fit__specs', 'li', root);
     indexChildren('.l-footer__cols', ':scope > *', root);
-    watch('.l-ledger, .l-fit, .l-fit__panel, .l-footer__cols', root);
+    root.querySelectorAll('.l-tiles, .l-stories, .l-community__grid').forEach((g) => { g.dataset.lGroup = '1'; });
+    watch('.l-ledger, .l-fit, .l-fit__panel, .l-footer__cols, .l-tiles, .l-stories, .l-community__grid', root);
     initCounters(root);
     initRails(root);
     if (L.initReveal) L.initReveal(root);

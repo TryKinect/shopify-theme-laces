@@ -248,18 +248,18 @@ html.l-motion .js-product-form [name=add].is-success { animation: l-atc-pop .55s
 
 /* 11. Cart drawer ----------------------------------------------------------- */
 html.l-motion .drawer.has-motion { transition: transform .62s var(--l-ease-expo), visibility .62s; }
-html.l-motion .drawer.has-motion.is-open { transition: visibility 0s 0s, transform .62s var(--l-ease-expo); }
+html.l-motion .drawer.has-motion[open] { transition: visibility 0s 0s, transform .62s var(--l-ease-expo); }
 html.l-motion .cart-drawer .cart-item { transition: opacity .6s var(--l-ease-expo), transform .6s var(--l-ease-expo); }
 html.l-motion .js-cart-drawer.l-cart-stagger .cart-item { opacity: 0; transform: translateY(14px); }
-html.l-motion .js-cart-drawer.l-cart-stagger.is-open .cart-item { opacity: 1; transform: none; transition-delay: calc(.18s + var(--i, 0) * .06s); }
+html.l-motion .js-cart-drawer.l-cart-stagger[open] .cart-item { opacity: 1; transform: none; transition-delay: calc(.18s + var(--i, 0) * .06s); }
 @keyframes l-cart-new { 0% { opacity: 0; transform: translateX(16px); } 100% { opacity: 1; transform: none; } }
 html.l-motion .cart-item.l-cart-new { animation: l-cart-new .55s var(--l-ease-expo); }
 html.l-motion .cart-item .cart-item__image img { transition: transform .8s var(--l-ease-expo); }
 html.l-motion .cart-item:hover .cart-item__image img { transform: scale(1.04); }
 html.l-motion .cart-drawer .cart-item.l-cart-updating { opacity: .55; transition: opacity .25s; }
 html.l-motion .cart-drawer__footer, html.l-motion .cart-drawer .cart-drawer__footer { transition: opacity .5s var(--l-ease-expo), transform .5s var(--l-ease-expo); }
-html.l-motion .js-cart-drawer.l-cart-stagger:not(.is-open) .cart-drawer__footer { opacity: 0; transform: translateY(10px); }
-html.l-motion .js-cart-drawer.l-cart-stagger.is-open .cart-drawer__footer { transition-delay: .3s; }
+html.l-motion .js-cart-drawer.l-cart-stagger:not([open]) .cart-drawer__footer { opacity: 0; transform: translateY(10px); }
+html.l-motion .js-cart-drawer.l-cart-stagger[open] .cart-drawer__footer { transition-delay: .3s; }
 
 /* 12. Collection, search & skeletons ---------------------------------------- */
 @keyframes l-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
