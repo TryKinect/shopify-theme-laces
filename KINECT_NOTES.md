@@ -122,7 +122,7 @@ The Kinect Theme is the **published** theme now: merging to `main` ships to the 
 - PDP sibling picker: "Color:" comes from a variant option named Color (updates when the variant changes), then `custom.color`; otherwise it reads "More colors". It fills in once `custom.color` is populated.
 - Products with type `Contribution` (Cal Athletes Fund) skip the "ready to ship" stock line and the shipping/returns trust row. New `templates/product.fund.json` (title, price, amount, buy button, description).
 - Collection tabs only show when the current collection is one of the tabs (not on Best Sellers / What's New / All).
-- Collections drop the search-only "Most relevant" sort (`most-relevant`); an empty filtered result shows a "Clear filters" button.
+- Collections drop the search-only "Most relevant" sort (`most-relevant`) from both the filter panel and the desktop sort dropdown; an empty filtered result shows a "Clear filters" button.
 - Collection cards show "+ Add" / "Choose options" on touch screens.
 - Cart drawer shows Remove on each line.
 - `/collections` lists Best Sellers, What's New, All Hats, Snapback, Dad Hats, Football, Rep Your City, Signature, Collabs, Voices, Apparel.
