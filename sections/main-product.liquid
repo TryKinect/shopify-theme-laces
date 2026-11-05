@@ -405,7 +405,25 @@
   and product.metafields.custom.sibling_products.value.size > 0 %}
 
   <div class="mp-sibling-products">
-    <div class="mp-sibling-products__label">Color: <span class="mp-sibling-products__current">{{ product.title | split: ' - ' | last }}</span></div>
+    {%- liquid
+      assign k_color = ''
+      for option in product.options_with_values
+        assign k_option_name = option.name | downcase
+        if k_option_name == 'color' or k_option_name == 'colour'
+          assign k_color = option.selected_value
+        endif
+      endfor
+      if k_color == blank and product.metafields.custom.color != blank
+        assign k_color = product.metafields.custom.color | metafield_text
+      endif
+    -%}
+    <div class="mp-sibling-products__label" data-dynamic-variant-content="k-sibling-color">
+      {%- if k_color != blank -%}
+        Color: <span class="mp-sibling-products__current">{{ k_color }}</span>
+      {%- else -%}
+        More colors
+      {%- endif -%}
+    </div>
 
     <div class="mp-sibling-products__list">
       {% for sibling in product.metafields.custom.sibling_products.value %}
@@ -493,7 +511,7 @@
                         {{- 'products.variant.no_stock' | t -}}
                       {%- endif -%}
                     </button>
-                    {%- unless product.template_suffix contains 'preorder' -%}
+                    {%- unless product.template_suffix contains 'preorder' or product.type == 'Contribution' -%}
                       {%- if current_variant.available -%}
                         <p class="k-stock">
                           <span class="k-stock__dot" aria-hidden="true"></span>
@@ -522,7 +540,7 @@
                   {% endif %}
                 </div>
               {% endform %}
-              {%- render 'k-pdp-trust' -%}
+              {%- unless product.type == 'Contribution' -%}{%- render 'k-pdp-trust' -%}{%- endunless -%}
 
               {%- if block.settings.show_pickup_availability -%}
                 <div data-dynamic-variant-content="{{ block.id }}-pickup-availability"{% unless product.available %} hidden{% endunless %}>

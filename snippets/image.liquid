@@ -10,6 +10,7 @@
   - size_cols_mobile {Number} - width on mobile is 'screen width / this number'
   - custom_aspect_ratio {Number} - aspect ratio to force on image (optional)
   - custom_crop {String} - top/bottom/left/right/contain (optional, default is cover with focal point).
+  - alt {String} - Fallback alt text when the image has none (optional)
   - as_mobile_source {Boolean} - Will output <source> instead of <img> for use in <picture> (optional, default is false)
 
   Usage:
@@ -120,6 +121,7 @@
     assign fetchpriority = nil
   endif
 
+  assign k_alt = image.alt | default: alt
   assign image_src = image | image_url: width: image_width, crop: crop, crop_left: crop_left, crop_top: crop_top, crop_width: crop_width, crop_height: crop_height
   assign srcset = nil
   if settings.image_quality != '1'
@@ -134,9 +136,9 @@
       endif
     endfor
     assign srcset = srcset | remove_last: ', '
-    assign image_html = image_src | image_tag: sizes: sizes, widths: widths, srcset: srcset, class: class, loading: loading, fetchpriority: fetchpriority
+    assign image_html = image_src | image_tag: sizes: sizes, widths: widths, alt: k_alt, srcset: srcset, class: class, loading: loading, fetchpriority: fetchpriority
   else
-    assign image_html = image_src | image_tag: sizes: sizes, widths: widths, class: class, loading: loading, fetchpriority: fetchpriority
+    assign image_html = image_src | image_tag: sizes: sizes, widths: widths, alt: k_alt, class: class, loading: loading, fetchpriority: fetchpriority
   endif
 -%}
 {%- if as_mobile_source -%}

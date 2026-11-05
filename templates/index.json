@@ -293,7 +293,7 @@
     "k_rep_your_team": {
       "type": "featured-collection",
       "settings": {
-        "title": "Rep Your Team",
+        "title": "Football",
         "collection": "football",
         "show_vendor": false,
         "enable_carousel": true,

@@ -2,8 +2,19 @@
   <div class="page-header">
     <h1 class="majortitle">{{ 'templates.404.title' | t }}</h1>
   </div>
-  <div class="spaced-row align-centre">
+  <div class="spaced-row align-centre k-404">
     <p>{{ 'templates.404.subtext' | t }}</p>
-    <a class="underline" href="{{ routes.root_url }}">{{ 'templates.404.link' | t }}</a>
+    <form class="k-404__search" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="search" name="q" placeholder="Search hats, hoodies, socks" aria-label="Search">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button class="btn btn--primary" type="submit">Search</button>
+    </form>
+    <p class="k-404__links">
+      <a class="underline" href="{{ routes.collections_url }}/best-sellers">Best sellers</a>
+      <a class="underline" href="{{ routes.collections_url }}/all-hats">All hats</a>
+      <a class="underline" href="{{ routes.collections_url }}/new-arrivals">What's new</a>
+      <a class="underline" href="{{ routes.collections_url }}/hoodies">Hoodies</a>
+      <a class="underline" href="{{ routes.root_url }}">{{ 'templates.404.link' | t }}</a>
+    </p>
   </div>
 </div>
