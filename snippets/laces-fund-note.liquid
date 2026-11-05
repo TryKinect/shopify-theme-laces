@@ -1,0 +1,27 @@
+{%- comment -%}
+  LACES 2026 — the Athlete Fund thread that runs through the shopping journey
+  (PDP buy box, cart drawer, mobile menu footer).
+  Params:
+    variant {String} - 'pdp' | 'cart' | 'drawer'
+    text    {String} - sentence (optional; defaults to verified copy)
+    link    {String} - URL (optional; defaults to /pages/laces-athlete-fund)
+    link_label {String} - (optional)
+    pct     {String} - figure shown on the PDP variant (optional, default "5%")
+{%- endcomment -%}
+{%- liquid
+  assign l_text = text | default: '5% of every LACES sale goes into the Athlete Fund and is split equally among athletes who hit their monthly checkpoints.'
+  assign l_link = link | default: '/pages/laces-athlete-fund'
+  assign l_label = link_label | default: 'How it works'
+  assign l_pct = pct | default: '5%'
+-%}
+{%- case variant -%}
+  {%- when 'pdp' -%}
+    <div class="l-pdp-fund">
+      <span class="l-pdp-fund__pct" aria-hidden="true">{{ l_pct }}</span>
+      <p>{{ l_text }} <a href="{{ l_link }}">{{ l_label }}</a></p>
+    </div>
+  {%- when 'drawer' -%}
+    <a class="l-drawer-foot__fund" href="{{ l_link }}">{% render 'laces-icon', icon: 'fund' %}<span>{{ l_text }}</span></a>
+  {%- else -%}
+    <div class="l-cart-fund">{% render 'laces-icon', icon: 'fund' %}<span>{{ l_text }} <a href="{{ l_link }}">{{ l_label }}</a></span></div>
+{%- endcase -%}

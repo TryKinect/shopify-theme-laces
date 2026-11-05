@@ -1,1 +1,120 @@
-{"sections":{"blocks_Yw3bDW":{"type":"_blocks","blocks":{"ai_gen_block_c66744c_gF6WhY":{"type":"ai_gen_block_c66744c","settings":{"background_image":"shopify:\/\/shop_images\/BAHC_x_LACES_MOMA_1.png","bg_image_position":"center","min_height":600,"min_height_mobile":400,"show_overlay":false,"overlay_color":"#000000","overlay_opacity":30,"foreground_image":"shopify:\/\/shop_images\/BAHC_x_LACES_MOMA.png","fg_max_width":350,"horizontal_alignment":"center","vertical_alignment":"center","content_padding":40,"content_padding_mobile":20,"fg_border_radius":0,"fg_shadow_horizontal":-20,"fg_shadow_vertical":-20,"fg_shadow_blur":0,"fg_shadow_opacity":0},"blocks":{}}},"block_order":["ai_gen_block_c66744c_gF6WhY"],"custom_css":["@media (max-width: 767px) {.ai-fullbleed-fg-wrapper-aqjljn2psdgtzznhtlaigenblockc66744cgf6why {max-width: 75%; }}"],"name":"Full bleed image","settings":{}},"rich_text_pEaJeP":{"type":"rich-text","blocks":{"heading_t4QPYM":{"type":"heading","settings":{"title":"Bay Area Host Committee Collaboration","use_h1":true}},"text_MLGzVy":{"type":"text","settings":{"text":"<p>The Bay Area Host Committee aims to Unite the Bay Through Sport. LACES is dedicated to helping college athletes build their brand and create opportunities. <\/p><p>The BAHC x LACES collaboration is bringing everyone together to celebrate 2 global events in one unforgettable year.<\/p>","enlarge_text":false}}},"block_order":["heading_t4QPYM","text_MLGzVy"],"custom_css":["h1 {font-size: 5em !important; letter-spacing: -2px !important;}","@media (max-width: 767px) {h1 {font-size: 3em !important; }}"],"name":"Rich text","settings":{"height":"medium","text_alignment":"center","full_width":false,"color_scheme":"default"}},"main":{"type":"main-collection","custom_css":["h1 {font-size: 5em !important; letter-spacing: -2px !important;}","@media (max-width: 767px) {h1 {font-size: 3em !important; }}"],"settings":{"show_title":false,"show_image_behind_heading":false,"heading_image_height":"huge","overlay_style":"shadow","coll_desc_pos":"above","coll_num_per_page_int":24,"grid":3,"show_vendor":false,"show_total":true,"enable_filtering":true,"collapse_tag_sidebar_by_default":true,"collapse_filters_method":"over-12","show_filter_counts":false,"filter_two_columns":false,"button_grid_filter_name":"Size,Taille,Größe","auto_apply_hide_unavailable":false,"enable_sticky_filter":true,"show_sort":true,"sort_show_featured":false,"sort_show_best":true,"sort_show_alpha":true,"sort_show_price":true,"sort_show_date":true,"related_collections":[],"related_collections_style":"buttons","rel_coll_gall_aspect_ratio":"1","image_position":"center center","rel_coll_gall_enable_margin":true,"rel_coll_gall_full_width":false,"rel_coll_gall_overlay_style":"shadow","rel_coll_gall_text_alignment":"center center","rel_coll_grid_mobile":"2"}}},"order":["blocks_Yw3bDW","rich_text_pEaJeP","main"]}
+{
+  "sections": {
+    "blocks_Yw3bDW": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_c66744c_gF6WhY": {
+          "type": "ai_gen_block_c66744c",
+          "settings": {
+            "background_image": "shopify://shop_images/BAHC_x_LACES_MOMA_1.png",
+            "bg_image_position": "center",
+            "min_height": 600,
+            "min_height_mobile": 400,
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "foreground_image": "shopify://shop_images/BAHC_x_LACES_MOMA.png",
+            "fg_max_width": 350,
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "content_padding": 40,
+            "content_padding_mobile": 20,
+            "fg_border_radius": 0,
+            "fg_shadow_horizontal": -20,
+            "fg_shadow_vertical": -20,
+            "fg_shadow_blur": 0,
+            "fg_shadow_opacity": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_c66744c_gF6WhY"
+      ],
+      "custom_css": [
+        "@media (max-width: 767px) {.ai-fullbleed-fg-wrapper-aqjljn2psdgtzznhtlaigenblockc66744cgf6why {max-width: 75%; }}"
+      ],
+      "name": "Full bleed image",
+      "settings": {}
+    },
+    "rich_text_pEaJeP": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_t4QPYM": {
+          "type": "heading",
+          "settings": {
+            "title": "Bay Area Host Committee Collaboration",
+            "use_h1": true
+          }
+        },
+        "text_MLGzVy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Bay Area Host Committee aims to Unite the Bay Through Sport. LACES is dedicated to helping college athletes build their brand and create opportunities. </p><p>The BAHC x LACES collaboration is bringing everyone together to celebrate 2 global events in one unforgettable year.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_t4QPYM",
+        "text_MLGzVy"
+      ],
+      "custom_css": [
+        "h1 {font-size: 5em !important; letter-spacing: -2px !important;}",
+        "@media (max-width: 767px) {h1 {font-size: 3em !important; }}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": false,
+        "color_scheme": "default"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        "@media (max-width: 767px) {h1 {font-size: 3em !important; }}"
+      ],
+      "settings": {
+        "show_title": false,
+        "show_image_behind_heading": false,
+        "heading_image_height": "huge",
+        "overlay_style": "shadow",
+        "coll_desc_pos": "above",
+        "coll_num_per_page_int": 24,
+        "grid": 3,
+        "show_vendor": false,
+        "show_total": true,
+        "enable_filtering": true,
+        "collapse_tag_sidebar_by_default": true,
+        "collapse_filters_method": "over-12",
+        "show_filter_counts": false,
+        "filter_two_columns": false,
+        "button_grid_filter_name": "Size,Taille,Größe",
+        "auto_apply_hide_unavailable": false,
+        "enable_sticky_filter": true,
+        "show_sort": true,
+        "sort_show_featured": false,
+        "sort_show_best": true,
+        "sort_show_alpha": true,
+        "sort_show_price": true,
+        "sort_show_date": true,
+        "related_collections": [],
+        "related_collections_style": "buttons",
+        "rel_coll_gall_aspect_ratio": "1",
+        "image_position": "center center",
+        "rel_coll_gall_enable_margin": true,
+        "rel_coll_gall_full_width": false,
+        "rel_coll_gall_overlay_style": "shadow",
+        "rel_coll_gall_text_alignment": "center center",
+        "rel_coll_grid_mobile": "2"
+      }
+    }
+  },
+  "order": [
+    "blocks_Yw3bDW",
+    "rich_text_pEaJeP",
+    "main"
+  ]
+}

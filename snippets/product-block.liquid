@@ -180,7 +180,7 @@ Parameters:
                 <div class="vendor">{{ product.vendor | escape }}</div>
               {%- endif -%}
 
-              <div class="product-block__title">{{ product.title | escape }}</div>
+              <div class="product-block__title">{%- render 'laces-product-title', product: product, mode: 'card' -%}</div>
               {%- if compact != true -%}<div class="k-rating-slot">{%- render 'k-card-rating', product: product -%}</div>{%- endif -%}
 
               {%- if settings.prod_thumb_show_subtitle and product.metafields.descriptors.subtitle != blank -%}

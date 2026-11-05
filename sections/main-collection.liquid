@@ -181,14 +181,22 @@
     endif
   -%}
   {%- if show_header -%}
-    <div class="page-header page-header--with-upper-spacing">
-      <div class="container">
-        {%- if section.settings.show_title -%}
-          <h1 class="pagetitle h3">{{ collection.title | escape }}</h1>
-        {%- endif -%}
-
+    {%- comment -%} LACES 2026 collection header: breadcrumb, display title, live count, description {%- endcomment -%}
+    <div class="l-coll-head">
+      <div class="container{% if settings.use_fullwidth_layout %} container--no-max{% endif %}">
+        <nav class="l-coll-head__crumbs" aria-label="{{ 'general.breadcrumbs.title' | t | default: 'Breadcrumbs' }}">
+          <a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</a><span aria-hidden="true">/</span><span>{{ collection.title | escape }}</span>
+        </nav>
+        <div class="l-coll-head__row">
+          {%- if section.settings.show_title -%}
+            <h1 class="l-display l-coll-head__title">{{ collection.title | escape }}</h1>
+          {%- endif -%}
+          {%- if section.settings.show_total and paginate.items > 0 -%}
+            <span class="l-coll-head__count">{{ 'sections.collection.product_count' | t: count: paginate.items }}</span>
+          {%- endif -%}
+        </div>
         {% if collection.description != blank and section.settings.coll_desc_pos == 'above' %}
-          <div class="rte cf align-center reading-width k-coll-desc">{{ collection.description }}</div>
+          <div class="rte l-coll-head__desc">{{ collection.description }}</div>
         {% endif %}
       </div>
     </div>
