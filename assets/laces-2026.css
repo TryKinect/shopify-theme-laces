@@ -189,7 +189,7 @@ a { transition: color .2s, opacity .2s; }
 .announcement-bar .container { min-height: 34px; }
 
 /* ---------- 5. Header ---------- */
-.pageheader { background: rgb(var(--header-bg-col, 255 255 255)); }
+.pageheader { background: var(--header-bg-col, #fff); }
 .pageheader .logo-area { min-height: 64px; border-bottom: 1px solid var(--l-line); transition: min-height .3s var(--l-ease), background .3s; }
 @media (min-width: 768px) { .pageheader .logo-area { min-height: 76px; } .l-header-compact .pageheader--sticky .logo-area { min-height: 64px; } }
 .pageheader--transparent .logo-area { border-bottom-color: transparent; }
