@@ -12,7 +12,7 @@ Status: **OPEN** = needs action/answer · **WATCH** = fine today, breaks if X ch
 - WATCH: PRs are merged by Varun (Devin's merge is blocked by a safety hook).
 
 ## Homepage (PR #4)
-- WATCH: `templates/index.json` is at Shopify's 25-section cap. To add a section, delete a disabled one first.
+- WATCH: `templates/index.json` has a 25-section cap (disabled sections count). It's at 22/25 after the homepage-ajay-sections PR.
 - WATCH: Berkeley Roster tile links to `/pages/cal-athletes`. If that page handle changes, the tile 404s.
 
 ## Cal Athletes page (PR #5)
@@ -69,7 +69,7 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - OPEN: To show athlete names, create a product metafield definition `custom.designed_by` (single-line text) in Admin → Settings → Custom data → Products, and fill it per product.
 
 ### Homepage (`templates/index.json`)
-- WATCH: Added **Cal Athletes banner** (reused the old disabled Labor Day "image with text overlay" section, now "Cal Athletes banner", after New Arrivals) and a **Rep Your City** product row (`rep-your-city`, after Rep Your Team). Deleted the disabled "LACES Rookies" featured-blog section to stay at 24/25 sections. One slot left.
+- WATCH: Added **Cal Athletes banner** (reused the old disabled Labor Day "image with text overlay" section, now "Cal Athletes banner", after New Arrivals) and a **Rep Your City** product row (`rep-your-city`, after Rep Your Team). Deleted the disabled "LACES Rookies" featured-blog section (the count later dropped to 22/25, see the homepage section below).
 
 ### Reviews (Vitals) and third-party pop-ups (`assets/kinect-haus.css`, `assets/kinect-haus.js`)
 - WATCH: Vitals' reviews widget (`#vitals-end-section .vtl-pr-main-widget`) is hidden when it contains `.vtl-pr-stats--no-reviews`. If Vitals changes its markup the empty block comes back; if you switch to Judge.me/Yotpo, re-check. Populated reviews are untouched. Vitals doesn't render on the local preview, so **verify on a PR-linked theme** with a 0-review product and one with reviews.
@@ -140,3 +140,13 @@ The Kinect Theme is the **published** theme now: merging to `main` ships to the 
 
 ### Mindful
 - The floating-widget rules key off third-party selectors (`iframe#chat-button`, `.nm-wishlist-open-list-button`, `[class*="kl-teaser"]`, `#bundle-sticky_add_to_cart`). If an app update renames them, the widgets just show again; nothing breaks.
+
+## Homepage: filmstrip hero + LACES sections (homepage-ajay-sections PR)
+
+- DONE: Ajay's homepage sections (`sections/laces-*.liquid`, pulled from his dev theme `Development (64feb2-Ajays-MacBook-Air)` #188154970330) follow the filmstrip hero in Ajay's order, ending Women Know Ball → community → "From the people" testimonials → press logo marquee (matching his preview). Varun's call: keep the filmstrip hero and the Kinect nav, and don't append the old homepage below Ajay's sections.
+- WATCH: `assets/laces-home.css` / `assets/laces-home.js` load on the homepage only (`template.name == 'index'` in `layout/theme.liquid`). The CSS keeps only `l-` rules from Ajay's `laces-2026.css`; his header, nav, card, footer, PDP and cart restyles and the `--k-*` token overrides were left out on purpose. If his other pages are wanted later, port them separately.
+- WATCH: `templates/index.json` has 22 of 25 sections. The 10 disabled legacy sections (background videos, compact messages, hotspots, etc.) were deleted to make room; they're in git history.
+- WATCH: The old Kinect rows (Bestsellers, gallery, New Arrivals, Cal banner, Shop the Look, Signature, Football, Rep Your City, rich text, image-with-text) are **disabled, not deleted**, in `templates/index.json`. Re-enable any of them in the editor; they still count toward the 25-section cap.
+- Team rule applied: Ajay's "Rep Your Team" tile and rail tab are relabelled Football.
+- DONE: **Site-wide footer is Ajay's `laces-footer`** (newsletter band, brand column, Shop/Brand/Help columns, Athlete Fund card, legal bar), set in `sections/footer-group.json`. The old Symmetry `footer` section is disabled, not deleted. `assets/laces-base.css` (tokens, primitives, footer) loads on every page; `laces-home.css` still loads on the homepage only.
+- WATCH: Footer links left out on purpose: **Sale** (team call) and **FAQ** (`/pages/faq` is a 404; there's no FAQ page). Add an FAQ link in the editor (Footer → Help column) once a page exists. The newsletter form is Shopify's customer form (tags `prospect,newsletter,footer`), not Klaviyo, the same as the old footer's newsletter block.

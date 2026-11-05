@@ -1,0 +1,97 @@
+{%- comment -%}
+  LACES 2026 — Campaign banner. Full-bleed photography (desktop + mobile crops) with
+  editorial copy and an optional live product card (title/price/image from Shopify).
+{%- endcomment -%}
+{%- liquid
+  assign img_d = section.settings.image
+  assign img_m = section.settings.image_mobile | default: img_d
+  assign fp_d = img_d.presentation.focal_point | default: 'center'
+  assign fp_m = img_m.presentation.focal_point | default: 'center'
+  assign style_d = '--l-fp: ' | append: fp_d
+  assign style_m = '--l-fp: ' | append: fp_m
+  assign class_m = 'is-mobile'
+  if img_d != blank
+    assign class_m = 'is-mobile has-desktop'
+  endif
+  assign product = section.settings.product
+-%}
+<section class="l-campaign l-campaign--align-{{ section.settings.align }}" id="section-id-{{ section.id }}" style="--l-campaign-h: {{ section.settings.height_desktop }}px; --l-campaign-h-m: {{ section.settings.height_mobile }}px;">
+  <div class="l-campaign__media" aria-hidden="true">
+    {%- if img_d != blank -%}
+      {{ img_d | image_url: width: 2400 | image_tag: class: 'is-desktop', loading: 'lazy', sizes: '100vw', widths: '1000, 1400, 1800, 2400', style: style_d, alt: '' }}
+    {%- endif -%}
+    {%- if img_m != blank -%}
+      {{ img_m | image_url: width: 1400 | image_tag: class: class_m, loading: 'lazy', sizes: '100vw', widths: '480, 720, 960, 1400', style: style_m, alt: '' }}
+    {%- elsif img_d == blank -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+  <div class="l-container l-campaign__inner">
+    <div class="l-campaign__copy l-on-dark">
+      {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow l-reveal">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="l-display l-campaign__title l-reveal" style="--l-delay:.08s">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="l-campaign__text l-reveal" style="--l-delay:.16s">{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- liquid
+        assign show_b1 = false
+        assign show_b2 = false
+        if section.settings.button_1_label != blank and section.settings.button_1_link != blank
+          assign show_b1 = true
+        endif
+        if section.settings.button_2_label != blank and section.settings.button_2_link != blank
+          assign show_b2 = true
+        endif
+      -%}
+      {%- if show_b1 or show_b2 -%}
+        <div class="l-campaign__actions l-reveal" style="--l-delay:.24s">
+          {%- if show_b1 -%}<a class="l-btn l-btn--white" href="{{ section.settings.button_1_link }}">{{ section.settings.button_1_label | escape }}{% render 'laces-icon', icon: 'arrow', class: 'l-btn__arrow' %}</a>{%- endif -%}
+          {%- if show_b2 -%}<a class="l-btn l-btn--ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label | escape }}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if product != blank -%}
+      <a class="l-campaign__product l-reveal" href="{{ product.url }}" style="--l-delay:.3s">
+        {%- if product.featured_media -%}
+          {{ product.featured_media.preview_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '84px', alt: product.title }}
+        {%- endif -%}
+        <span>
+          <span class="l-campaign__product-kicker">{{ section.settings.product_kicker | default: 'Shop the piece' | escape }}</span>
+          <span class="l-campaign__product-title">{{ product.title | escape }}</span>
+          <span class="l-campaign__product-price">
+            {%- liquid
+              assign price_variant = product.selected_or_first_available_variant
+              if product.price_varies
+                assign price_variant = product.variants | sort: 'price' | first
+              endif
+            -%}
+            {%- if price_variant.compare_at_price > price_variant.price -%}<span class="price__was">{{ price_variant.compare_at_price | money }}</span>{%- endif -%}
+            {%- if product.price_varies %}From {{ price_variant.price | money }}{% else %}{{ price_variant.price | money }}{% endif -%}
+          </span>
+        </span>
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LACES · Campaign banner",
+  "class": "section-l-campaign",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A LACES original collection" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Women Know Ball." },
+    { "type": "text", "id": "text", "label": "Text", "default": "A message so good, we had to put it on a hat." },
+    { "type": "text", "id": "button_1_label", "label": "Primary button", "default": "Shop the collection" },
+    { "type": "url", "id": "button_1_link", "label": "Primary link" },
+    { "type": "text", "id": "button_2_label", "label": "Secondary button" },
+    { "type": "url", "id": "button_2_link", "label": "Secondary link" },
+    { "type": "product", "id": "product", "label": "Featured product card" },
+    { "type": "text", "id": "product_kicker", "label": "Product card kicker", "default": "Shop the piece" },
+    { "type": "select", "id": "align", "label": "Text alignment", "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Center" } ], "default": "left" },
+    { "type": "range", "id": "height_desktop", "label": "Desktop height", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 680 },
+    { "type": "range", "id": "height_mobile", "label": "Mobile height", "min": 420, "max": 760, "step": 20, "unit": "px", "default": 560 }
+  ],
+  "presets": [ { "name": "LACES · Campaign banner" } ]
+}
+{% endschema %}

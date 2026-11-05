@@ -1,0 +1,103 @@
+{%- comment -%}
+  LACES 2026 — Collaborations & signature collections as editorial stories.
+  Each block: image (falls back to the linked collection/product image), kicker, title, text, link.
+  Desktop: optional featured first card spanning 2×2. Mobile: snap rail.
+{%- endcomment -%}
+<div class="l-section{% if section.settings.color_scheme == 'paper' %} l-section--paper{% endif %}" id="section-id-{{ section.id }}">
+  <div class="l-container">
+    <div class="l-sec-head l-reveal">
+      <div class="l-sec-head__text">
+        {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.text != blank -%}<p class="l-sec-head__sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+      {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+        <div class="l-sec-head__action"><a class="l-link" href="{{ section.settings.link }}">{{ section.settings.link_label | escape }}{% render 'laces-icon', icon: 'arrow' %}</a></div>
+      {%- endif -%}
+    </div>
+
+    <div class="l-stories{% if section.settings.feature_first %} l-stories--feature{% endif %}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign image = block.settings.image
+          if image == blank and block.settings.collection != blank
+            assign image = block.settings.collection.featured_image
+          endif
+          if image == blank and block.settings.product != blank
+            assign image = block.settings.product.featured_media.preview_image
+          endif
+          assign url = block.settings.link
+          if url == blank and block.settings.collection != blank
+            assign url = block.settings.collection.url
+          endif
+          if url == blank and block.settings.product != blank
+            assign url = block.settings.product.url
+          endif
+          assign fp = image.presentation.focal_point | default: 'center'
+          assign style = '--l-fp: ' | append: fp
+          assign delay = forloop.index0 | times: 0.06
+          assign delay_style = '--l-delay: ' | append: delay | append: 's'
+          if forloop.first and section.settings.feature_first
+            assign sizes = '(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 78vw'
+          else
+            assign sizes = '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 78vw'
+          endif
+        -%}
+        {%- if url != blank -%}{%- assign tag = 'a' -%}{%- else -%}{%- assign tag = 'div' -%}{%- endif -%}
+        <{{ tag }} class="l-story l-reveal{% if forloop.first and section.settings.feature_first %} l-story--featured{% endif %}"{% if url != blank %} href="{{ url }}"{% endif %} style="{{ delay_style }}" {{ block.shopify_attributes }}>
+          <div class="l-story__media">
+            {%- if section.settings.show_numbers -%}<span class="l-story__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{%- endif -%}
+            {%- if image != blank -%}
+              {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: sizes, widths: '400, 600, 800, 1000, 1400', style: style, alt: '' }}
+            {%- else -%}
+              {{ 'collection-2' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <div class="l-story__body">
+            {%- if block.settings.kicker != blank -%}<span class="l-story__kicker">{{ block.settings.kicker | escape }}</span>{%- endif -%}
+            <h3 class="l-story__title">{{ block.settings.title | escape }}</h3>
+            {%- if block.settings.text != blank -%}<p class="l-story__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            <span class="l-story__cta l-link">{{ block.settings.cta | default: 'Explore' | escape }}{% render 'laces-icon', icon: 'arrow' %}</span>
+          </div>
+        </{{ tag }}>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LACES · Collab stories",
+  "class": "section-l-stories",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collaborations" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stories we're proud to represent" },
+    { "type": "text", "id": "text", "label": "Supporting text", "default": "We partner with teams and organizations whose communities and purpose add meaning to what we make." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "All collaborations" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "checkbox", "id": "feature_first", "label": "Feature the first story (large)", "default": true },
+    { "type": "checkbox", "id": "show_numbers", "label": "Show chapter numbers", "default": true },
+    { "type": "select", "id": "color_scheme", "label": "Background", "options": [ { "value": "white", "label": "White" }, { "value": "paper", "label": "Light grey" } ], "default": "white" }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "LACES x" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Collaboration" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "cta", "label": "Call to action", "default": "Shop the collab" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "collection", "id": "collection", "label": "Or collection (image + link fallback)" },
+        { "type": "product", "id": "product", "label": "Or product (image + link fallback)" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "LACES · Collab stories", "blocks": [ { "type": "story" }, { "type": "story" }, { "type": "story" }, { "type": "story" }, { "type": "story" } ] }
+  ]
+}
+{% endschema %}

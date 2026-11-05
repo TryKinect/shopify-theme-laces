@@ -1,0 +1,93 @@
+{%- comment -%}
+  LACES 2026 — Snapback vs Dad Hat. Two-panel fit comparison that answers the #1 hat
+  question before the PDP. Copy defaults mirror the published Hat Fit Guide.
+{%- endcomment -%}
+{%- assign panels = section.blocks | where: 'type', 'panel' -%}
+<div class="l-section{% if section.settings.color_scheme == 'paper' %} l-section--paper{% endif %}" id="section-id-{{ section.id }}">
+  <div class="l-container">
+    <div class="l-sec-head l-reveal">
+      <div class="l-sec-head__text">
+        {%- if section.settings.eyebrow != blank -%}<p class="l-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="l-display l-display--md l-sec-head__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.text != blank -%}<p class="l-sec-head__sub">{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+      {%- if section.settings.link_label != blank -%}
+        <div class="l-sec-head__action"><a class="l-link" href="{{ section.settings.link }}">{{ section.settings.link_label | escape }}{% render 'laces-icon', icon: 'arrow' %}</a></div>
+      {%- endif -%}
+    </div>
+
+    <div class="l-fit">
+      {%- for block in panels limit: 2 -%}
+        {%- liquid
+          assign image = block.settings.image | default: block.settings.collection.featured_image
+          assign fp = image.presentation.focal_point | default: 'center'
+          assign style = '--l-fp: ' | append: fp
+          assign url = block.settings.link | default: block.settings.collection.url | default: routes.all_products_collection_url
+          assign specs = block.settings.specs | split: ','
+        -%}
+        <a class="l-fit__panel l-reveal" href="{{ url }}" style="--l-delay: {{ forloop.index0 | times: 0.1 }}s" {{ block.shopify_attributes }}>
+          <div class="l-fit__media">
+            {%- if image != blank -%}
+              {{ image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw', widths: '500, 800, 1000, 1400', style: style, alt: block.settings.title }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <div class="l-fit__body">
+            {%- if block.settings.kicker != blank -%}<span class="l-fit__kicker">{{ block.settings.kicker | escape }}</span>{%- endif -%}
+            <h3 class="l-fit__title">{{ block.settings.title | escape }}</h3>
+            {%- if block.settings.text != blank -%}<p class="l-fit__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            {%- if block.settings.specs != blank -%}
+              <ul class="l-fit__specs">
+                {%- for s in specs -%}<li>{{ s | strip | escape }}</li>{%- endfor -%}
+              </ul>
+            {%- endif -%}
+            <span class="l-fit__cta l-link">{{ block.settings.cta | default: 'Shop' | escape }}{% render 'laces-icon', icon: 'arrow' %}</span>
+          </div>
+        </a>
+      {%- endfor -%}
+      {%- if panels.size >= 2 -%}<span class="l-fit__vs" aria-hidden="true">VS</span>{%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "LACES · Fit compare",
+  "class": "section-l-fit",
+  "max_blocks": 2,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Find your fit" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Snapback or dad hat?" },
+    { "type": "text", "id": "text", "label": "Supporting text", "default": "Two fits. Same everyday wearability." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Hat fit guide" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "select", "id": "color_scheme", "label": "Background", "options": [ { "value": "white", "label": "White" }, { "value": "paper", "label": "Light grey" } ], "default": "white" }
+  ],
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Fit panel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Structured. Bold. Always sharp." },
+        { "type": "text", "id": "title", "label": "Title", "default": "Snapback" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Holds its shape from day one. Stiff front panel, flat brim, plastic snap closure for a clean, dialed-in fit." },
+        { "type": "text", "id": "specs", "label": "Spec chips", "info": "Comma separated, e.g. Structured crown, Flat brim, Snap closure", "default": "Structured crown, Flat brim, Snap closure" },
+        { "type": "text", "id": "cta", "label": "Call to action", "default": "Shop snapbacks" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "link", "label": "Link override" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LACES · Fit compare",
+      "blocks": [
+        { "type": "panel" },
+        { "type": "panel", "settings": { "kicker": "Relaxed. Worn-in. Effortless.", "title": "Dad Hat", "text": "Unstructured, so the crown is soft and molds to you over time. Sits low, breaks in like your favorite tee, adjustable strap closure.", "specs": "Unstructured crown, Curved brim, Strap closure", "cta": "Shop dad hats" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

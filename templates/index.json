@@ -78,7 +78,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "k_categories": {
       "type": "gallery",
@@ -158,7 +159,8 @@
         "overlay_style": "full image-overlay--bg-shadow",
         "overlay_padding": "large",
         "button_style": "secondary"
-      }
+      },
+      "disabled": true
     },
     "k_new_arrivals": {
       "type": "featured-collection",
@@ -172,7 +174,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "image_with_text_overlay_j4cP3k": {
       "type": "image-with-text-overlay",
@@ -220,7 +223,8 @@
         "text_alignment": "bottom left",
         "mobile_overlay_under": false,
         "overlay_style": "shadow"
-      }
+      },
+      "disabled": true
     },
     "shop_the_look_pA463Q": {
       "type": "shop-the-look",
@@ -273,7 +277,8 @@
         "text_alignment": "top left",
         "mobile_overlay_over": true,
         "overlay_style": "shadow"
-      }
+      },
+      "disabled": true
     },
     "featured_collection_ApQGxa": {
       "type": "featured-collection",
@@ -288,7 +293,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "k_rep_your_team": {
       "type": "featured-collection",
@@ -302,7 +308,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "k_rep_your_city": {
       "type": "featured-collection",
@@ -316,7 +323,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "1594970282022": {
       "type": "gallery",
@@ -399,7 +407,8 @@
         "overlay_style": "full image-overlay--bg-shadow",
         "overlay_padding": "large",
         "button_style": "link"
-      }
+      },
+      "disabled": true
     },
     "16115832006dc80dc9": {
       "type": "testimonials",
@@ -476,7 +485,8 @@
         "text_alignment": "center",
         "full_width": false,
         "color_scheme": "default"
-      }
+      },
+      "disabled": true
     },
     "16148743091427bc38": {
       "type": "image-with-text",
@@ -508,7 +518,8 @@
         "image_position": "left",
         "text_alignment": "left",
         "color_scheme": "1"
-      }
+      },
+      "disabled": true
     },
     "40097cb1-89d1-495b-a695-4f5a8ee8138d": {
       "type": "scrolling-banner",
@@ -572,582 +583,427 @@
         "space": 100
       }
     },
-    "1594980584619": {
-      "type": "background-video",
+    "l_categories": {
+      "type": "laces-category-tiles",
       "blocks": {
-        "subheading_Jg8mRD": {
-          "type": "subheading",
+        "t_snap": {
+          "type": "tile",
           "settings": {
-            "subheading": "Introducing the Signature Collection"
-          }
-        },
-        "848472a6-f06a-4242-a988-ab9375b5f5ad": {
-          "type": "heading",
-          "settings": {
-            "title": "THE NEXT ERA OF LACES",
-            "heading_max_width": 11,
-            "title_size": 72,
-            "title_size_mobile": 48,
-            "use_h1": false
-          }
-        },
-        "b28b0e71-6c42-42e2-befa-793a92b73a08": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Introducing the latest LACES signature styles with structured hats, relaxed dad hats, and premium crew socks designed to become part of the everyday rotation. </p>",
-            "enlarge_text": true
-          }
-        },
-        "df6ef69f-4e07-4e0e-a03f-2130665d2c6d": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop Signature",
-            "button_link": "shopify://collections/laces-signature",
-            "button_style": "secondary"
-          }
-        },
-        "24be458d-c4ae-43fe-a143-9626dbdc777b": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop All Hats",
-            "button_link": "shopify://collections/all-hats",
-            "button_style": "primary"
-          }
-        }
-      },
-      "block_order": [
-        "subheading_Jg8mRD",
-        "848472a6-f06a-4242-a988-ab9375b5f5ad",
-        "b28b0e71-6c42-42e2-befa-793a92b73a08",
-        "df6ef69f-4e07-4e0e-a03f-2130665d2c6d",
-        "24be458d-c4ae-43fe-a143-9626dbdc777b"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "#section-id-template--20792455889114__1594980584619 .block-848472a6-f06a-4242-a988-ab9375b5f5ad {line-height: 0.8em;}"
-      ],
-      "settings": {
-        "video_shopify": "shopify://files/videos/Website Video - signature collection.mp4",
-        "video_external": "",
-        "video_description": "",
-        "text_alignment": "bottom left",
-        "height_desktop": 960,
-        "height_mobile": 740,
-        "full_width": true,
-        "overlay_style": "full image-overlay--bg-shadow"
-      }
-    },
-    "background_video_TmYXfB": {
-      "type": "background-video",
-      "blocks": {
-        "subheading_nNCXF6": {
-          "type": "subheading",
-          "settings": {
-            "subheading": "Back In Stock"
-          }
-        },
-        "heading_xdznLw": {
-          "type": "heading",
-          "settings": {
-            "title": "Women Know Ball",
-            "heading_max_width": 15,
-            "title_size": 84,
-            "title_size_mobile": 32,
-            "use_h1": true
-          }
-        },
-        "text_7Ya68g": {
-          "type": "text",
-          "settings": {
-            "text": "<p>A message so good, we had to put it on a hat. </p>",
-            "enlarge_text": true
-          }
-        },
-        "button_WzjrQX": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop Now",
-            "button_link": "shopify://pages/women-know-ball",
-            "button_style": "secondary"
-          }
-        }
-      },
-      "block_order": [
-        "subheading_nNCXF6",
-        "heading_xdznLw",
-        "text_7Ya68g",
-        "button_WzjrQX"
-      ],
-      "disabled": true,
-      "custom_css": [],
-      "name": "WKB C1",
-      "settings": {
-        "video_shopify": "shopify://files/videos/Website Video (1).mp4",
-        "video_external": "",
-        "video_description": "",
-        "text_alignment": "bottom left",
-        "height_desktop": 960,
-        "height_mobile": 740,
-        "full_width": true,
-        "overlay_style": "shadow"
-      }
-    },
-    "164940992249587c8b": {
-      "type": "compact-messages",
-      "blocks": {
-        "message_xqLXB6": {
-          "type": "message",
-          "settings": {
-            "heading": "Free shipping on orders $50 and more",
-            "subheading": "",
-            "link_url": ""
-          }
-        },
-        "1649409922b4afeab7-0": {
-          "type": "message",
-          "settings": {
-            "heading": "Every purchase supports rising athletes",
-            "subheading": "",
-            "link_url": "shopify://pages/laces-athlete-fund"
-          }
-        },
-        "49225c4d-b922-4e7f-a52a-aeeac8d5ee3f": {
-          "type": "message",
-          "settings": {
-            "heading": "Easy Returns. No Stress.",
-            "subheading": "",
-            "link_url": "shopify://policies/refund-policy"
-          }
-        }
-      },
-      "block_order": [
-        "message_xqLXB6",
-        "1649409922b4afeab7-0",
-        "49225c4d-b922-4e7f-a52a-aeeac8d5ee3f"
-      ],
-      "disabled": true,
-      "settings": {
-        "head_not_col_bg": "#f4f6f8",
-        "head_not_col_txt1": "#000000",
-        "head_not_col_txt2": "#4c4c4b",
-        "head_not_mob_show": true,
-        "head_not_mob_text": "Free shipping on orders over $50",
-        "head_not_mob_url": ""
-      }
-    },
-    "344f401c-a1e8-41e2-8bde-d3415300ffef": {
-      "type": "scrolling-banner",
-      "blocks": {
-        "template--15118560264265__344f401c-a1e8-41e2-8bde-d3415300ffef-16751768779bb63766-0": {
-          "type": "text",
-          "settings": {
-            "text": "Hoodies Now Available",
-            "color": "rgba(0,0,0,0)",
-            "link": "shopify://collections/hoodies",
-            "use_h1": false,
-            "stencil_all_text": false,
-            "stencil_text": "Hoodies"
-          }
-        },
-        "c9dfb4c3-6ae2-4401-8677-1aa06a9e3864": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC04593.jpg",
-            "image_width": 140,
-            "link": "shopify://products/laces-hoodie-black"
-          }
-        },
-        "text_Mn7yck": {
-          "type": "text",
-          "settings": {
-            "text": "Limited Release",
-            "color": "rgba(0,0,0,0)",
-            "link": "",
-            "use_h1": false,
-            "stencil_all_text": false,
-            "stencil_text": "Limited"
-          }
-        },
-        "24b6481d-729c-4e3e-b24a-5cf40cde4b71": {
-          "type": "countdown",
-          "disabled": true,
-          "settings": {
-            "end_date": "2026-02-13",
-            "end_time": "10:00",
-            "end_text": "",
-            "hide_on_end": true,
-            "color": "rgba(0,0,0,0)",
-            "number_size": 84,
-            "divider_type": "dot",
-            "show_timer_labels": true
-          }
-        },
-        "662d3fc6-5cec-41e9-bcac-95444f122c8f": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC04643.jpg",
-            "image_width": 140,
-            "link": "shopify://products/laces-hoodie-off-white"
-          }
-        }
-      },
-      "block_order": [
-        "template--15118560264265__344f401c-a1e8-41e2-8bde-d3415300ffef-16751768779bb63766-0",
-        "c9dfb4c3-6ae2-4401-8677-1aa06a9e3864",
-        "text_Mn7yck",
-        "24b6481d-729c-4e3e-b24a-5cf40cde4b71",
-        "662d3fc6-5cec-41e9-bcac-95444f122c8f"
-      ],
-      "disabled": true,
-      "settings": {
-        "full_width": true,
-        "color_scheme": "default",
-        "text_size": 84,
-        "vertical_padding": 80,
-        "speed": 16,
-        "direction": "left",
-        "font": "heading",
-        "space": 60
-      }
-    },
-    "37f4b6ab-4c57-4670-85f0-7b3462d4145c": {
-      "type": "shop-the-look",
-      "blocks": {
-        "template--15389994483785__37f4b6ab-4c57-4670-85f0-7b3462d4145c-subheading-1": {
-          "type": "subheading",
-          "settings": {
-            "subheading": "THE EVERYDAY COLLECTION"
-          }
-        },
-        "template--15389994483785__37f4b6ab-4c57-4670-85f0-7b3462d4145c-heading-1": {
-          "type": "heading",
-          "settings": {
-            "title": "Summer Essentials",
-            "heading_max_width": 11,
-            "title_size": 72,
-            "title_size_mobile": 34,
-            "use_h1": false
-          }
-        },
-        "template--15389994483785__37f4b6ab-4c57-4670-85f0-7b3462d4145c-text-1": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Staples worn by pros, supporting rising athletes</p>",
-            "enlarge_text": true
-          }
-        },
-        "button_3z9BJj": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop Summer",
-            "button_link": "shopify://collections/summer-essentials",
-            "button_style": "secondary"
-          }
-        }
-      },
-      "block_order": [
-        "template--15389994483785__37f4b6ab-4c57-4670-85f0-7b3462d4145c-subheading-1",
-        "template--15389994483785__37f4b6ab-4c57-4670-85f0-7b3462d4145c-heading-1",
-        "template--15389994483785__37f4b6ab-4c57-4670-85f0-7b3462d4145c-text-1",
-        "button_3z9BJj"
-      ],
-      "disabled": true,
-      "settings": {
-        "image": "shopify://shop_images/LACES_-_website_headers_6.jpg",
-        "mobile_image": "shopify://shop_images/LACES_-_website_headers_3_fd804ad3-31f1-4e2e-a351-7c7396ff2bf2.jpg",
-        "video_external": "",
-        "video_description": "",
-        "height": "adapt",
-        "height_desktop": 720,
-        "height_mobile": 480,
-        "product_list": [
-          "dad-hat-laces-cursive-offwhite",
-          "athlete-crew-laces-block-black",
-          "athletes-crew-laces-block-white",
-          "laces-cursive-hat-black"
-        ],
-        "products_alignment": "bottom right",
-        "product_card_layout": "portrait",
-        "show_swatches": false,
-        "full_width": true,
-        "text_alignment": "bottom left",
-        "mobile_overlay_over": false,
-        "overlay_style": "shadow"
-      }
-    },
-    "1614871838b4f4ccd4": {
-      "type": "multi-column",
-      "blocks": {
-        "1614871838b4f4ccd4-2": {
-          "type": "text_block",
-          "settings": {
-            "enable_media": true,
+            "collection": "snapback",
             "image": "shopify://shop_images/LACES_-_website_headers_1_5eec9daf-dffd-486e-afe9-8630eb434b3c.jpg",
-            "title": "Best Sellers",
-            "text": "<p>Most worn. Most reordered. Most loved.</p>",
-            "button_label": "Shop Now",
-            "link": "shopify://collections/best-sellers"
+            "title": "Snapbacks",
+            "caption": "",
+            "link": ""
           }
         },
-        "1614871838b4f4ccd4-0": {
-          "type": "text_block",
+        "t_dad": {
+          "type": "tile",
           "settings": {
-            "enable_media": true,
+            "collection": "dad-hat",
+            "image": "shopify://shop_images/LACES_-_website_headers_3_261963b2-a53e-4b73-9e41-31d4ebe7a282.jpg",
+            "title": "Dad Hats",
+            "caption": "",
+            "link": ""
+          }
+        },
+        "t_hood": {
+          "type": "tile",
+          "settings": {
+            "collection": "hoodies",
             "image": "shopify://shop_images/LACES_-_website_headers_11.jpg",
-            "title": "Signature Collection",
-            "text": "<p>The collection that defines LACES.</p>",
-            "button_label": "Shop the Collection",
-            "link": "shopify://collections/laces-signature"
+            "title": "Hoodies",
+            "caption": "",
+            "link": ""
           }
         },
-        "1614871838b4f4ccd4-1": {
-          "type": "text_block",
+        "t_team": {
+          "type": "tile",
           "settings": {
-            "enable_media": true,
+            "collection": "football",
+            "image": "shopify://shop_images/Tennessee-Football-Hat-5.jpg",
+            "title": "Football",
+            "caption": "",
+            "link": ""
+          }
+        },
+        "t_city": {
+          "type": "tile",
+          "settings": {
+            "collection": "rep-your-city",
+            "image": "shopify://shop_images/7M403489.jpg",
+            "title": "Rep Your City",
+            "caption": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "t_snap",
+        "t_dad",
+        "t_hood",
+        "t_team",
+        "t_city"
+      ],
+      "settings": {
+        "eyebrow": "Shop by category",
+        "heading": "Pick your lane",
+        "text": "",
+        "link_label": "Shop all hats",
+        "link": "shopify://collections/all-hats",
+        "feature_first": true,
+        "show_count": true,
+        "flush_top": false
+      }
+    },
+    "l_rail_best": {
+      "type": "laces-product-rail",
+      "blocks": {
+        "tab_best": {
+          "type": "tab",
+          "settings": {
+            "collection": "best-sellers",
+            "label": "Bestsellers"
+          }
+        },
+        "tab_new": {
+          "type": "tab",
+          "settings": {
+            "collection": "new-arrivals",
+            "label": "New arrivals"
+          }
+        },
+        "tab_sig": {
+          "type": "tab",
+          "settings": {
+            "collection": "laces-signature",
+            "label": "Signature"
+          }
+        }
+      },
+      "block_order": [
+        "tab_best",
+        "tab_new",
+        "tab_sig"
+      ],
+      "settings": {
+        "eyebrow": "The rotation",
+        "heading": "Most worn. Most reordered.",
+        "text": "",
+        "show_view_all": true,
+        "limit": 10,
+        "grid": 4,
+        "color_scheme": "white"
+      }
+    },
+    "l_fund": {
+      "type": "laces-athlete-fund",
+      "blocks": {
+        "r1": {
+          "type": "row",
+          "settings": {
+            "title": "5% of every LACES sale",
+            "text": "Goes straight into the Fund, alongside brand and sponsor contributions. On contributions, LACES takes nothing.",
+            "value": "5%"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "title": "Athletes earn it by showing up",
+            "text": "Creating content, sharing their story and driving real support around what they represent.",
+            "value": ""
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "title": "Split equally, every month",
+            "text": "Distributed equally among college athletes who meet their monthly performance checkpoints.",
+            "value": ""
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/158.jpg",
+        "media_tag": "LACES x Cal Athletes",
+        "media_position": "left",
+        "eyebrow": "The LACES Athlete Fund",
+        "heading": "More than a hat.\nA whole *community* behind it.",
+        "text": "<p>Most brands just sell products. We reinvest in athletes. The LACES Athlete Fund is a dedicated pool of money that goes directly back to athletes in our community — and every purchase is a vote for that model.</p>",
+        "button_1_label": "How the Fund works",
+        "button_1_link": "shopify://pages/laces-athlete-fund",
+        "button_2_label": "Join LACES NIL",
+        "button_2_link": "shopify://pages/nil",
+        "fine_print": ""
+      }
+    },
+    "l_stories": {
+      "type": "laces-collab-stories",
+      "blocks": {
+        "s_cal": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_email_template.jpg",
+            "kicker": "LACES x Cal Athletes",
+            "title": "A first of its kind",
+            "text": "An original icon co-designed by Cal athletes. 10% of every sale goes back to them — every sport, split equally.",
+            "cta": "Shop the collab",
+            "link": "shopify://pages/cal-athletes"
+          }
+        },
+        "s_wkb": {
+          "type": "story",
+          "settings": {
+            "kicker": "A LACES original",
+            "title": "Women Know Ball",
+            "text": "To know ball is to understand the game better than most. Any woman who gets it done knows ball.",
+            "cta": "Shop the collection",
+            "link": "shopify://pages/women-know-ball",
+            "product": "women-know-ball-black"
+          }
+        },
+        "s_voices": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/Legacy-Earned-Not-Given-Greige-Hat-4.jpg",
+            "kicker": "Voices Collection",
+            "title": "Built by athletes, together",
+            "text": "Through in-app polls, athletes contribute directly to the design of bold, meaningful hats.",
+            "cta": "Shop Voices",
+            "link": "shopify://collections/voices-collection"
+          }
+        },
+        "s_bloom": {
+          "type": "story",
+          "settings": {
             "image": "shopify://shop_images/LACES_-_website_headers_8_785fa37f-a5d4-4070-860a-f3293d6be86d.jpg",
-            "title": "Featured Collaboration",
-            "text": "<p>Check out this collab before they're gone.</p>",
-            "button_label": "Shop Now",
-            "link": "shopify://pages/bahc"
-          }
-        }
-      },
-      "block_order": [
-        "1614871838b4f4ccd4-2",
-        "1614871838b4f4ccd4-0",
-        "1614871838b4f4ccd4-1"
-      ],
-      "disabled": true,
-      "settings": {
-        "title": "",
-        "media_aspect_ratio": "s",
-        "media_width": 700,
-        "text_alignment": "center",
-        "button_style": "primary",
-        "color_scheme": "default"
-      }
-    },
-    "1614873846ee4b328c": {
-      "type": "rich-text",
-      "blocks": {
-        "293e9aad-5a79-41b7-8fd3-b708877ddcf2": {
-          "type": "heading",
-          "settings": {
-            "title": "Every purchase pays athletes",
-            "use_h1": false
+            "kicker": "LACES x Bloom Eatery",
+            "title": "Rooted in the Bay",
+            "text": "A fresh take on everyday dining, bringing people together through thoughtful food and community.",
+            "cta": "Shop the collab",
+            "link": "shopify://products/bloom-x-laces-2"
           }
         },
-        "76486a37-2d11-4242-abc1-ae14b1a776a2": {
-          "type": "text",
+        "s_bahc": {
+          "type": "story",
           "settings": {
-            "text": "<p>Build with us. Your support becomes their earnings.</p>",
-            "enlarge_text": true
+            "image": "shopify://shop_images/DSC05597.jpg",
+            "kicker": "LACES x Bay Area Host Committee",
+            "title": "The world's game, in the Bay",
+            "text": "Our third collaboration hat with the BAHC, the group bringing the tournament to the Bay.",
+            "cta": "Shop the collab",
+            "link": "shopify://collections/bahc"
           }
         }
       },
       "block_order": [
-        "293e9aad-5a79-41b7-8fd3-b708877ddcf2",
-        "76486a37-2d11-4242-abc1-ae14b1a776a2"
+        "s_cal",
+        "s_wkb",
+        "s_voices",
+        "s_bloom",
+        "s_bahc"
       ],
-      "disabled": true,
       "settings": {
-        "height": "medium",
-        "text_alignment": "center",
-        "full_width": false,
-        "color_scheme": "default"
+        "eyebrow": "Collaborations",
+        "heading": "Stories we're proud to represent",
+        "text": "We partner with teams and organizations whose communities and purpose add meaning to what we make.",
+        "link_label": "All collaborations",
+        "link": "shopify://pages/collaborations",
+        "feature_first": true,
+        "show_numbers": true,
+        "color_scheme": "white"
       }
     },
-    "161158693318e52003": {
-      "type": "multi-column",
+    "l_fit": {
+      "type": "laces-fit-compare",
       "blocks": {
-        "161158693318e52003-1": {
-          "type": "text_block",
+        "p_snap": {
+          "type": "panel",
           "settings": {
-            "enable_media": true,
+            "image": "shopify://shop_images/7M402439.jpg",
+            "kicker": "Structured. Bold. Always sharp.",
+            "title": "Snapback",
+            "text": "Holds its shape from day one. The stiff front panel keeps its form, the flat brim stays crisp, and the snap closure gives a clean, dialed-in fit every time.",
+            "specs": "Structured crown, Flat brim, Snap closure",
+            "cta": "Shop snapbacks",
+            "collection": "snapback"
+          }
+        },
+        "p_dad": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/49B9E295-396F-4B01-BFD8-071E243C61EB_1_105_c.jpg",
+            "kicker": "Relaxed. Worn-in. Effortless.",
+            "title": "Dad Hat",
+            "text": "Unstructured, so the crown is soft and molds to your head over time. Sits low, breaks in like your favorite tee, and the adjustable strap fits everyone.",
+            "specs": "Unstructured crown, Curved brim, Strap closure",
+            "cta": "Shop dad hats",
+            "collection": "dad-hat"
+          }
+        }
+      },
+      "block_order": [
+        "p_snap",
+        "p_dad"
+      ],
+      "settings": {
+        "eyebrow": "Find your fit",
+        "heading": "Snapback or dad hat?",
+        "text": "Two fits. Same everyday wearability.",
+        "link_label": "Hat fit guide",
+        "link": "shopify://pages/hat-fit-guide",
+        "color_scheme": "paper"
+      }
+    },
+    "l_rail_rep": {
+      "type": "laces-product-rail",
+      "blocks": {
+        "tab_team": {
+          "type": "tab",
+          "settings": {
+            "collection": "football",
+            "label": "Football"
+          }
+        },
+        "tab_city": {
+          "type": "tab",
+          "settings": {
+            "collection": "rep-your-city",
+            "label": "Rep your city"
+          }
+        },
+        "tab_bay": {
+          "type": "tab",
+          "settings": {
+            "collection": "bay-area",
+            "label": "Bay Area"
+          }
+        },
+        "tab_vintage": {
+          "type": "tab",
+          "settings": {
+            "collection": "vintage",
+            "label": "Vintage"
+          }
+        }
+      },
+      "block_order": [
+        "tab_team",
+        "tab_city",
+        "tab_bay",
+        "tab_vintage"
+      ],
+      "settings": {
+        "eyebrow": "Rep where you're from",
+        "heading": "Your team. Your city.",
+        "text": "",
+        "show_view_all": true,
+        "limit": 10,
+        "grid": 4,
+        "color_scheme": "white"
+      }
+    },
+    "l_campaign": {
+      "type": "laces-campaign",
+      "settings": {
+        "image": "shopify://shop_images/LACES_-_website_headers_2_649f235a-0b9a-430c-8ce1-71bccccf948c.jpg",
+        "image_mobile": "shopify://shop_images/LACES_-_website_headers_3_9a21ef9d-870e-4ae5-8224-09cfdcc9dd4e.jpg",
+        "eyebrow": "A LACES original collection",
+        "heading": "Women Know Ball.",
+        "text": "We're not here to make the case. We're here to say it out loud.",
+        "button_1_label": "Shop the collection",
+        "button_1_link": "shopify://pages/women-know-ball",
+        "button_2_label": "",
+        "button_2_link": "",
+        "product": "women-know-ball-black",
+        "product_kicker": "Shop the piece",
+        "align": "left",
+        "height_desktop": 680,
+        "height_mobile": 560
+      }
+    },
+    "l_community": {
+      "type": "laces-community",
+      "blocks": {
+        "c1": {
+          "type": "photo",
+          "settings": {
             "image": "shopify://shop_images/AthleteFundWebsite.png",
-            "title": "The LACES Athlete Fund",
-            "text": "",
-            "button_label": "Learn More",
+            "caption": "LACES athletes",
             "link": "shopify://pages/laces-athlete-fund"
           }
         },
-        "161158693318e52003-0": {
-          "type": "text_block",
+        "c2": {
+          "type": "photo",
           "settings": {
-            "enable_media": true,
-            "image": "shopify://shop_images/LACES_-_email_template.png",
-            "title": "THE NIL Deal for every athlete",
-            "text": "",
-            "button_label": "How to Join",
-            "link": "shopify://pages/nil"
+            "image": "shopify://shop_images/img_3513.jpg",
+            "caption": "On the court",
+            "link": "shopify://collections/basketball-collection"
+          }
+        },
+        "c3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_email_header_13.jpg",
+            "caption": "Snapbacks",
+            "link": "shopify://collections/snapback"
+          }
+        },
+        "c4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Bay-Area-Downside-Up-Blue-Gold-Hat-4.jpg",
+            "caption": "Bay Area",
+            "link": "shopify://collections/bay-area"
+          }
+        },
+        "c5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/LACES_-_email_template_2.png",
+            "caption": "Downside Up",
+            "link": "shopify://collections/bay-area-downside-up"
           }
         }
       },
       "block_order": [
-        "161158693318e52003-1",
-        "161158693318e52003-0"
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
       ],
-      "disabled": true,
       "settings": {
-        "title": "",
-        "media_aspect_ratio": "s",
-        "media_width": 700,
-        "text_alignment": "left",
-        "button_style": "link",
-        "color_scheme": "default"
-      }
-    },
-    "992e4a60-c0f6-47a7-8819-0615c1089d4f": {
-      "type": "hotspots",
-      "blocks": {
-        "template--15389994483785__992e4a60-c0f6-47a7-8819-0615c1089d4f-hotspot-2": {
-          "type": "hotspot",
-          "settings": {
-            "hotspot_x": 42,
-            "hotspot_y": 24,
-            "hotspot_x_mobile": 40,
-            "hotspot_y_mobile": 24,
-            "heading": "Naturally better performance.",
-            "text": "<p>Made from premium wool for structure, breathability, and durability. It holds its shape, resists odor, and wears in over time, making it a reliable everyday staple.</p>",
-            "icon": "check_mark_in_circle",
-            "icon_width": 32
-          }
-        },
-        "97903fac-3809-43fc-b3a3-feb15cd29ce1": {
-          "type": "hotspot",
-          "settings": {
-            "hotspot_x": 31,
-            "hotspot_y": 56,
-            "hotspot_x_mobile": 64,
-            "hotspot_y_mobile": 32,
-            "heading": "Built for real life.",
-            "text": "<p>Designed to move easily from workouts to weekends. Clean lines and a balanced fit make this a hat you will reach for on repeat.</p>",
-            "icon": "eye",
-            "icon_width": 32
-          }
-        },
-        "template--15389994483785__992e4a60-c0f6-47a7-8819-0615c1089d4f-hotspot-1": {
-          "type": "hotspot",
-          "settings": {
-            "hotspot_x": 78,
-            "hotspot_y": 58,
-            "hotspot_x_mobile": 54,
-            "hotspot_y_mobile": 64,
-            "heading": "LACES stands for more.",
-            "text": "<p>Every time you put it on, you’re showing support for rising athletes. The brand represents belief in athlete ownership, opportunity, and building something bigger than the game.</p>",
-            "icon": "heart",
-            "icon_width": 32
-          }
-        }
-      },
-      "block_order": [
-        "template--15389994483785__992e4a60-c0f6-47a7-8819-0615c1089d4f-hotspot-2",
-        "97903fac-3809-43fc-b3a3-feb15cd29ce1",
-        "template--15389994483785__992e4a60-c0f6-47a7-8819-0615c1089d4f-hotspot-1"
-      ],
-      "disabled": true,
-      "settings": {
-        "image": "shopify://shop_images/7M402439.jpg",
-        "hotspot_color": "#070707",
-        "button_content": "plus",
-        "outer_circle": "pulse",
-        "full_width": false,
-        "text_alignment": "top left",
-        "overlay_style": "shadow",
-        "subheading": "",
-        "title": "",
-        "use_h1": false,
-        "heading_max_width": 10,
-        "text": "",
-        "button_1_label": "",
-        "button_1_link": "",
-        "button_1_style": "secondary",
-        "button_2_label": "",
-        "button_2_link": "",
-        "button_2_style": "primary"
-      }
-    },
-    "8b6e577c-059e-4220-94be-7768b7e8a9f5": {
-      "type": "key-features",
-      "blocks": {
-        "template--15389994483785__8b6e577c-059e-4220-94be-7768b7e8a9f5-feature-1": {
-          "type": "feature",
-          "settings": {
-            "bg_color": "#f7f7f8",
-            "bg_gradient": "",
-            "text_color": "#171717",
-            "heading": "Organic Cotton",
-            "text": "<p>Our dedication to organic cotton reflects our commitment to ethical and responsible sourcing, supporting farms that prioritize sustainability and fair labor practices.</p>",
-            "show_segments": false,
-            "segments": 5,
-            "active_segment": "4",
-            "fill_segments": true,
-            "show_labels": true,
-            "label_left": "",
-            "label_middle": "",
-            "label_right": "",
-            "show_icon": true,
-            "icon": "leaf"
-          }
-        },
-        "template--15389994483785__8b6e577c-059e-4220-94be-7768b7e8a9f5-feature-2": {
-          "type": "feature",
-          "settings": {
-            "bg_color": "#f7f7f8",
-            "bg_gradient": "",
-            "text_color": "#171717",
-            "heading": "RWS Wool",
-            "text": "<p>We prioritize RWS (Responsible Wool Standard) certified wool in most of our products.  RWS ensures humane treatment of sheep, promoting their well-being. RWS farms follow sustainable practices, reducing the environmental impact.</p>",
-            "show_segments": false,
-            "segments": 5,
-            "active_segment": "2",
-            "fill_segments": true,
-            "show_labels": true,
-            "label_left": "",
-            "label_middle": "",
-            "label_right": "",
-            "show_icon": true,
-            "icon": "heart"
-          }
-        },
-        "template--15389994483785__8b6e577c-059e-4220-94be-7768b7e8a9f5-feature-3": {
-          "type": "feature",
-          "settings": {
-            "bg_color": "#ffffff",
-            "bg_gradient": "",
-            "text_color": "#171717",
-            "heading": "Vegetable Tanned Leather",
-            "text": "<p>We place a strong emphasis on using vegetable-tanned leather for all of our leather products. Vegetable-tanned leather is an eco-friendly choice. It's processed using natural plant-based tannins, reducing the use of harmful chemicals and minimizing the environmental impact.</p>",
-            "show_segments": false,
-            "segments": 5,
-            "active_segment": "3",
-            "fill_segments": true,
-            "show_labels": true,
-            "label_left": "",
-            "label_middle": "",
-            "label_right": "",
-            "show_icon": true,
-            "icon": "leather"
-          }
-        }
-      },
-      "block_order": [
-        "template--15389994483785__8b6e577c-059e-4220-94be-7768b7e8a9f5-feature-1",
-        "template--15389994483785__8b6e577c-059e-4220-94be-7768b7e8a9f5-feature-2",
-        "template--15389994483785__8b6e577c-059e-4220-94be-7768b7e8a9f5-feature-3"
-      ],
-      "disabled": true,
-      "settings": {
-        "heading": "Sustainabilty",
-        "image_max_width": 560,
-        "media_aspect_ratio": "1",
-        "image_position": "left",
-        "segment_position": "over-text"
+        "eyebrow": "The community",
+        "heading": "Worn by the ones building what's next",
+        "text": "Meet the athletes on our roster, see what they're building, and follow their journeys beyond the game.",
+        "instagram_handle": "@laces.athletes",
+        "instagram_url": "https://instagram.com/laces.athletes",
+        "cta_heading": "The Roster",
+        "cta_text": "Athletes from across the nation, each with a page to show who they are as a person and as a brand.",
+        "cta_label": "Explore the roster",
+        "cta_link": "https://roster.getlaces.co",
+        "color_scheme": "white"
       }
     }
   },
   "order": [
     "k_filmstrip_hero",
+    "l_categories",
+    "l_rail_best",
+    "l_fund",
+    "l_stories",
+    "l_fit",
+    "l_rail_rep",
+    "l_campaign",
+    "l_community",
+    "16115832006dc80dc9",
+    "40097cb1-89d1-495b-a695-4f5a8ee8138d",
     "k_bestsellers",
     "k_categories",
     "k_new_arrivals",
@@ -1157,19 +1013,7 @@
     "k_rep_your_team",
     "k_rep_your_city",
     "1594970282022",
-    "16115832006dc80dc9",
     "1582890034959",
-    "16148743091427bc38",
-    "40097cb1-89d1-495b-a695-4f5a8ee8138d",
-    "1594980584619",
-    "background_video_TmYXfB",
-    "164940992249587c8b",
-    "344f401c-a1e8-41e2-8bde-d3415300ffef",
-    "37f4b6ab-4c57-4670-85f0-7b3462d4145c",
-    "1614871838b4f4ccd4",
-    "1614873846ee4b328c",
-    "161158693318e52003",
-    "992e4a60-c0f6-47a7-8819-0615c1089d4f",
-    "8b6e577c-059e-4220-94be-7768b7e8a9f5"
+    "16148743091427bc38"
   ]
 }
