@@ -143,8 +143,8 @@ The Kinect Theme is the **published** theme now: merging to `main` ships to the 
 
 ## Homepage: filmstrip hero + LACES sections (homepage-ajay-sections PR)
 
-- DONE: Ajay's homepage sections (`sections/laces-*.liquid`, pulled from his dev theme `Development (64feb2-Ajays-MacBook-Air)` #188154970330) sit between the filmstrip hero and the existing Kinect rows. Varun's call: keep the filmstrip hero and the Kinect nav; bring Ajay's sections plus the rest of the current homepage.
+- DONE: Ajay's homepage sections (`sections/laces-*.liquid`, pulled from his dev theme `Development (64feb2-Ajays-MacBook-Air)` #188154970330) follow the filmstrip hero in Ajay's order, ending Women Know Ball → community → "From the people" testimonials → press logo marquee (matching his preview). Varun's call: keep the filmstrip hero and the Kinect nav, and don't append the old homepage below Ajay's sections.
 - WATCH: `assets/laces-home.css` / `assets/laces-home.js` load on the homepage only (`template.name == 'index'` in `layout/theme.liquid`). The CSS keeps only `l-` rules from Ajay's `laces-2026.css`; his header, nav, card, footer, PDP and cart restyles and the `--k-*` token overrides were left out on purpose. If his other pages are wanted later, port them separately.
 - WATCH: `templates/index.json` has 22 of 25 sections. The 10 disabled legacy sections (background videos, compact messages, hotspots, etc.) were deleted to make room; they're in git history.
-- OPEN: Ajay's rows overlap the old Kinect rows (The Rotation vs Bestsellers/New Arrivals, his Rep rail vs Football/Rep Your City, Women Know Ball campaign vs Shop the Look). Pick which to keep on the preview, then disable the rest in the editor.
+- WATCH: The old Kinect rows (Bestsellers, gallery, New Arrivals, Cal banner, Shop the Look, Signature, Football, Rep Your City, rich text, image-with-text) are **disabled, not deleted**, in `templates/index.json`. Re-enable any of them in the editor; they still count toward the 25-section cap.
 - Team rule applied: Ajay's "Rep Your Team" tile and rail tab are relabelled Football.

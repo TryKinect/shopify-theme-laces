@@ -78,7 +78,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "k_categories": {
       "type": "gallery",
@@ -158,7 +159,8 @@
         "overlay_style": "full image-overlay--bg-shadow",
         "overlay_padding": "large",
         "button_style": "secondary"
-      }
+      },
+      "disabled": true
     },
     "k_new_arrivals": {
       "type": "featured-collection",
@@ -172,7 +174,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "image_with_text_overlay_j4cP3k": {
       "type": "image-with-text-overlay",
@@ -220,7 +223,8 @@
         "text_alignment": "bottom left",
         "mobile_overlay_under": false,
         "overlay_style": "shadow"
-      }
+      },
+      "disabled": true
     },
     "shop_the_look_pA463Q": {
       "type": "shop-the-look",
@@ -273,7 +277,8 @@
         "text_alignment": "top left",
         "mobile_overlay_over": true,
         "overlay_style": "shadow"
-      }
+      },
+      "disabled": true
     },
     "featured_collection_ApQGxa": {
       "type": "featured-collection",
@@ -288,7 +293,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "k_rep_your_team": {
       "type": "featured-collection",
@@ -302,7 +308,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "k_rep_your_city": {
       "type": "featured-collection",
@@ -316,7 +323,8 @@
         "color_scheme": "default",
         "show_view_all": true,
         "full_width": false
-      }
+      },
+      "disabled": true
     },
     "1594970282022": {
       "type": "gallery",
@@ -399,7 +407,8 @@
         "overlay_style": "full image-overlay--bg-shadow",
         "overlay_padding": "large",
         "button_style": "link"
-      }
+      },
+      "disabled": true
     },
     "16115832006dc80dc9": {
       "type": "testimonials",
@@ -476,7 +485,8 @@
         "text_alignment": "center",
         "full_width": false,
         "color_scheme": "default"
-      }
+      },
+      "disabled": true
     },
     "16148743091427bc38": {
       "type": "image-with-text",
@@ -508,7 +518,8 @@
         "image_position": "left",
         "text_alignment": "left",
         "color_scheme": "1"
-      }
+      },
+      "disabled": true
     },
     "40097cb1-89d1-495b-a695-4f5a8ee8138d": {
       "type": "scrolling-banner",
@@ -991,6 +1002,8 @@
     "l_rail_rep",
     "l_campaign",
     "l_community",
+    "16115832006dc80dc9",
+    "40097cb1-89d1-495b-a695-4f5a8ee8138d",
     "k_bestsellers",
     "k_categories",
     "k_new_arrivals",
@@ -1000,9 +1013,7 @@
     "k_rep_your_team",
     "k_rep_your_city",
     "1594970282022",
-    "16115832006dc80dc9",
     "1582890034959",
-    "16148743091427bc38",
-    "40097cb1-89d1-495b-a695-4f5a8ee8138d"
+    "16148743091427bc38"
   ]
 }
