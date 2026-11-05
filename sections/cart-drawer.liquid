@@ -71,6 +71,12 @@
           </div>
         {%- endif -%}
 
+        {%- if section.settings.show_fund_note -%}
+          <div class="cart-drawer__content-item">
+            {%- render 'laces-fund-note', variant: 'cart', text: section.settings.fund_note_text, link: section.settings.fund_note_link -%}
+          </div>
+        {%- endif -%}
+
         {%- if section.settings.announcement_position == 'above-items' -%}
           <div class="cart-drawer__content-item">
             <div class="cart-info-block cart-info-block--lmtb">{{- announcement -}}</div>
@@ -300,6 +306,27 @@
   "name": "Cart drawer",
   "class": "section-cart-drawer",
   "settings": [
+    {
+      "type": "header",
+      "content": "LACES · Athlete Fund note"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_fund_note",
+      "label": "Show Athlete Fund note under the shipping bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "fund_note_text",
+      "label": "Note text",
+      "default": "5% of this order goes into the LACES Athlete Fund."
+    },
+    {
+      "type": "url",
+      "id": "fund_note_link",
+      "label": "Link"
+    },
     {
       "type": "checkbox",
       "id": "show_order_note",

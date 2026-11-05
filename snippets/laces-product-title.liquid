@@ -1,0 +1,60 @@
+{%- comment -%}
+  LACES 2026: splits catalogue titles like "Snapback - Bay Area Downside Up - Blue/Gold"
+  into fit kicker / name / colorway so cards and the PDP scan faster.
+  Mirrors window.LACES.splitTitle in assets/laces-2026.js (used when card swatches swap).
+
+  Parameters:
+    product {Object}  - product
+    mode    {String}  - 'card' (default) or 'pdp'
+{%- endcomment -%}
+{%- liquid
+  assign l_title = product.title | strip
+  assign l_kicker = ''
+  assign l_name = l_title
+  assign l_colorway = ''
+  assign l_fits = 'snapback,dad hat,hoodie,beanie,bucket,trucker,crew sock,crew socks,socks' | split: ','
+
+  if l_title contains ' - '
+    assign l_parts = l_title | split: ' - '
+  elsif l_title contains ' | '
+    assign l_parts = l_title | split: ' | '
+  else
+    assign l_parts = l_title | split: '|||'
+  endif
+
+  if l_parts.size > 1
+    assign l_first = l_parts.first | strip | downcase
+    assign l_last = l_parts.last | strip | downcase
+    if l_fits contains l_first
+      assign l_kicker = l_parts.first | strip
+      if l_parts.size == 2
+        assign l_name = l_parts.last | strip
+      else
+        assign l_mid_count = l_parts.size | minus: 2
+        assign l_mid = l_parts | slice: 1, l_mid_count
+        assign l_name = l_mid | join: ' - ' | strip
+        assign l_colorway = l_parts.last | strip
+      endif
+    elsif l_fits contains l_last
+      assign l_kicker = l_parts.last | strip
+      assign l_name = l_parts.first | strip
+      if l_parts.size > 2
+        assign l_mid_count = l_parts.size | minus: 2
+        assign l_mid = l_parts | slice: 1, l_mid_count
+        assign l_colorway = l_mid | join: ' · ' | strip
+      endif
+    else
+      assign l_name = l_parts.first | strip
+      assign l_rest_count = l_parts.size | minus: 1
+      assign l_rest = l_parts | slice: 1, l_rest_count
+      assign l_colorway = l_rest | join: ' · ' | strip
+    endif
+  endif
+-%}
+{%- if mode == 'pdp' -%}
+  {%- if l_kicker != blank -%}<span class="l-pdp-kicker">{{ l_kicker | escape }}</span>{%- endif -%}
+  <h1 class="product-title">{{ l_name | escape }}</h1>
+  {%- if l_colorway != blank -%}<span class="l-pdp-colorway">{{ l_colorway | escape }}</span>{%- endif -%}
+{%- else -%}
+  {%- if l_kicker != blank -%}<span class="l-card__kicker">{{ l_kicker | escape }}</span>{%- endif -%}<span class="l-card__name">{{ l_name | escape }}</span>{%- if l_colorway != blank -%}<span class="l-card__colorway">{{ l_colorway | escape }}</span>{%- endif -%}
+{%- endif -%}

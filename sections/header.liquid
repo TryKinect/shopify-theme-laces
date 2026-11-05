@@ -428,7 +428,20 @@
             {% endif %}
           </div>
         </div>
-        <div class="mobile-navigation-drawer__footer"></div>
+        <div class="mobile-navigation-drawer__footer">
+          <div class="l-drawer-foot">
+            {%- if section.settings.mobile_show_fund -%}
+              {%- render 'laces-fund-note', variant: 'drawer', text: section.settings.mobile_fund_text, link: section.settings.mobile_fund_link -%}
+            {%- endif -%}
+            <div class="l-drawer-foot__links">
+              {%- if shop.customer_accounts_enabled -%}
+                <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">{{ 'sections.header.account' | t }}</a>
+              {%- endif -%}
+              {%- if section.settings.mobile_link_1_label != blank -%}<a href="{{ section.settings.mobile_link_1_url }}">{{ section.settings.mobile_link_1_label | escape }}</a>{%- endif -%}
+              {%- if section.settings.mobile_link_2_label != blank -%}<a href="{{ section.settings.mobile_link_2_url }}">{{ section.settings.mobile_link_2_label | escape }}</a>{%- endif -%}
+            </div>
+          </div>
+        </div>
       </div>
     </script>
   </main-navigation>
@@ -628,6 +641,49 @@
       "type": "collection",
       "id": "nav_mob_products_collection",
       "label": "Featured products collection"
+    },
+    {
+      "type": "header",
+      "content": "LACES · Mobile menu footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_show_fund",
+      "label": "Show Athlete Fund note",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "mobile_fund_text",
+      "label": "Note text",
+      "default": "Every purchase supports rising athletes. 5% of every sale goes into the LACES Athlete Fund."
+    },
+    {
+      "type": "url",
+      "id": "mobile_fund_link",
+      "label": "Note link"
+    },
+    {
+      "type": "text",
+      "id": "mobile_link_1_label",
+      "label": "Quick link 1 label",
+      "default": "Hat Fit Guide"
+    },
+    {
+      "type": "url",
+      "id": "mobile_link_1_url",
+      "label": "Quick link 1"
+    },
+    {
+      "type": "text",
+      "id": "mobile_link_2_label",
+      "label": "Quick link 2 label",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "mobile_link_2_url",
+      "label": "Quick link 2"
     },
     {
       "type": "header",
