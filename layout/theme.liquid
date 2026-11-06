@@ -79,12 +79,7 @@
           if (vt) vt.disabled = true;
           return;
         }
-        var l = document.createElement('link');
-        l.rel = 'stylesheet';
-        l.id = 'l-motion-css';
-        l.setAttribute('blocking', 'render');
-        l.href = "{{ 'laces-motion.css' | asset_url }}";
-        document.head.appendChild(l);
+        document.write('<link id="l-motion-css" rel="stylesheet" href="{{ 'laces-motion.css' | asset_url }}">');
       })();
     </script>
   {%- endunless -%}
