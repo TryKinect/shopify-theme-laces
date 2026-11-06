@@ -157,7 +157,7 @@ The Kinect Theme is the **published** theme now: merging to `main` ships to the 
 - WATCH: The Cal fund's name on the site is "Cal LACES Athlete Fund" (the Fund product, the Cal page and the Cal page's FAQ use it); internally it's called the Cal Athletic Fund.
 
 ## Scroll motion layer (ported from Ajay's `redesign/laces-2026`)
-- Only `assets/laces-motion.css` / `assets/laces-motion.js` plus their settings came over; Ajay's hero, header, cart, PDP, collection-header and `laces-2026.css/js` design layer did not.
-- Theme editor → Theme settings → **LACES motion**: master on/off, intensity (subtle / standard / expressive), photo parallax, page transitions, desktop cursor hints. Turning the master switch off unloads both files.
-- Everything is skipped for visitors with "reduce motion" turned on and toned down on Save-Data connections.
-- Page transitions use the browser View Transitions API (Chrome/Edge/Safari 18+); other browsers just navigate normally.
+- Only `assets/laces-motion.css` / `assets/laces-motion.js` plus their settings came over; Ajay's hero, header, cart, PDP, collection-header and `laces-2026.css/js` design layer did not. The hero entrance/parallax is retargeted to our filmstrip (`k-film__*`).
+- Theme editor → Theme settings → **LACES motion**: master on/off, intensity (subtle / standard / expressive), photo parallax, page transitions, desktop cursor hints. Turning the master switch off unloads both files and also stops the homepage's existing `.l-reveal` fade-ins. Parallax off (or Subtle) stops every scroll-linked image move.
+- Visitors with "reduce motion" turned on get no animation, including no page-transition fade. Visitors on Save-Data get the whole layer switched off (same as the master switch).
+- Page transitions use the cross-document View Transitions API (Chrome/Edge 126+, Safari 18.2+); other browsers just navigate normally.

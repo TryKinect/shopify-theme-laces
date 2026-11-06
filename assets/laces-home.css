@@ -24,6 +24,7 @@
 .l-reveal.is-in, .no-js .l-reveal { opacity: 1; transform: none; }
 /* Safety net: if the script never runs, content still appears after 2.5s */
 .l-reveal:not(.is-in) { animation: l-force-in .6s var(--l-ease-out) 2.5s forwards; }
+[data-l-motion="off"] .l-reveal { opacity: 1; transform: none; transition: none; animation: none; }
 @keyframes l-force-in { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .l-reveal { opacity: 1; transform: none; transition: none; }

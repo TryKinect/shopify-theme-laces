@@ -56,9 +56,9 @@
   {{ 'laces-base.css' | asset_url | stylesheet_tag }}
   {%- if template.name == 'index' -%}{{ 'laces-home.css' | asset_url | stylesheet_tag }}{%- endif -%}
   {%- unless settings.l_motion_enabled == false -%}
-    {{ 'laces-motion.css' | asset_url | stylesheet_tag }}
+    <link id="l-motion-css" rel="stylesheet" href="{{ 'laces-motion.css' | asset_url }}">
     {%- unless settings.l_motion_page_transitions == false or request.design_mode -%}
-      <style>
+      <style id="l-motion-vt">
         @view-transition { navigation: auto; }
         .section-header { view-transition-name: l-header; }
         ::view-transition-old(root) { animation: l-vt-out .22s cubic-bezier(.65,0,.35,1) both; }
@@ -67,11 +67,18 @@
         @keyframes l-vt-out { to { opacity: 0; } }
         @keyframes l-vt-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
         @media (prefers-reduced-motion: reduce) {
-          ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .15s; }
-          ::view-transition-new(root) { animation-name: l-vt-out; animation-direction: reverse; }
+          ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
         }
       </style>
     {%- endunless -%}
+    <script>
+      (function () {
+        var c = navigator.connection;
+        if (!c || !c.saveData) return;
+        document.documentElement.setAttribute('data-l-motion', 'off');
+        ['l-motion-css', 'l-motion-vt'].forEach(function (id) { var el = document.getElementById(id); if (el) el.disabled = true; });
+      })();
+    </script>
   {%- endunless -%}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}
