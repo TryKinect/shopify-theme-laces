@@ -1609,6 +1609,50 @@
         "label": "Disable text and image animations on first section",
         "info": "Can improve performance.",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "LACES motion",
+        "info": "The LACES 2026 experience layer. All effects are transform/opacity only, pause for reduced-motion and data-saver users, and degrade gracefully."
+      },
+      {
+        "type": "checkbox",
+        "id": "l_motion_enabled",
+        "label": "Enable LACES motion",
+        "info": "Master switch for reveals, kinetic type, hover and cart micro-interactions.",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "l_motion_intensity",
+        "label": "Intensity",
+        "options": [
+          { "value": "subtle", "label": "Subtle" },
+          { "value": "standard", "label": "Standard" },
+          { "value": "expressive", "label": "Expressive" }
+        ],
+        "default": "standard"
+      },
+      {
+        "type": "checkbox",
+        "id": "l_motion_parallax",
+        "label": "Scroll parallax on photography",
+        "info": "Hero, campaign banner and Athlete Fund image. Uses native scroll-driven animations; off on small screens.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "l_motion_page_transitions",
+        "label": "Page transitions",
+        "info": "Cross-document View Transitions (crossfade) in supporting browsers. No effect elsewhere.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "l_motion_cursor",
+        "label": "Custom cursor hints",
+        "info": "Desktop only. Shows a small 'Drag' / 'View' cue over rails and photo tiles.",
+        "default": true
       }
     ]
   },

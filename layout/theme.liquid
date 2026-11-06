@@ -9,7 +9,12 @@
   endif
 -%}
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ lang_dir }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ lang_dir }}"
+  data-l-motion="{% if settings.l_motion_enabled == false %}off{% else %}on{% endif %}"
+  data-l-intensity="{{ settings.l_motion_intensity | default: 'standard' }}"
+  data-l-parallax="{% if settings.l_motion_parallax == false %}off{% else %}on{% endif %}"
+  data-l-transitions="{% if settings.l_motion_page_transitions == false %}off{% else %}on{% endif %}"
+  data-l-cursor="{% if settings.l_motion_cursor == false %}off{% else %}on{% endif %}">
 <head>
   {% comment %}Loads Shogun Analytics. Removing this will disrupt analytics data collection.{% endcomment %}
   <script type="text/javascript" async src="https://na.shgcdn3.com/pixel-collector.js"></script>
@@ -48,8 +53,28 @@
 
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
-  {{ 'laces-base.css' | asset_url | stylesheet_tag }}
-  {%- if template.name == 'index' -%}{{ 'laces-home.css' | asset_url | stylesheet_tag }}{%- endif -%}
+  {%- comment -%} laces-2026.css supersedes laces-base.css + laces-home.css (same tokens/sections plus the site-wide restyle) {%- endcomment -%}
+  {{ 'laces-2026.css' | asset_url | stylesheet_tag }}
+  {%- unless settings.l_motion_enabled == false -%}
+    {{ 'laces-motion.css' | asset_url | stylesheet_tag }}
+    {%- unless settings.l_motion_page_transitions == false or request.design_mode -%}
+      <style>
+        /* LACES: cross-document View Transitions. Same-origin navigations crossfade; the header is kept in place.
+           Browsers without support ignore this entirely. */
+        @view-transition { navigation: auto; }
+        .section-header { view-transition-name: l-header; }
+        ::view-transition-old(root) { animation: l-vt-out .22s cubic-bezier(.65,0,.35,1) both; }
+        ::view-transition-new(root) { animation: l-vt-in .42s cubic-bezier(.16,1,.3,1) both; }
+        ::view-transition-old(l-header), ::view-transition-new(l-header) { animation-duration: .25s; }
+        @keyframes l-vt-out { to { opacity: 0; } }
+        @keyframes l-vt-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) {
+          ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .15s; }
+          ::view-transition-new(root) { animation-name: l-vt-out; animation-direction: reverse; }
+        }
+      </style>
+    {%- endunless -%}
+  {%- endunless -%}
 
   {%- if settings.swatch_source == 'theme' and settings.swatch_value_list != blank -%}
     <link rel="stylesheet" href="{{ 'swatches.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -168,8 +193,11 @@
   </script>
 
   <script src="{{ 'main.js' | asset_url }}" defer></script>
+  <script src="{{ 'laces-2026.js' | asset_url }}" defer></script>
+  {%- unless settings.l_motion_enabled == false -%}
+    <script src="{{ 'laces-motion.js' | asset_url }}" defer></script>
+  {%- endunless -%}
   <script src="{{ 'kinect-haus.js' | asset_url }}" defer></script>
-  {%- if template.name == 'index' -%}<script src="{{ 'laces-home.js' | asset_url }}" defer></script>{%- endif -%}
 
   {%- if request.design_mode -%}
     <script src="{{ 'theme-editor.js' | asset_url }}" defer data-contact="{{ shop.email | escape }}"></script>

@@ -1,1 +1,110 @@
-{"sections":{"image_with_text_overlay_JRTkGG":{"type":"image-with-text-overlay","name":"Image with text overlay","settings":{"image":"shopify://shop_images/website_header.png","mobile_image":"shopify://shop_images/LACES_-_email_template_4.jpg","height":"adapt","height_desktop":600,"height_mobile":460,"image_link":"","full_width":true,"text_alignment":"center center","mobile_overlay_under":false,"overlay_style":"shadow"}},"rich_text_pEaJeP":{"type":"rich-text","blocks":{"subheading_84PPpr":{"type":"subheading","settings":{"subheading":"Introducing"}},"heading_t4QPYM":{"type":"heading","settings":{"title":"The LACES Hoodie Collection","use_h1":true}},"text_MLGzVy":{"type":"text","settings":{"text":"<p>Designed in collaboration with LACES athletes, our first hoodie is heavyweight where it matters, structured but comfortable, and made to hold its shape through daily wear. Built to move from training to travel to everything in between without losing how it feels.</p><p>Every purchase supports the LACES Athlete Fund, directly investing back into the college athletes building their brands.</p>","enlarge_text":false}}},"block_order":["subheading_84PPpr","heading_t4QPYM","text_MLGzVy"],"custom_css":["h1 {font-size: 5em !important; letter-spacing: -2px !important;}","@media (max-width: 767px) {h1 {font-size: 3em !important; }}"],"name":"Rich text","settings":{"height":"medium","text_alignment":"center","full_width":false,"color_scheme":"default"}},"main":{"type":"main-collection","custom_css":["h1 {font-size: 5em !important; letter-spacing: -2px !important;}","@media (max-width: 767px) {h1 {font-size: 3em !important; }}"],"settings":{"show_title":false,"show_image_behind_heading":false,"heading_image_height":"huge","overlay_style":"shadow","coll_desc_pos":"above","coll_num_per_page_int":24,"grid":3,"show_vendor":false,"show_total":true,"enable_filtering":true,"collapse_tag_sidebar_by_default":false,"collapse_filters_method":"over-12","show_filter_counts":false,"filter_two_columns":false,"button_grid_filter_name":"Size,Taille,Größe","auto_apply_hide_unavailable":false,"enable_sticky_filter":true,"show_sort":true,"sort_show_featured":false,"sort_show_best":true,"sort_show_alpha":true,"sort_show_price":true,"sort_show_date":true,"related_collections":["apparel","hoodies","socks"],"related_collections_style":"buttons","rel_coll_gall_aspect_ratio":"1","image_position":"center center","rel_coll_gall_enable_margin":true,"rel_coll_gall_full_width":false,"rel_coll_gall_overlay_style":"shadow","rel_coll_gall_text_alignment":"center center","rel_coll_grid_mobile":"2"}}},"order":["image_with_text_overlay_JRTkGG","rich_text_pEaJeP","main"]}
+{
+  "sections": {
+    "image_with_text_overlay_JRTkGG": {
+      "type": "image-with-text-overlay",
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify://shop_images/website_header.png",
+        "mobile_image": "shopify://shop_images/LACES_-_email_template_4.jpg",
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 460,
+        "image_link": "",
+        "full_width": true,
+        "text_alignment": "center center",
+        "mobile_overlay_under": false,
+        "overlay_style": "shadow"
+      }
+    },
+    "rich_text_pEaJeP": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_84PPpr": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Introducing"
+          }
+        },
+        "heading_t4QPYM": {
+          "type": "heading",
+          "settings": {
+            "title": "The LACES Hoodie Collection",
+            "use_h1": true
+          }
+        },
+        "text_MLGzVy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Designed in collaboration with LACES athletes, our first hoodie is heavyweight where it matters, structured but comfortable, and made to hold its shape through daily wear. Built to move from training to travel to everything in between without losing how it feels.</p><p>Every purchase supports the LACES Athlete Fund, directly investing back into the college athletes building their brands.</p>",
+            "enlarge_text": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_84PPpr",
+        "heading_t4QPYM",
+        "text_MLGzVy"
+      ],
+      "custom_css": [
+        "h1 {font-size: 5em !important; letter-spacing: -2px !important;}",
+        "@media (max-width: 767px) {h1 {font-size: 3em !important; }}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": false,
+        "color_scheme": "default"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        "@media (max-width: 767px) {h1 {font-size: 3em !important; }}"
+      ],
+      "settings": {
+        "show_title": false,
+        "show_image_behind_heading": false,
+        "heading_image_height": "huge",
+        "overlay_style": "shadow",
+        "coll_desc_pos": "above",
+        "coll_num_per_page_int": 24,
+        "grid": 3,
+        "show_vendor": false,
+        "show_total": true,
+        "enable_filtering": true,
+        "collapse_tag_sidebar_by_default": false,
+        "collapse_filters_method": "over-12",
+        "show_filter_counts": false,
+        "filter_two_columns": false,
+        "button_grid_filter_name": "Size,Taille,Größe",
+        "auto_apply_hide_unavailable": false,
+        "enable_sticky_filter": true,
+        "show_sort": true,
+        "sort_show_featured": false,
+        "sort_show_best": true,
+        "sort_show_alpha": true,
+        "sort_show_price": true,
+        "sort_show_date": true,
+        "related_collections": [
+          "apparel",
+          "hoodies",
+          "socks"
+        ],
+        "related_collections_style": "buttons",
+        "rel_coll_gall_aspect_ratio": "1",
+        "image_position": "center center",
+        "rel_coll_gall_enable_margin": true,
+        "rel_coll_gall_full_width": false,
+        "rel_coll_gall_overlay_style": "shadow",
+        "rel_coll_gall_text_alignment": "center center",
+        "rel_coll_grid_mobile": "2"
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_JRTkGG",
+    "rich_text_pEaJeP",
+    "main"
+  ]
+}
