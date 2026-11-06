@@ -56,7 +56,6 @@
   {{ 'laces-base.css' | asset_url | stylesheet_tag }}
   {%- if template.name == 'index' -%}{{ 'laces-home.css' | asset_url | stylesheet_tag }}{%- endif -%}
   {%- unless settings.l_motion_enabled == false -%}
-    <link id="l-motion-css" rel="stylesheet" href="{{ 'laces-motion.css' | asset_url }}">
     {%- unless settings.l_motion_page_transitions == false or request.design_mode -%}
       <style id="l-motion-vt">
         @view-transition { navigation: auto; }
@@ -74,9 +73,18 @@
     <script>
       (function () {
         var c = navigator.connection;
-        if (!c || !c.saveData) return;
-        document.documentElement.setAttribute('data-l-motion', 'off');
-        ['l-motion-css', 'l-motion-vt'].forEach(function (id) { var el = document.getElementById(id); if (el) el.disabled = true; });
+        if (c && c.saveData) {
+          document.documentElement.setAttribute('data-l-motion', 'off');
+          var vt = document.getElementById('l-motion-vt');
+          if (vt) vt.disabled = true;
+          return;
+        }
+        var l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.id = 'l-motion-css';
+        l.setAttribute('blocking', 'render');
+        l.href = "{{ 'laces-motion.css' | asset_url }}";
+        document.head.appendChild(l);
       })();
     </script>
   {%- endunless -%}
@@ -201,7 +209,14 @@
   <script src="{{ 'kinect-haus.js' | asset_url }}" defer></script>
   {%- if template.name == 'index' -%}<script src="{{ 'laces-home.js' | asset_url }}" defer></script>{%- endif -%}
   {%- unless settings.l_motion_enabled == false -%}
-    <script src="{{ 'laces-motion.js' | asset_url }}" defer></script>
+    <script>
+      (function () {
+        if (document.documentElement.getAttribute('data-l-motion') === 'off') return;
+        var s = document.createElement('script');
+        s.src = "{{ 'laces-motion.js' | asset_url }}";
+        document.head.appendChild(s);
+      })();
+    </script>
   {%- endunless -%}
 
   {%- if request.design_mode -%}
