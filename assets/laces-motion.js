@@ -27,7 +27,7 @@
   };
 
   /* ---------- 1. Kinetic headlines ---------- */
-  const SPLIT_TARGETS = '.l-sec-head__title, .l-fund__heading, .l-campaign__title, .l-fit__title, .l-footer__band-title, .l-tile__title, .l-story__title';
+  const SPLIT_TARGETS = '.l-sec-head__title, .l-fund__heading, .l-campaign__title, .l-fit__title, .l-footer__band-title, .l-coll-head__title, .l-tile__title, .l-story__title';
   const splitWords = (el) => {
     if (el.dataset.lSplit) return;
     el.dataset.lSplit = '1';
@@ -147,9 +147,9 @@
     if (reduce || scrollTimelines || html.dataset.lParallax === 'off' || intensity === 'subtle' || html.classList.contains('l-save-data')) return;
     if (!mq('(min-width: 768px)')) return;
     const targets = [
-      ...document.querySelectorAll('.k-film__strip'),
+      ...document.querySelectorAll('.l-hero__media, .k-film__strip'),
       ...document.querySelectorAll('.l-campaign__media img, .l-fund__media img')
-    ].map((el) => ({ el, amp: el.classList.contains('k-film__strip') ? 0.14 : 0.07 }));
+    ].map((el) => ({ el, amp: el.matches('.l-hero__media, .k-film__strip') ? 0.14 : 0.07 }));
     if (!targets.length) return;
     targets.forEach((t) => t.el.classList.add('l-par-js'));
     const mult = intensity === 'expressive' ? 1.6 : 1;

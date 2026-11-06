@@ -1,6 +1,6 @@
 /* LACES homepage sections: scroll reveal (.l-reveal) and tabbed product rails ([data-l-rail]). */
 (() => {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.dataset.lMotion === 'off';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Scroll reveal ---------- */
   const initReveal = (root = document) => {

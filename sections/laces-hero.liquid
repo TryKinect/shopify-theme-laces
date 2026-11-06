@@ -1,0 +1,152 @@
+{%- comment -%}
+  LACES 2026 — Cinematic hero.
+  Full-bleed campaign photography (separate desktop/mobile crops), optional looping video,
+  display headline with line-by-line entrance, two CTAs and a verified "proof" strip.
+{%- endcomment -%}
+{%- liquid
+  assign img_d = section.settings.image
+  assign img_m = section.settings.image_mobile | default: img_d
+  assign fp_d = img_d.presentation.focal_point | default: 'center'
+  assign fp_m = img_m.presentation.focal_point | default: 'center'
+  assign overlay = section.settings.overlay | divided_by: 100.0
+  assign heading_lines = section.settings.heading | newline_to_br | split: '<br />'
+  assign proof_blocks = section.blocks | where: 'type', 'proof'
+  assign style_d = '--l-fp: ' | append: fp_d
+  assign style_m = '--l-fp: ' | append: fp_m
+  assign class_m = 'l-hero__img--mobile l-hero__fade'
+  if img_d != blank
+    assign class_m = class_m | append: ' has-desktop'
+  endif
+  if section.settings.use_h1
+    assign heading_tag = 'h1'
+  else
+    assign heading_tag = 'h2'
+  endif
+-%}
+
+<section
+  class="l-hero l-hero--{{ section.settings.layout }} l-hero--text-{{ section.settings.text_align }}"
+  id="section-id-{{ section.id }}"
+  style="--l-hero-h: {{ section.settings.height_desktop }}vh; --l-hero-h-m: {{ section.settings.height_mobile }}svh; --l-hero-overlay: {{ overlay }};"
+  data-cc-animate-disable
+>
+  <div class="l-hero__media" aria-hidden="true">
+    {%- if img_d != blank -%}
+      {{ img_d | image_url: width: 2600 | image_tag:
+        class: 'l-hero__img--desktop l-hero__fade',
+        loading: 'eager',
+        fetchpriority: 'high',
+        sizes: '100vw',
+        widths: '1000, 1400, 1800, 2200, 2600',
+        style: style_d,
+        alt: img_d.alt }}
+    {%- endif -%}
+    {%- if img_m != blank -%}
+      {{ img_m | image_url: width: 1400 | image_tag:
+        class: class_m,
+        loading: 'eager',
+        fetchpriority: 'high',
+        sizes: '100vw',
+        widths: '480, 720, 960, 1200, 1400',
+        style: style_m,
+        alt: img_m.alt }}
+    {%- elsif img_d == blank -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'l-hero__placeholder' }}
+    {%- endif -%}
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', class: 'l-hero__video l-hero__fade' }}
+    {%- endif -%}
+  </div>
+
+  <div class="l-hero__content">
+    <div class="l-hero__inner">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="l-eyebrow l-hero__eyebrow l-hero__fade" style="animation-delay:.1s">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <{{ heading_tag }} class="l-display l-hero__heading">
+          {%- for line in heading_lines -%}
+            {%- assign clean = line | strip_html | strip -%}
+            {%- if clean != blank -%}
+              <span class="l-hero__line" style="--i: {{ forloop.index0 }}"><span>{{ clean | escape }}</span></span>
+            {%- endif -%}
+          {%- endfor -%}
+        </{{ heading_tag }}>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="l-hero__text l-hero__fade" style="animation-delay:.45s">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="l-hero__actions l-hero__fade" style="animation-delay:.6s">
+          {%- if section.settings.button_1_label != blank -%}
+            <a class="l-btn l-btn--white" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label | escape }}{% render 'laces-icon', icon: 'arrow', class: 'l-btn__arrow' %}</a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a class="l-btn l-btn--ghost" href="{{ section.settings.button_2_link | default: routes.all_products_collection_url }}">{{ section.settings.button_2_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if proof_blocks.size > 0 -%}
+    <div class="l-hero__proof l-hero__fade" style="animation-delay:.8s">
+      <ul>
+        {%- for block in proof_blocks -%}
+          <li {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>{%- else -%}{{ block.settings.text | escape }}{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "LACES · Hero",
+  "class": "section-l-hero",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "image", "label": "Desktop image", "info": "Landscape, 2400px wide recommended. Set the focal point on the image for best cropping." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Portrait crop of the same campaign shot." },
+    { "type": "video", "id": "video", "label": "Looping video (optional)", "info": "Muted, plays over the image. Skipped for reduced-motion and data-saver users." },
+    { "type": "range", "id": "overlay", "label": "Overlay strength", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 55 },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Every purchase supports rising athletes" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "info": "One line per row. Keep to 2–3 short lines.", "default": "Built by athletes.\nDesigned for everyone." },
+    { "type": "checkbox", "id": "use_h1", "label": "Use H1 for the heading", "info": "Leave off if the header logo is the page H1.", "default": false },
+    { "type": "text", "id": "text", "label": "Supporting text", "default": "Premium snapbacks and dad hats, designed with college athletes." },
+    { "type": "text", "id": "button_1_label", "label": "Primary button", "default": "Shop bestsellers" },
+    { "type": "url", "id": "button_1_link", "label": "Primary link" },
+    { "type": "text", "id": "button_2_label", "label": "Secondary button", "default": "New arrivals" },
+    { "type": "url", "id": "button_2_link", "label": "Secondary link" },
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "layout", "label": "Desktop layout", "options": [ { "value": "full", "label": "Full-bleed image" }, { "value": "split", "label": "Text panel + image" } ], "default": "full" },
+    { "type": "select", "id": "text_align", "label": "Text position", "options": [ { "value": "left", "label": "Bottom left" }, { "value": "center", "label": "Bottom center" } ], "default": "left" },
+    { "type": "range", "id": "height_desktop", "label": "Desktop height", "min": 60, "max": 100, "step": 5, "unit": "vh", "default": 90 },
+    { "type": "range", "id": "height_mobile", "label": "Mobile height", "min": 60, "max": 100, "step": 5, "unit": "vh", "default": 85 }
+  ],
+  "blocks": [
+    {
+      "type": "proof",
+      "name": "Proof point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free shipping on orders $50+" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LACES · Hero",
+      "blocks": [
+        { "type": "proof", "settings": { "text": "Free shipping on orders $50+" } },
+        { "type": "proof", "settings": { "text": "30-day easy returns" } },
+        { "type": "proof", "settings": { "text": "5% of every sale goes to the Athlete Fund" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

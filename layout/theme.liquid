@@ -53,8 +53,8 @@
 
   {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'kinect-haus.css' | asset_url | stylesheet_tag }}
-  {{ 'laces-base.css' | asset_url | stylesheet_tag }}
-  {%- if template.name == 'index' -%}{{ 'laces-home.css' | asset_url | stylesheet_tag }}{%- endif -%}
+  {%- comment -%} laces-2026.css supersedes laces-base.css + laces-home.css (same tokens/sections plus the site-wide restyle) {%- endcomment -%}
+  {{ 'laces-2026.css' | asset_url | stylesheet_tag }}
   {%- unless settings.l_motion_enabled == false -%}
     {%- unless settings.l_motion_page_transitions == false or request.design_mode -%}
       <style id="l-motion-vt">
@@ -201,8 +201,8 @@
   </script>
 
   <script src="{{ 'main.js' | asset_url }}" defer></script>
+  <script src="{{ 'laces-2026.js' | asset_url }}" defer></script>
   <script src="{{ 'kinect-haus.js' | asset_url }}" defer></script>
-  {%- if template.name == 'index' -%}<script src="{{ 'laces-home.js' | asset_url }}" defer></script>{%- endif -%}
   {%- unless settings.l_motion_enabled == false -%}
     <script>
       (function () {

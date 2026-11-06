@@ -10,6 +10,7 @@
    - scroll-linked effects use native animation-timeline (@supports gated);
      laces-motion.js provides a light rAF fallback for hero/campaign/fund
    - [data-l-intensity] on <html> scales distances; subtle disables parallax
+   - hero rules cover both laces-hero (.l-hero__*) and k-filmstrip-hero (.k-film__*)
    - parallax off / subtle intensity drop every scroll-linked transform;
      Save-Data visitors never get this layer (theme.liquid disables it)
    ===================================================================== */
@@ -40,7 +41,18 @@
 
 @media (prefers-reduced-motion: no-preference) {
 
-  /* ---------- 1. Hero (k-filmstrip-hero): cinematic entrance ---------- */
+  /* ---------- 1. Hero: cinematic entrance (laces-hero + k-filmstrip-hero) ---------- */
+  .l-hero__media { will-change: transform; }
+  .l-hero__media img.l-hero__fade,
+  .l-hero__media video.l-hero__fade { opacity: 0; clip-path: inset(8% 6% 8% 6%); scale: var(--l-m-scale); animation: l-m-hero-media 1.6s var(--l-m-ease) forwards; }
+  .l-hero__line > span { animation-duration: 1s; animation-timing-function: var(--l-m-ease); animation-delay: calc(.35s + var(--i, 0) * .11s); }
+  .l-hero__eyebrow.l-hero__fade { animation-delay: .5s !important; }
+  .l-hero__text.l-hero__fade { animation-delay: .75s !important; }
+  .l-hero__actions.l-hero__fade { animation-delay: .9s !important; }
+  .l-hero__proof.l-hero__fade { animation-delay: 1.1s !important; }
+  .l-hero__actions .l-btn { opacity: 0; animation: l-m-rise .8s var(--l-m-ease) forwards; }
+  .l-hero__actions .l-btn:nth-child(1) { animation-delay: .95s; }
+  .l-hero__actions .l-btn:nth-child(2) { animation-delay: 1.05s; }
   .k-film__tile img { opacity: 0; clip-path: inset(8% 6% 8% 6%); scale: var(--l-m-scale); animation: l-m-hero-media 1.6s var(--l-m-ease) both; }
   @keyframes l-m-hero-media {
     0% { opacity: 0; clip-path: inset(8% 6% 8% 6%); scale: var(--l-m-scale); }
@@ -62,6 +74,8 @@
   /* Hero parallax (native scroll timeline; JS fallback adds .l-par-js) */
   @supports (animation-timeline: scroll()) {
     @media (min-width: 768px) {
+      .l-hero__media { animation: l-m-hero-par linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+      .l-hero__content, .l-hero__proof { animation: l-m-hero-copy linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
       .k-film__strip { animation: l-m-hero-par linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
       .k-film__content { animation: l-m-hero-copy linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
     }
@@ -103,7 +117,8 @@
   .l-sec-head.has-split .l-sec-head__action { transition-delay: .45s; }
   .l-sec-head.has-split.is-in .l-sec-head__sub, .l-sec-head.has-split.is-in .l-sec-head__action, .l-sec-head.has-split.is-in .l-eyebrow { opacity: 1; transform: none; }
   .l-eyebrow::before { transform: scaleX(0); transform-origin: left; transition: transform .8s var(--l-m-ease) .1s; }
-  .is-in .l-eyebrow::before, .l-eyebrow.is-in::before, .l-reveal.is-in.l-eyebrow::before { transform: scaleX(1); }
+  .is-in .l-eyebrow::before, .l-eyebrow.is-in::before, .l-hero__eyebrow::before, .l-reveal.is-in.l-eyebrow::before { transform: scaleX(1); }
+  .l-hero__eyebrow::before { transition-delay: .6s; }
 
   /* ---------- 4. Masked photo reveals (tiles, stories, fit, community, fund) ---------- */
   .l-tile.l-reveal, .l-story.l-reveal, .l-fit__panel.l-reveal, .l-community__item.l-reveal, .l-fund__media.l-reveal {
@@ -357,7 +372,11 @@
   .cart-drawer .cart-drawer__checkout-buttons .btn:active, .cart-drawer button[name="checkout"]:active { transform: scale(.985); }
   cart-drawer[open] .cart-drawer__empty, cart-drawer[open] .majortitle { animation: l-m-rise .7s var(--l-m-ease) .15s both; }
 
-  /* ---------- 17. Collection filters & related links ---------- */
+  /* ---------- 17. Collection header ---------- */
+  .l-coll-head__crumbs, .l-coll-head__count, .l-coll-head__desc { opacity: 0; transform: translate3d(0, 8px, 0); animation: l-m-rise .7s var(--l-m-ease) forwards; }
+  .l-coll-head__crumbs { animation-delay: .05s; }
+  .l-coll-head__count { animation-delay: .45s; }
+  .l-coll-head__desc { animation-delay: .55s; }
   .related-collection-links--buttons .btn { transition: background .3s, color .3s, border-color .3s, transform .3s var(--l-m-ease); }
   .related-collection-links--buttons .btn:hover { transform: translate3d(0, -2px, 0); }
   .filter-group__item { transition: transform .25s var(--l-m-ease); }
@@ -377,12 +396,13 @@
   :focus-visible { transition: outline-offset .15s var(--l-m-ease); }
 
   /* ---------- 20. Parallax off / subtle: no scroll-linked transforms ---------- */
-  :is([data-l-parallax="off"], [data-l-intensity="subtle"]) :is(.k-film__strip, .k-film__content, .l-fund__media img, .l-campaign__media img) { animation: none !important; }
+  :is([data-l-parallax="off"], [data-l-intensity="subtle"]) :is(.l-hero__media, .l-hero__content, .l-hero__proof, .k-film__strip, .k-film__content, .l-fund__media img, .l-campaign__media img) { animation: none !important; }
   :is([data-l-parallax="off"], [data-l-intensity="subtle"]) .l-fund__media.l-reveal.is-in img { transform: none; }
 }
 
 /* ---------- Reduced motion: keep layout, drop motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  .l-hero__media img, .l-hero__media video { opacity: 1 !important; clip-path: none !important; scale: none !important; transform: none !important; animation: none !important; }
   .k-film__tile img, .k-film__eyebrow, .k-film__heading, .k-film__buttons { opacity: 1 !important; clip-path: none !important; scale: none !important; transform: none !important; animation: none !important; }
   .l-w__i { transform: none !important; }
   .l-tile.l-reveal, .l-story.l-reveal, .l-fit__panel.l-reveal, .l-community__item.l-reveal, .l-fund__media.l-reveal { clip-path: none !important; }
