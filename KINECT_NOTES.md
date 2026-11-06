@@ -16,10 +16,10 @@ Status: **OPEN** = needs action/answer · **WATCH** = fine today, breaks if X ch
 - WATCH: Berkeley Roster tile links to `/pages/cal-athletes`. If that page handle changes, the tile 404s.
 
 ## Cal Athletes page (PR #5)
-- WATCH: Receipt numbers are computed from the selected product price × fund % (10%). If the 10% commitment changes, update `fund_percent` in the receipt section (page and Cal PDP).
+- WATCH: Receipt shows percentages, not dollar amounts (Varun's call): `athlete_percent` (20%, "→ Attributed athlete" line, `[athlete]` token) and `fund_percent` (10%, "→ Cal LACES Athlete Fund" line, `[fund]` token). If either changes, update both settings in the receipt section (page and Cal PDP) and any copy that types the % out. The receipt text uses `[athlete]` / `[fund]` tokens, so it follows the settings.
 - WATCH: Old sections (old hero, rich text, fund image/text, video, The Suit) are `disabled`, not deleted. Re-enabling them changes the page order.
 - OPEN: Melius-generated Squirrel Bear art (`assets/k-cal-roster.jpg`, `assets/k-cal-fund.jpg`) needs brand/licensing sign-off before ads or print.
-- WATCH: Fund contribution claims ("not tax-deductible", "non-refundable", "equal split for athletes hitting Activity Goals") are copied from the existing page. Legal should approve any wording change.
+- WATCH: Fund contribution claims ("not tax-deductible", "non-refundable", "equal split for athletes who meet their monthly benchmarks") come from the existing page; "Activity Goals" was renamed to "monthly benchmarks" to match the LACES x Cal economics (20% to each attributed athlete, 10% to the Cal LACES Athlete Fund). Legal should approve any wording change.
 - WATCH: Fund buttons are the real `cal-athletes-fund` variants ($25–$500). Renaming or deleting a variant changes the buttons.
 
 ## Product pages — design A (PDP PR)
@@ -34,8 +34,8 @@ Templates changed: `product.hats.json`, `product.dad-hats.json`, `product.appare
 - WATCH: "You may also like" retitled to "Complete the rotation" on all templates.
 - OPEN: **Cal PDP template** `product.cal.json` must be assigned in Admin to `snapback-laces-x-cal-athletes` and `dad-hat-laces-x-cal-athletes` (Product → Theme template → "cal"). Until then they keep using the default template.
 - OPEN: **$25 Athlete Fund add-on** (`snippets/k-cal-fundbox.liquid`): when it's checked, submitting the main or sticky ATC form rewrites it to `items[0]`=hat, `items[1]`=fund, so the theme's own AJAX add sends both in one all-or-nothing `/cart/add` request; errors show in the theme's normal error message and the box stays checked. Depends on Symmetry's `form.js-product-form[data-product-id]` + `on:cart:add`/`on:cart:error` events, so re-check after a theme update. Test on a PR-linked theme: (1) cart drawer shows both lines, (2) the Shop Pay / dynamic checkout button **skips the add-on** (it bypasses the form), (3) sticky ATC adds both, (4) Loop/one-click-upsell apps don't conflict. It relies on product handle `cal-athletes-fund` (`all_products`). Renaming that handle hides the add-on.
-- WATCH: "$X goes to Cal athletes" = product price × 10% (hard-set `pct: 10` in the template's custom-liquid block and `fund_percent` in the receipt section). If the commitment changes, update both.
-- WATCH: Cal PDP receipt reuses `k-cal-receipt` and defaults to the current product when no product is set (the dad hat shows $38 → $3.80).
+- WATCH: Cal PDP box "20% to the athlete + 10% to the Fund" shows percentages only (hard-set `athlete_pct: 20, pct: 10` in the template's custom-liquid block; the receipt section uses `athlete_percent` / `fund_percent`). If the split changes, update both.
+- WATCH: Cal PDP receipt reuses `k-cal-receipt` and defaults to the current product when no product is set (e.g. the dad hat shows its $38 price; the athlete and Fund rows show 20% / 10%).
 
 ## Navigation, merchandising, collections, reviews, pop-ups (nav-merch PR)
 
@@ -150,3 +150,8 @@ The Kinect Theme is the **published** theme now: merging to `main` ships to the 
 - Team rule applied: Ajay's "Rep Your Team" tile and rail tab are relabelled Football.
 - DONE: **Site-wide footer is Ajay's `laces-footer`** (newsletter band, brand column, Shop/Brand/Help columns, Athlete Fund card, legal bar), set in `sections/footer-group.json`. The old Symmetry `footer` section is disabled, not deleted. `assets/laces-base.css` (tokens, primitives, footer) loads on every page; `laces-home.css` still loads on the homepage only.
 - WATCH: Footer links left out on purpose: **Sale** (team call) and **FAQ** (`/pages/faq` is a 404; there's no FAQ page). Add an FAQ link in the editor (Footer → Help column) once a page exists. The newsletter form is Shopify's customer form (tags `prospect,newsletter,footer`), not Klaviyo, the same as the old footer's newsletter block.
+
+## LACES x Cal fund copy
+- DONE: Cal copy says 20% of every sale goes to each attributed athlete and 10% to the Cal LACES Athlete Fund, split among Cal athletes who meet their monthly benchmarks (Cal page, early-access, Cal PDP box + receipt, homepage Cal story, Cal promo tile on hat collections).
+- OPEN: The general LACES Athlete Fund still says "5% of every LACES sale" (footer card on every page, homepage Fund block, /pages/laces-athlete-fund) and "monthly checkpoints". Waiting on the correct general %.
+- WATCH: The Cal fund's name on the site is "Cal LACES Athlete Fund" (the Fund product, the Cal page and the Cal page's FAQ use it); internally it's called the Cal Athletic Fund.

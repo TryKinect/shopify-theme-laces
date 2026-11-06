@@ -92,7 +92,7 @@
         "k_cal_fundbox": {
           "type": "custom-liquid",
           "settings": {
-            "custom_liquid": "{% render 'k-cal-fundbox', product: product, pct: 10 %}",
+            "custom_liquid": "{% render 'k-cal-fundbox', product: product, pct: 10, athlete_pct: 20 %}",
             "show_in_quickbuy": false
           }
         }
@@ -170,6 +170,14 @@
             "highlight": false
           }
         },
+        "line_athlete": {
+          "type": "line",
+          "settings": {
+            "label": "→ Attributed athlete",
+            "value": "[athlete]",
+            "highlight": true
+          }
+        },
         "line_fund": {
           "type": "line",
           "settings": {
@@ -181,8 +189,8 @@
         "line_split": {
           "type": "line",
           "settings": {
-            "label": "Athletes it's split between",
-            "value": "ALL",
+            "label": "Fund split between",
+            "value": "ALL WHO HIT BENCHMARKS",
             "highlight": false
           }
         },
@@ -197,6 +205,7 @@
       },
       "block_order": [
         "line_license",
+        "line_athlete",
         "line_fund",
         "line_split",
         "line_sports"
@@ -204,11 +213,12 @@
       "settings": {
         "product": "",
         "item_label": "",
+        "athlete_percent": 20,
         "fund_percent": 10,
         "eyebrow": "Where your [price] goes",
         "heading": "The hat that",
         "highlight": "pays back.",
-        "text": "<p>School merch pays a licensing fee to the school. We skipped that. 10% of every LACES x Cal hat goes straight into the Cal LACES Athlete Fund, and every Cal athlete who hits their monthly Activity Goals gets an equal share.</p>",
+        "text": "<p>School merch pays a licensing fee to the school. We skipped that. [athlete] of every LACES x Cal hat goes to each attributed athlete, and [fund] goes straight into the Cal LACES Athlete Fund. Every Cal athlete who meets their monthly benchmarks gets an equal share of the Fund.</p>",
         "button_label": "Meet the athletes",
         "button_link": "shopify://pages/cal-athletes",
         "receipt_title": "LACES",
@@ -237,7 +247,7 @@
           "type": "pillar",
           "settings": {
             "title": "Equal split",
-            "text": "Hit your monthly Activity Goals, earn the same share as everyone else."
+            "text": "Meet your monthly benchmarks, earn the same share of the Fund as everyone else."
           }
         }
       },
