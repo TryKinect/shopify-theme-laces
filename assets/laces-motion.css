@@ -69,11 +69,11 @@
   @supports (animation-timeline: scroll()) {
     @media (min-width: 768px) {
       .l-hero__media { animation: l-m-hero-par linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
-      .l-hero__content, .l-hero__proof { animation: l-m-hero-copy linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
+      .l-hero__content { animation: l-m-hero-copy linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
     }
   }
   @keyframes l-m-hero-par { to { transform: translate3d(0, calc(14% * var(--l-m-par)), 0) scale(1.04); } }
-  @keyframes l-m-hero-copy { to { transform: translate3d(0, calc(-10% * var(--l-m-par)), 0); opacity: .2; } }
+  @keyframes l-m-hero-copy { to { transform: translate3d(0, calc(-10% * var(--l-m-par)), 0); opacity: .55; } }
   /* JS fallback: transforms set inline via --l-py */
   .l-par-js { transform: translate3d(0, var(--l-py, 0px), 0) scale(1.06); will-change: transform; }
 
