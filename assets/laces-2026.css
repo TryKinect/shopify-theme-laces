@@ -187,6 +187,8 @@ a { transition: color .2s, opacity .2s; }
 .announcement-bar .announcement-bar__left .social-links a, .announcement-bar .announcement-bar__right { font-size: 11px; }
 .announcement-bar .announcement-bar__left .social-links svg { width: 14px; height: 14px; }
 .announcement-bar .container { min-height: 34px; }
+/* Desktop header sits at z-index 8000 (drawer nav); lift the bar while its country/language dropdown is open so the list isn't covered */
+.announcement-bar:has(.is-open), .announcement-bar:focus-within { z-index: 8001; }
 
 /* ---------- 5. Header ---------- */
 .pageheader { background: var(--header-bg-col, #fff); }
