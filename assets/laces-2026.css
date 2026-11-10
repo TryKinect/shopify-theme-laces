@@ -229,6 +229,21 @@ a { transition: color .2s, opacity .2s; }
 .mobile-navigation-drawer .navigation__tier-2 .navigation__link { font-size: 15px; padding: 12px 20px; }
 .mobile-navigation-drawer .navigation__mobile-products-title { font-family: var(--l-sans); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--l-muted); }
 .mobile-navigation-drawer__footer { padding: 16px 20px; }
+.mobile-navigation-drawer .navigation__column-title { font-family: var(--l-sans); }
+/* Drawer at tablet/desktop widths: Symmetry's desktop mega-menu rules still match inside the drawer; restore the mobile accordion */
+@media (min-width: 768px) {
+  .mobile-navigation-drawer .navigation .navigation__columns { padding-top: 12px; padding-bottom: 0; }
+  .mobile-navigation-drawer .navigation .navigation__columns .navigation__column.navigation__item--with-children { display: flex; flex-wrap: wrap; align-items: flex-start; }
+  .mobile-navigation-drawer .navigation .navigation__columns .navigation__column .navigation__column-title { display: block; flex: 1 1 0; padding: 12px 20px; opacity: 1; font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.5; text-transform: none; }
+  .mobile-navigation-drawer .navigation .navigation__columns .navigation__column .navigation__children-toggle { display: block; }
+  .mobile-navigation-drawer .navigation .navigation__columns .navigation__column .navigation__tier-3-container { flex: 0 0 100%; }
+  .mobile-navigation-drawer .navigation .navigation__columns .navigation__column .navigation__tier-3 .navigation__link,
+  .mobile-navigation-drawer .navigation .navigation__columns .navigation__column > .navigation__link:not(.navigation__column-title),
+  .mobile-navigation-drawer .navigation .navigation__item--with-small-menu > .navigation__tier-2-container .navigation__tier-2 .navigation__link { padding: 12px 20px; line-height: 1.5; }
+  .mobile-navigation-drawer .navigation .navigation__wide-promotion { padding-top: 0; padding-bottom: 0; }
+  .mobile-navigation-drawer .navigation .navigation__wide-promotion .column { width: 100%; }
+  .mobile-navigation-drawer .navigation .navigation__column--promotion:not(.navigation__column--promotion-carousel) .menu-promotion { padding: 0 20px 20px; }
+}
 .l-drawer-foot { display: grid; gap: 14px; font-size: 13px; }
 .l-drawer-foot__links { display: flex; flex-wrap: wrap; gap: 16px; }
 .l-drawer-foot__links a { color: var(--l-ink); text-decoration: none; font-weight: 500; }

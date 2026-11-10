@@ -302,14 +302,16 @@
   #main-nav .navigation__tier-3 .navigation__link { position: relative; transition: transform .3s var(--l-m-ease); }
   #main-nav .navigation__tier-3 .navigation__link:hover { transform: translate3d(4px, 0, 0); text-decoration: none; }
   /* Mobile drawer items cascade */
-  .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item { animation: l-m-rise .55s var(--l-m-ease) both; }
+  /* fill 'backwards', not 'both': a held transform/opacity animation makes each item the containing block for its
+     absolutely positioned submenu panel and keeps the product strip painted above it */
+  .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item { animation: l-m-rise .55s var(--l-m-ease) backwards; }
   .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(1) { animation-delay: 60ms; }
   .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(2) { animation-delay: 110ms; }
   .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(3) { animation-delay: 160ms; }
   .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(4) { animation-delay: 210ms; }
   .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(5) { animation-delay: 260ms; }
   .reveal-mobile-nav .mobile-navigation-drawer .navigation__tier-1 > .navigation__item:nth-child(n+6) { animation-delay: 310ms; }
-  .reveal-mobile-nav .mobile-navigation-drawer .navigation__mobile-products, .reveal-mobile-nav .mobile-navigation-drawer__footer { animation: l-m-fade .6s var(--l-m-ease) .35s both; }
+  .reveal-mobile-nav .mobile-navigation-drawer .navigation__mobile-products, .reveal-mobile-nav .mobile-navigation-drawer__footer { animation: l-m-fade .6s var(--l-m-ease) .35s backwards; }
   /* Search overlay */
   .main-search .main-search__input { transition: border-color .3s; }
   .main-search .search-recommendations__item, .main-search .main-search__results product-block { animation: l-m-rise .6s var(--l-m-ease) both; }
