@@ -2695,6 +2695,19 @@ const MediaGallery = class extends HTMLElement {
           const carousel = mediaItem.closest('carousel-slider');
           if (carousel && carousel.offsetParent) {
             carousel.scrollToElement(mediaItem);
+
+            // Vertical thumbnail rail: keep the active thumbnail in view
+            const rail = mediaItem.closest('.slider');
+            if (rail && rail.scrollHeight > rail.clientHeight) {
+              const railRect = rail.getBoundingClientRect();
+              const itemRect = mediaItem.getBoundingClientRect();
+              if (itemRect.top < railRect.top || itemRect.bottom > railRect.bottom) {
+                rail.scrollTo({
+                  top: rail.scrollTop + itemRect.top - railRect.top - (railRect.height - itemRect.height) / 2,
+                  behavior: 'smooth'
+                });
+              }
+            }
           }
         } else {
           mediaItem.classList.remove('is-active');
