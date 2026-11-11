@@ -3473,6 +3473,8 @@ class CarouselSlider extends HTMLElement {
     evt.preventDefault();
 
     const x = evt.pageX - this.sliderStart;
+    // Ignore the few pixels a pointer moves during a normal click, so the click is not treated as a drag
+    if (!this.mousemoved && Math.abs(x - this.startX) < 5) return;
     this.slider.scrollTo({ left: this.scrollPos - (x - this.startX), behavior: 'instant' });
     this.mousemoved = true;
     this.slider.classList.add('is-dragging');
