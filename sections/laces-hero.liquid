@@ -91,13 +91,18 @@
 
   {%- if proof_blocks.size > 0 -%}
     <div class="l-hero__proof l-hero__fade" style="animation-delay:.8s">
-      <ul>
-        {%- for block in proof_blocks -%}
-          <li {{ block.shopify_attributes }}>
-            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.text | escape }}</a>{%- else -%}{{ block.settings.text | escape }}{%- endif -%}
-          </li>
+      <div class="l-hero__proof-track">
+        {%- comment -%} Second copy is the seamless loop for the mobile marquee; hidden on desktop. {%- endcomment -%}
+        {%- for i in (1..2) -%}
+          <ul{% if i == 2 %} class="l-hero__proof-dup" aria-hidden="true"{% endif %}>
+            {%- for block in proof_blocks -%}
+              <li{% if i == 1 %} {{ block.shopify_attributes }}{% endif %}>
+                {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}"{% if i == 2 %} tabindex="-1"{% endif %}>{{ block.settings.text | escape }}</a>{%- else -%}{{ block.settings.text | escape }}{%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
         {%- endfor -%}
-      </ul>
+      </div>
     </div>
   {%- endif -%}
 </section>
