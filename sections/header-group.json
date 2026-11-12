@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header Group",
@@ -96,6 +105,8 @@
         "k-ann-returns"
       ],
       "settings": {
+        "enable_marquee": false,
+        "marquee_speed": 45,
         "message_font_size": 11,
         "announcement_bar_col": "#171717",
         "announcement_bar_gradient": "",
@@ -103,9 +114,7 @@
         "show_social_icons": false,
         "menu": "",
         "enable_country_selector": true,
-        "enable_language_selector": true,
-        "enable_marquee": false,
-        "marquee_speed": 45
+        "enable_language_selector": true
       }
     },
     "header": {
@@ -131,13 +140,13 @@
         },
         "menu_promotion_small_NFymmD": {
           "type": "menu-promotion-small",
+          "disabled": true,
           "settings": {
             "dropdown_link_title": "Collabs",
             "image": "shopify://shop_images/LACES_-_email_template.jpg",
             "title": "LACES x Cal Athletes Collab",
             "link_url": "shopify://pages/cal-athletes"
-          },
-          "disabled": true
+          }
         },
         "menu_promotion_small_HWjAVP": {
           "type": "menu-promotion-small",
@@ -218,7 +227,15 @@
           "type": "k-menu-link-image",
           "settings": {
             "link_title": "Cal Athletes",
-            "image": "shopify://shop_images/LACES_-_email_template.jpg"
+            "image": "shopify://shop_images/LACES_-_email_template.jpg",
+            "product": ""
+          }
+        },
+        "k_menu_link_image_3B4jEU": {
+          "type": "k-menu-link-image",
+          "settings": {
+            "link_title": "Gifts",
+            "product": "laces-hoodie-off-white"
           }
         },
         "k_link_image_wkb": {
@@ -254,6 +271,7 @@
         "menu_promotion_small_BUe3JL",
         "menu_promotion_small_44Lbyb",
         "k_link_image_cal",
+        "k_menu_link_image_3B4jEU",
         "k_link_image_wkb",
         "k_link_image_bloom",
         "k_link_image_bahc"
@@ -279,18 +297,18 @@
         "enable_nav_mob_products": true,
         "nav_mob_products_title": "Bestsellers",
         "nav_mob_products_collection": "best-sellers",
+        "mobile_show_fund": true,
+        "mobile_fund_text": "Every purchase supports rising athletes. 5% of every sale goes into the LACES Athlete Fund.",
+        "mobile_fund_link": "",
+        "mobile_link_1_label": "Hat Fit Guide",
+        "mobile_link_1_url": "",
+        "mobile_link_2_label": "Contact",
+        "mobile_link_2_url": "",
         "enable_search": true,
         "search_recommendations_title": "Popular right now",
         "search_recommendations_menu": "recommended",
         "icon_strategy": "icons_only",
-        "cart_icon": "bag",
-        "mobile_show_fund": true,
-        "mobile_fund_text": "Every purchase supports rising athletes. 5% of every sale goes into the LACES Athlete Fund.",
-        "mobile_fund_link": "shopify://pages/laces-athlete-fund",
-        "mobile_link_1_label": "Hat Fit Guide",
-        "mobile_link_1_url": "shopify://pages/hat-fit-guide",
-        "mobile_link_2_label": "Contact",
-        "mobile_link_2_url": "shopify://pages/contact"
+        "cart_icon": "bag"
       }
     },
     "store-messages": {
