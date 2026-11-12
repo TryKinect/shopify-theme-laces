@@ -223,15 +223,6 @@
             "link_url": "shopify://collections/dad-hat"
           }
         },
-        "menu_promotion_small_ptnYqa": {
-          "type": "menu-promotion-small",
-          "settings": {
-            "dropdown_link_title": "Gifts",
-            "image": "shopify://shop_images/AE7543E6-09A9-46EA-B08E-886F9FC5B637.png",
-            "title": "",
-            "link_url": ""
-          }
-        },
         "k_link_image_cal": {
           "type": "k-menu-link-image",
           "settings": {
@@ -279,7 +270,6 @@
         "menu_promotion_small_fVTkzX",
         "menu_promotion_small_BUe3JL",
         "menu_promotion_small_44Lbyb",
-        "menu_promotion_small_ptnYqa",
         "k_link_image_cal",
         "k_menu_link_image_3B4jEU",
         "k_link_image_wkb",
