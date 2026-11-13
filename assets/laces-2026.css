@@ -787,3 +787,23 @@ body:has(.l-coll-head) .utility-bar__centre { display: none; }
 /* ---------- 22. Utilities ---------- */
 .l-visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .l-mt-0 { margin-top: 0 !important; }
+
+/* PDP polish: buy box hierarchy */
+.product-form .quantity-submit-row { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 8px; align-items: stretch; }
+.product-form .quantity-submit-row > * { grid-column: 1 / -1; }
+.product-form .quantity-submit-row > .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.product-form .quantity-submit-row > quantity-wrapper { grid-column: auto; height: 54px; margin: 0; }
+.product-form .quantity-submit-row > quantity-wrapper ~ .quantity-submit-row__submit { display: contents; }
+.product-form .quantity-submit-row > quantity-wrapper ~ .quantity-submit-row__submit > * { grid-column: 1 / -1; }
+.product-form .quantity-submit-row > quantity-wrapper ~ .quantity-submit-row__submit > .js-form-error { order: -1; }
+.product-form .quantity-submit-row > quantity-wrapper ~ .quantity-submit-row__submit > .add-to-cart:not(.nm-wishlist-button) { grid-column: auto; width: 100%; margin: 0; }
+.quantity-submit-row .nm-wishlist-button { height: auto !important; min-height: 44px; padding: 0 !important; border: 0 !important; font-size: 11px !important; font-weight: 600; letter-spacing: .1em; color: var(--l-muted) !important; }
+.quantity-submit-row .nm-wishlist-button:hover { color: var(--l-ink) !important; background: transparent !important; }
+.quantity-submit-row .nm-wishlist-button svg { width: 16px !important; height: 16px !important; }
+.k-trust__item { font-size: 12px; color: var(--l-ink); }
+.l-pdp-pay { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 14px 0 0; padding: 0; list-style: none; }
+.l-pdp-pay svg { display: block; width: 34px; height: 22px; }
+@media (min-width: 768px) {
+  .k-strip__item img { aspect-ratio: auto; height: min(72vh, 640px); }
+  .vtl-pr-main-widget--product-page .vtl-pr-rl__wrapper { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; }
+}
